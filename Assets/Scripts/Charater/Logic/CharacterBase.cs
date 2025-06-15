@@ -90,7 +90,9 @@ namespace TXDCL.Character
             var data = CharacterData.Jingjie.JingjieData;
             CharacterData.maxExp = data.NextEXP;
             CharacterData.maxAge = data.MaxAge;
+            CharacterData.maxHealth = data.MaxHealth;
             CharacterData.maxMana = data.MaxMana;
+            CharacterData.Attack = data.Attack;
             CharacterData.Reaction = data.Reaction;
             CharacterData.maxMovementPerTurn = data.MaxMovementPerTurn;
             CharacterData.ShenShiStrength = data.ShenShiStrength;
@@ -102,7 +104,16 @@ namespace TXDCL.Character
             while (CharacterData.currentExp >= CharacterData.maxExp)
             {
                 CharacterData.currentExp -= CharacterData.maxExp;
-                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID + 1);
+                if (CharacterData.Jingjie.miniJingjieLevel + 1 > MiniJingjieLevel.大圆满)
+                {
+                    CharacterData.Jingjie.miniJingjieLevel = 0;
+                    CharacterData.Jingjie.JingjieLevel++;
+                }
+                else
+                {
+                    CharacterData.Jingjie.miniJingjieLevel += 1;
+                }
+                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID);
             }
 
             UpdateLevel();
