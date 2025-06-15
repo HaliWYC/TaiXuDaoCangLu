@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,9 +25,9 @@ namespace TXDCL.XiuLian.GongFa
         {
             //Test
             //TODO:后续根据数据保存系统储存时间
-            previousDay = 0;
-            previousMonth = 0;
-            previousYear = 0;
+            previousDay = 1;
+            previousMonth = 1;
+            previousYear = 1;
         }
 
         private void Start()
@@ -69,9 +68,11 @@ namespace TXDCL.XiuLian.GongFa
             previousDay = day;
             previousMonth = month;
             previousYear = year;
-
+            
             var time = dayDiff + monthDiff * 30 + yearDiff * 360;
-            characterData.currentExp = time * XiuLianSpeed;
+            characterData.currentExp += time * XiuLianSpeed;
+            if(characterData.currentExp >= characterData.maxExp)
+                GetComponent<CharacterBase>().CheckUpGrade();
         }
 
         private void AddProperty(Property property)

@@ -18,7 +18,7 @@ MonoBehaviour:
   QualityType: 1
   Description: 
   GongFaType: 0
-  BasicXiuLianSpeed: 0
+  BasicXiuLianSpeed: 100
   AdditionalXiuLianSpeed: 1.2
   MiniJingjie: 0
   Jingjie: 2

@@ -19,7 +19,8 @@ namespace TXDCL.Character
         public int currentMana;//释放法术所消耗资源
         public int maxMana;//最大法力
         public int Attack; //攻击
-        public int Agility;
+        public int Reaction;//反应
+        public int Speed;//速度
         public int maxMovementPerTurn; //每回合行动力
 
         [Header("Daocang")] public int maxDaocangPerTurn; //每回合总道藏
@@ -50,8 +51,11 @@ namespace TXDCL.Character
                 case PropertyType.Attack:
                     Attack += (int)property.value;
                     break;
-                case PropertyType.Agility:
-                    Agility += (int)property.value;
+                case PropertyType.Reaction:
+                    Reaction += (int)property.value;
+                    break;
+                case PropertyType.Speed:
+                    Speed += (int)property.value;
                     break;
                 case PropertyType.MaxMovementPerTurn:
                     maxMovementPerTurn += (int)property.value;
@@ -100,8 +104,11 @@ namespace TXDCL.Character
                 case PropertyType.Attack:
                     Attack -= (int)property.value;
                     break;
-                case PropertyType.Agility:
-                    Agility -= (int)property.value;
+                case PropertyType.Reaction:
+                    Reaction -= (int)property.value;
+                    break;
+                case PropertyType.Speed:
+                    Speed -= (int)property.value;
                     break;
                 case PropertyType.MaxMovementPerTurn:
                     maxMovementPerTurn -= (int)property.value;

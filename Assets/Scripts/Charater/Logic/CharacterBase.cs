@@ -26,10 +26,13 @@ namespace TXDCL.Character
             {
                 CharacterData = Instantiate(templateData);
             }
-            CharacterData.currentHealth = CharacterData.maxHealth;
-            CharacterData.currentMana = CharacterData.maxMana;
-            CharacterData.ShenShi = CharacterData.ShenShiStrength;
             GetComponent<GongFaProcessor>().characterData = CharacterData;
+            ResetValue();
+        }
+
+        private void Start()
+        {
+            UpdateLevel();
         }
 
         #region Combat
@@ -83,7 +86,33 @@ namespace TXDCL.Character
 
         public void UpdateLevel()
         {
-            
+            CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID);
+            var data = CharacterData.Jingjie.JingjieData;
+            CharacterData.maxExp = data.NextEXP;
+            CharacterData.maxAge = data.MaxAge;
+            CharacterData.maxMana = data.MaxMana;
+            CharacterData.Reaction = data.Reaction;
+            CharacterData.maxMovementPerTurn = data.MaxMovementPerTurn;
+            CharacterData.ShenShiStrength = data.ShenShiStrength;
+            CharacterData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
+        }
+
+        public void CheckUpGrade()
+        {
+            while (CharacterData.currentExp >= CharacterData.maxExp)
+            {
+                CharacterData.currentExp -= CharacterData.maxExp;
+                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID + 1);
+            }
+
+            UpdateLevel();
+        }
+
+        public void ResetValue()
+        {
+            CharacterData.currentHealth = CharacterData.maxHealth;
+            CharacterData.currentMana = CharacterData.maxMana;
+            CharacterData.ShenShi = CharacterData.ShenShiStrength;
         }
 
         #endregion

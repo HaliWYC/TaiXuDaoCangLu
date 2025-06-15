@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f352f943645cf40e69c4c8e0003e3f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jingjieDataList: {fileID: 11400000, guid: 323fdd4e1aa1b4ad484300334acc921f, type: 2}
+  JingjieTextAsset: {fileID: 4900000, guid: e10cda0afd54e46ebb712f3dcb3bcad9, type: 3}
 --- !u!4 &22013871
 Transform:
   m_ObjectHideFlags: 0

@@ -49,11 +49,13 @@ public class JingjieData:ScriptableObject
 {
     public int NextEXP;//下一级升级所需经验
     public int MaxAge;//寿元
-    public int maxHealth;//气血
-    public int maxMana;//最大法力
-    public int attack;//攻击
-    public int maxMovementPerTurn;//每回合移动力
-    public int maxDaocangPerTurn;//每回合总道藏获取量
+    public int MaxHealth;//气血
+    public int MaxMana;//最大法力
+    public int Attack;//攻击
+    public int Reaction;//反应
+    public int MaxMovementPerTurn;//每回合移动力
+    public int ShenShiStrength;
+    public int MaxDaocangPerTurn;//每回合总道藏获取量
 }
 
 // [System.Serializable]

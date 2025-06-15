@@ -84,7 +84,7 @@ public enum ShenTongDurationType
 
 public enum PropertyType
 {
-    MaxAge,MaxHealth,MaxMana,Attack,Agility,MaxMovementPerTurn,MaxDaocangPerTurn,
+    MaxAge,MaxHealth,MaxMana,Attack,Reaction,Speed,MaxMovementPerTurn,MaxDaocangPerTurn,
     MetalLingGen,WoodLingGen,WaterLingGen,FireLingGen,EarthLingGen,
     ShenShi,ShenShiStrength,
     Strength,Fitness,Eloquence,Wisdom,Luck,Comprehension,
