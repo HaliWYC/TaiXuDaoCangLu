@@ -2,12 +2,12 @@
 
 public enum WuXing
 {
-    锐金,灵木,弱水,离火,厚土,混沌
+    锐金,灵木,弱水,离火,厚土
 }
 
-public enum TianGanWuXing
+public enum ShuXing
 {
-    甲木,乙木,丙火,丁火,戊土,己土,庚金,辛金,壬水,癸水,混沌
+    甲木,乙木,丙火,丁火,戊土,己土,庚金,辛金,壬水,癸水,混沌,魔道,妖道
 }
 
 public enum MiniJingjieLevel
@@ -93,7 +93,7 @@ public enum PropertyType
 
 public enum GridType
 {
-    CanDig,DropItem,CanDestroy,CanAttack,CanLeave,Obstacle
+    CanDig,CanDrop,CanDestroy,CanAttack,CanLeave,CanReach
 }
 
 public enum GameSeasons

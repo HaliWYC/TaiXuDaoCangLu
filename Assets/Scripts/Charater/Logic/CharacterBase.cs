@@ -14,7 +14,11 @@ namespace TXDCL.Character
     {
         public CharacterData templateData;
         protected CharacterData CharacterData;
-        //TODO：增加装备属性
+
+        private string JingjieKey => CharacterData != null
+            ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
+            : null;
+        //TODO：增加装备属性以及功法属性
         
         [Header("Bools")]
         public bool isShenShiHuanSan; //是否神识涣散
@@ -86,9 +90,9 @@ namespace TXDCL.Character
 
         public void UpdateLevel()
         {
-            CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID);
+            CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
             var data = CharacterData.Jingjie.JingjieData;
-            CharacterData.maxExp = data.NextEXP;
+            CharacterData.nextExp = data.NextEXP;
             CharacterData.maxAge = data.MaxAge;
             CharacterData.maxHealth = data.MaxHealth;
             CharacterData.maxMana = data.MaxMana;
@@ -101,9 +105,9 @@ namespace TXDCL.Character
 
         public void CheckUpGrade()
         {
-            while (CharacterData.currentExp >= CharacterData.maxExp)
+            while (CharacterData.currentExp >= CharacterData.nextExp)
             {
-                CharacterData.currentExp -= CharacterData.maxExp;
+                CharacterData.currentExp -= CharacterData.nextExp;
                 if (CharacterData.Jingjie.miniJingjieLevel + 1 > MiniJingjieLevel.大圆满)
                 {
                     CharacterData.Jingjie.miniJingjieLevel = 0;
@@ -113,7 +117,8 @@ namespace TXDCL.Character
                 {
                     CharacterData.Jingjie.miniJingjieLevel += 1;
                 }
-                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(CharacterData.Jingjie.ID);
+
+                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
             }
 
             UpdateLevel();

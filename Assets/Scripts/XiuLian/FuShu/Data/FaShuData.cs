@@ -44,7 +44,7 @@ namespace TXDCL.XiuLian.FuShu
         public int EarthCost;//厚土道藏消耗
         public int SameCost;//相同道藏消耗
         public int DifCost;//不同道藏消耗
-        public TianGanWuXing TianGanWuXing;//法术属性
+        public ShuXing ShuXing ;//法术属性
         //TODO：触发退化和进化条件需要写成泛型
         public NormalFaShuData LowerNormalFaShuData;//退化法术，如受到致命伤或神通影响导致法术降级
         public NormalFaShuData UpperNormalFaShuData;//进化法术，如集齐残页或获得大机缘导致法术进化
@@ -76,7 +76,7 @@ namespace TXDCL.XiuLian.FuShu
         public int SameCost;//相同道藏消耗
         public int DifCost;//不同道藏消耗
         public int JingShenLiCost;//精神力消耗
-        public TianGanWuXing TianGanWuXing;//法术属性
+        public ShuXing ShuXing;//法术属性
         //TODO：触发退化和进化条件需要写成泛型
         public MiShuFaShuData LowerMiShuData;//退化法术，如受到致命伤或神通影响导致法术降级
         public MiShuFaShuData UpperMiShuData;//进化法术，如集齐残页或获得大机缘导致法术进化
@@ -97,7 +97,7 @@ namespace TXDCL.XiuLian.FuShu
         public int SameCost;//相同道藏消耗
         public int DifCost;//不同道藏消耗
         public int JingShenLiCost;//精神力消耗
-        public TianGanWuXing TianGanWuXing;//法术属性
+        public ShuXing ShuXing;//法术属性
         //TODO:增加施法条件
         //TODO：触发退化和进化条件需要写成泛型
         public ShenTongFaShuData LowerShenTongData;//退化法术，如受到致命伤或神通影响导致法术降级

@@ -28,17 +28,9 @@ public class Property
     public float value;
 }
 
-public class TileProperty
-{
-    public Vector2Int tileCoordinates;
-    public GridType gridType;
-    public bool boolTypeValue;
-}
-
 [System.Serializable]
 public class Jingjie
 {
-    public int ID => (int)miniJingjieLevel + (int)JingjieLevel * 5;
     public MiniJingjieLevel miniJingjieLevel;
     public JingjieLevel JingjieLevel;
     public JingjieData JingjieData;
@@ -56,6 +48,26 @@ public class JingjieData:ScriptableObject
     public int MaxMovementPerTurn;//每回合移动力
     public int ShenShiStrength;
     public int MaxDaocangPerTurn;//每回合总道藏获取量
+}
+
+[System.Serializable]
+public class TileProperty
+{
+    public Vector2Int tileCoordinates;
+    public GridType gridType;
+    public bool boolTypeValue;
+}
+
+[System.Serializable]
+public class TileDetails
+{
+    public int gridX,gridY;
+    public bool canDig;
+    public bool canDrop;
+    public bool canDestroy;
+    public bool canAttack;
+    public bool canLeave;
+    public bool canReach;
 }
 
 // [System.Serializable]

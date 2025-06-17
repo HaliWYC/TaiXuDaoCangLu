@@ -22,7 +22,7 @@ MonoBehaviour:
   AdditionalXiuLianSpeed: 1.2
   MiniJingjie: 0
   Jingjie: 2
-  TianGanWuXing: 10
+  ShuXing: 10
   PropertyList:
   - propertyType: 3
     value: 5

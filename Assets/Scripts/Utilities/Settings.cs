@@ -10,20 +10,6 @@ public class Settings
     public const float WuxingCounteredWuxing= 0.5f;
     public const float WuxingPromote = 1.2f;
     public const float WuxingCounter = 0.8f;
-    public const float Defense = 217f;
-    public const float WuxingDefense = 217f;
-    public const float Accuracy = 217f;
-    public const float Abrasion = 0.05f;
-    public const float Crit = 217f;
-    public const float Fatality = 217f;
-    public const float Tenacity = 217f;
-    public const float HuiXin = 217f;
-    public const float HuiYi = 217f;
-    public const float Dodge = 217f;
-    public const float Penetrate = 217f;
-    public const float PerfectAccuracy = 217f;
-    public const float WoundCreate = 217f;
-    public const float Counter = 217f;
 
     [Header("Level")] 
     public const float Fanren = 0.8f;

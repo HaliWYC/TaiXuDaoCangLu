@@ -16,14 +16,18 @@ MonoBehaviour:
   currentAge: 0
   maxAge: 0
   currentExp: 0
-  maxExp: 0
-  MiniJingjie: 0
-  Jingjie: 0
+  nextExp: 0
+  Jingjie:
+    miniJingjieLevel: 4
+    JingjieLevel: 0
+    JingjieData: {fileID: 0}
   currentHealth: 0
   maxHealth: 20
   currentMana: 0
   maxMana: 0
   Attack: 0
+  Reaction: 0
+  Speed: 200
   maxMovementPerTurn: 0
   maxDaocangPerTurn: 0
   MetalLingGen: 0

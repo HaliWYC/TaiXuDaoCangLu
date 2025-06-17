@@ -1,20 +1,36 @@
 using System;
+using System.Collections;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SwitchBounds : MonoBehaviour
 {
-    private void Start()
+    private CinemachineConfiner2D Confiner2D;
+
+    private void Awake()
+    {
+        Confiner2D = GetComponent<CinemachineConfiner2D>();
+    }
+
+    private void OnEnable()
+    {
+        EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
+    }
+    
+    private void OnDisable()
+    {
+        EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
+    }
+
+    private void OnAfterSceneLoadEvent()
     {
         SwitchConfinerShape();
     }
-
     private void SwitchConfinerShape()
     {
-        PolygonCollider2D polygonCollider = GameObject.FindGameObjectWithTag("BoundsConfiner").GetComponent<PolygonCollider2D>();
-        CinemachineConfiner2D confiner = GetComponent<CinemachineConfiner2D>();
-        confiner.BoundingShape2D = polygonCollider;
-        
-        confiner.InvalidateBoundingShapeCache();
+        var polygonCollider = GameObject.FindGameObjectWithTag("BoundsConfiner").GetComponent<PolygonCollider2D>();
+        Confiner2D.BoundingShape2D = polygonCollider;
+        Confiner2D.InvalidateBoundingShapeCache();
     }
 }

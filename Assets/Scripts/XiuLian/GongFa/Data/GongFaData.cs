@@ -19,11 +19,10 @@ namespace TXDCL.XiuLian.GongFa
         public float AdditionalXiuLianSpeed;//道藏获取比例
         public MiniJingjieLevel MiniJingjie;//小境界上限
         public JingjieLevel Jingjie;//大境界上限
-        public TianGanWuXing TianGanWuXing;
+        public ShuXing ShuXing;//功法属性
         public List<Property> PropertyList = new();
         //TODO：触发退化和进化条件需要写成泛型
         public GongFaData LowerGongFaData;//退化功法，如受到致命伤或神通影响导致功法降级
         public GongFaData UpperGongFaData;//进化功法，如集齐残页或获得大机缘导致功法进化
     }
 }
-

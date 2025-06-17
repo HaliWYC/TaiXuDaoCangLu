@@ -10,7 +10,7 @@ namespace TXDCL.Character
         public int currentAge; //年龄
         public int maxAge; //寿元
         public int currentExp; //当前经验
-        public int maxExp; //升级所需经验
+        public int nextExp; //升级所需经验
         public Jingjie Jingjie;
 
         [Header("Basic Combat")] 
@@ -138,7 +138,6 @@ namespace TXDCL.Character
                     ShenShiStrength -= (int)property.value;
                     break;
             }
-
         }
     }
 }

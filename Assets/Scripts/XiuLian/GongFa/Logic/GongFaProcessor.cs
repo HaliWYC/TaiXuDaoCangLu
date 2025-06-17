@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TXDCL.Character;
+using Unity.Mathematics;
 
 namespace TXDCL.XiuLian.GongFa
 {
@@ -17,17 +18,17 @@ namespace TXDCL.XiuLian.GongFa
         private float MainGongFaAdditionalSpeed;
         
         [Header("Time")] 
-        private int previousDay;
         private int previousMonth;
         private int previousYear;
 
+        private bool isReachLimit;
         private void Awake()
         {
             //Test
             //TODO:后续根据数据保存系统储存时间
-            previousDay = 1;
             previousMonth = 1;
             previousYear = 1;
+            isReachLimit = false;
         }
 
         private void Start()
@@ -52,26 +53,43 @@ namespace TXDCL.XiuLian.GongFa
 
         private void OnEnable()
         {
-            EventHandler.gameDateEvent += OnGameDateEvent;
+            EventHandler.GameDateEvent += OnGameDateEvent;
         }
 
         private void OnDisable()
         {
-            EventHandler.gameDateEvent -= OnGameDateEvent;
+            EventHandler.GameDateEvent -= OnGameDateEvent;
         }
 
         private void OnGameDateEvent(int day, int month, int year)
         {
-            var dayDiff = day - previousDay;
             var monthDiff = month - previousMonth;
             var yearDiff = year - previousYear;
-            previousDay = day;
             previousMonth = month;
             previousYear = year;
             
-            var time = dayDiff + monthDiff * 30 + yearDiff * 360;
-            characterData.currentExp += time * XiuLianSpeed;
-            if(characterData.currentExp >= characterData.maxExp)
+            var time = monthDiff + yearDiff * 12;
+            characterData.currentAge = math.max(0, characterData.currentAge + yearDiff);
+            characterData.currentExp = math.max(0, characterData.currentExp + time * XiuLianSpeed);
+            if (isReachLimit)
+            {
+                characterData.currentExp = characterData.nextExp;
+                return;
+            }
+            if(characterData.currentExp >= characterData.nextExp)
+                GetComponent<CharacterBase>().CheckUpGrade();
+        }
+
+        [ContextMenu("Cheat")]
+        private void CheatEXP()
+        {
+            characterData.currentExp += XiuLianSpeed;
+            if (isReachLimit)
+            {
+                characterData.currentExp = characterData.nextExp;
+                return;
+            }
+            if(characterData.currentExp >= characterData.nextExp)
                 GetComponent<CharacterBase>().CheckUpGrade();
         }
 
