@@ -93,7 +93,7 @@ public enum PropertyType
 
 public enum GridType
 {
-    CanDig,CanDrop,CanDestroy,CanAttack,CanLeave,CanReach
+    CanDig,CanDrop,CanDestroy,CanAttack,CanLeave,Obstacle
 }
 
 public enum GameSeasons

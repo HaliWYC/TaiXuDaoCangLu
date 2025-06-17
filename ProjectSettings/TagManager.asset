@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - BoundsConfiner
+  - SelectionTileMap
   layers:
   - Default
   - TransparentFX

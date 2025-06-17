@@ -1,12 +1,12 @@
 using UnityEngine;
 
-namespace Astar
+namespace TXDCL.Astar
 {
     public class GridNodes
     {
         private int width;
         private int height;
-        private AstarNode[,] gridNode;
+        private AStarNode[,] gridNode;
         
         /// <summary>
         /// 构造函数初始化节点范围
@@ -17,16 +17,17 @@ namespace Astar
         {
             this.width = width;
             this.height = height;
-            for (int x = 0; x < width; x++)
+            gridNode = new AStarNode[width, height];
+            for (var x = 0; x < width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (var y = 0; y < height; y++)
                 {
-                    gridNode[x, y] = new AstarNode(new Vector2Int(x, y));
+                    gridNode[x, y] = new AStarNode(new Vector2Int(x, y));
                 }
             }
         }
 
-        public AstarNode GetGridNode(int xPos, int yPos)
+        public AStarNode GetGridNode(int xPos, int yPos)
         {
             if (xPos < width && yPos < height)
             {

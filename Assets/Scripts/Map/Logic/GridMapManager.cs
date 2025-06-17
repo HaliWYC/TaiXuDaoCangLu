@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace TXDCL.Map
 {
@@ -27,7 +29,7 @@ namespace TXDCL.Map
                     gridX = tileProperty.tileCoordinates.x,
                     gridY = tileProperty.tileCoordinates.y
                 };
-                var key = tileDetails.gridX +"x"+tileDetails.gridY+"y"+mapData.SceneToLoad;
+                var key = tileDetails.gridX + "x" + tileDetails.gridY + "y" + mapData.mapName;
                 if (GetTileDetails(key) != null)
                 {
                     tileDetails = GetTileDetails(key);
@@ -49,8 +51,8 @@ namespace TXDCL.Map
                     case GridType.CanLeave:
                         tileDetails.canLeave = tileProperty.boolTypeValue;
                         break;
-                    case GridType.CanReach:
-                        tileDetails.canReach = tileProperty.boolTypeValue;
+                    case GridType.Obstacle:
+                        tileDetails.obstacle = tileProperty.boolTypeValue;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -67,9 +69,33 @@ namespace TXDCL.Map
             }
         }
 
-        private TileDetails GetTileDetails(string key)
+        public TileDetails GetTileDetails(string key)
         {
             return tileDetailsDict.GetValueOrDefault(key);
+        }
+
+        /// <summary>
+        /// 获得网格数据
+        /// </summary>
+        /// <param name="sceneName">场景名字</param>
+        /// <param name="gridDimensions">网格范围</param>
+        /// <param name="gridOrigin">网格初始点</param>
+        /// <returns></returns>
+        public bool GetGridDimensions(string sceneName, out Vector2Int gridDimensions, out Vector2Int gridOrigin )
+        {
+            gridDimensions = Vector2Int.zero;
+            gridOrigin = Vector2Int.zero;
+
+            foreach (var map in miniMaps.Where(map => map.mapName == sceneName))
+            {
+                gridDimensions.x = map.gridWidth;
+                gridDimensions.y = map.gridHeight;
+
+                gridOrigin.x = map.originX;
+                gridOrigin.y = map.originY;
+                return true;
+            }
+            return false;
         }
     }
 }

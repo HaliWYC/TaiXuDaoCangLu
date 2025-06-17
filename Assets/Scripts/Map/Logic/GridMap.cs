@@ -42,7 +42,7 @@ public class GridMap : MonoBehaviour
         var startPos = currentTilemap.cellBounds.min;
         //绘制地图右上角的坐标
         var endPos = currentTilemap.cellBounds.max;
-
+        
         for (var x = startPos.x; x < endPos.x; x++)
         {
             for (var y = startPos.y; y < endPos.y; y++)

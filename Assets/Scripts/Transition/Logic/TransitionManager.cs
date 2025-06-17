@@ -43,9 +43,10 @@ namespace TXDCL.Transition
          await s.Task;
          if (s.Status == AsyncOperationStatus.Succeeded)
          {
-            FadePanel.Instance.FadeOut(0.4f);
             SceneManager.SetActiveScene(s.Result.Scene);
             EventHandler.CallAfterSceneLoadEvent();
+            await Awaitable.WaitForSecondsAsync(1f);
+            FadePanel.Instance.FadeOut(0.4f);
          }
       }
       

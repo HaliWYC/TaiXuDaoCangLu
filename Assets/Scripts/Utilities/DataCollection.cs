@@ -67,7 +67,7 @@ public class TileDetails
     public bool canDestroy;
     public bool canAttack;
     public bool canLeave;
-    public bool canReach;
+    public bool obstacle;
 }
 
 // [System.Serializable]
