@@ -4,8 +4,8 @@ namespace TXDCL.Astar
 {
     public class GridNodes
     {
-        private int width;
-        private int height;
+        public int width;
+        public int height;
         private AStarNode[,] gridNode;
         
         /// <summary>

@@ -22,12 +22,8 @@ public class AStarTest : MonoBehaviour
         astar = GetComponent<AStar>();
         testSteps = new Stack<MovementStep>();
     }
-
-    private void Update()
-    {
-        ShowPath();
-    }
-
+    
+    [ContextMenu("Test")]
     private void ShowPath()
     {
         if (displayTilemap != null && displayTile != null)

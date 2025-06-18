@@ -13,7 +13,7 @@ namespace TXDCL.Character
     public class CharacterBase : MonoBehaviour
     {
         public CharacterData templateData;
-        protected CharacterData CharacterData;
+        public CharacterData CharacterData;
 
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel

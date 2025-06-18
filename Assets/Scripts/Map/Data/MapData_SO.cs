@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TXDCL.Astar;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -9,6 +10,7 @@ public class MapData_SO : ScriptableObject
     public string mapName;
     public AssetReference SceneToLoad;
     public List<TileProperty> tileProperties;
+    public GridNodes gridNodes;
     
     public int gridWidth;
     public int gridHeight;

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using TXDCL.Combat;
 using UnityEngine;
 using TXDCL.Map;
 
 namespace TXDCL.Astar
 {
-    public class AStar : MonoBehaviour
+    public class AStar : Singleton<AStar>
     {
         private GridNodes gridNodes;
         private AStarNode startNode;
@@ -40,13 +41,13 @@ namespace TXDCL.Astar
 
         private bool GenerateGridNodes(string sceneName, Vector2Int start, Vector2Int end)
         {
-            if (GridMapManager.Instance.GetGridDimensions(sceneName, out var gridDimension, out var gridOrigin))
+            if (GridMapManager.Instance.GetGridDimensions(sceneName, out var mapData))
             {
-                gridNodes = new GridNodes(gridDimension.x, gridDimension.y);
-                gridWidth = gridDimension.x;
-                gridHeight = gridDimension.y;
-                originX = gridOrigin.x;
-                originY = gridOrigin.y;
+                gridNodes = mapData.gridNodes;
+                gridWidth = mapData.gridWidth;
+                gridHeight = mapData.gridHeight;
+                originX = mapData.originX;
+                originY = mapData.originY;
                 openNodesList = new List<AStarNode>();
                 closedNodesList = new HashSet<AStarNode>();
             }
@@ -54,25 +55,9 @@ namespace TXDCL.Astar
             {
                 return false;
             }
-            //gridNode的范围是从0，0开始，所以要减去初始点坐标得到实际坐标
+            //gridNode的范围是从0，0开始，所以要减去初始点坐标得到实际网格坐标
             startNode = gridNodes.GetGridNode(start.x-originX, start.y-originY);
             targetNode = gridNodes.GetGridNode(end.x-originX, end.y-originY);
-
-            for (var x = 0; x < gridWidth; x++)
-            {
-                for (var y = 0; y < gridHeight; y++)
-                {
-                    var key = (x + originX + "x" + y + originY + "y" + sceneName);
-                    var tileDetails =  GridMapManager.Instance.GetTileDetails(key);
-                    if (tileDetails == null) continue;
-                    var node = gridNodes.GetGridNode(x, y);
-                    if (tileDetails.obstacle)
-                    {
-                        node.isObstacle = true;
-                    }
-                }
-            }
-            
             return true;
         }
 
@@ -100,7 +85,6 @@ namespace TXDCL.Astar
                     pathFound = true;
                     break;
                 }
-                
                 EvaluateNeighboursNode(node);
             }
 
@@ -153,7 +137,7 @@ namespace TXDCL.Astar
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        private int GetDistance(AStarNode a, AStarNode b)
+        public int GetDistance(AStarNode a, AStarNode b)
         {
             var xDistance = Mathf.Abs(a.gridPosition.x - b.gridPosition.x);
             var yDistance = Mathf.Abs(a.gridPosition.y - b.gridPosition.y);

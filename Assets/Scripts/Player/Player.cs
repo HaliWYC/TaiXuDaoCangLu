@@ -7,7 +7,6 @@ namespace TXDCL.Character
         private PlayerController playerController;
         private Vector2 inputDirection;
         [SerializeField] private Animator animator;
-        public bool inputDisable = false;
 
         protected override void Awake()
         {
@@ -22,6 +21,12 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent += OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent += OnMoveToPositionEvent;
+            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
+        }
+
+        private void OnBeforeCombatBeginEvent()
+        {
+            InputDisable();
         }
 
         private void OnDisable()
@@ -30,15 +35,17 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent -= OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent -= OnMoveToPositionEvent;
+            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
         }
         
         private void OnBeforeSceneLoadEvent()
         {
-            inputDisable = true;
+            GetComponent<BoxCollider2D>().isTrigger = true;
+            InputDisable();
         }
         private void OnAfterSceneLoadEvent()
         {
-            inputDisable = false;
+            InputEnable();
         }
         private void OnMoveToPositionEvent(Vector3 position)
         {
@@ -47,14 +54,6 @@ namespace TXDCL.Character
 
         private void Update()
         {
-            if (inputDisable)
-            {
-                playerController.Disable();
-            }
-            else
-            {
-                playerController.Enable();
-            }
             inputDirection = playerController.Gameplay.Move.ReadValue<Vector2>();
             SwitchAnimation();
         }
@@ -87,6 +86,15 @@ namespace TXDCL.Character
         private void SwitchAnimation()
         {
             
+        }
+
+        private void InputEnable()
+        {
+            playerController.Enable();
+        }
+        private void InputDisable()
+        {
+            playerController.Disable();
         }
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using TXDCL.Character;
 using UnityEngine;
 public static class  EventHandler
 {
@@ -47,5 +49,20 @@ public static class  EventHandler
         MoveToPositionEvent?.Invoke(targetPos);
     }
     #endregion
+
+    #region Combat
+
+    public static event Action BeforeCombatBeginEvent;
+    public static void CallBeforeCombatBeginEvent()
+    {
+        BeforeCombatBeginEvent?.Invoke();
+    }
     
+    public static event Action<List<CharacterBase>> NewCharactersEnterCombatEvent;
+    public static void CallNewCharactersEnterCombatEvent(List<CharacterBase> characters)
+    {
+        NewCharactersEnterCombatEvent?.Invoke(characters);
+    }
+
+    #endregion
 }
