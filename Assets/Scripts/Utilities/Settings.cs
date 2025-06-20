@@ -28,4 +28,9 @@ public class Settings
     public const int dayHold = 30;// 30天后为1个月
     public const int monthHold = 3;// 3个月后为1个季
     public const int seasonHold = 4;// 4个季后为1年
+    
+    [Header("Map")]
+    public const float gridCellSize = 1f;
+    public const float pixelSize = 0.05f;
+    public const float gridMoveTime = 0.5f;
 }

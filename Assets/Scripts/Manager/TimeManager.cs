@@ -3,16 +3,17 @@ using UnityEngine;
 
 namespace TXDCL.Time
 {
-    public class TimeManager : MonoBehaviour
+    public class TimeManager : Singleton<TimeManager>
     {
         private int gameSeconds, gameMinutes, gameHours, gameDay, gameMonth, gameYear;
         private GameSeasons gameSeason = GameSeasons.Spring;
-        private bool gameClockPasue, isCombat;
+        public bool gameClockPause, isCombat;
         private float tikTime;
         private int combatTime;
-
-        private void Awake()
+        public TimeSpan currentGameTime => new (gameHours, gameMinutes, gameSeconds);
+        protected override void Awake()
         {
+            base.Awake();
             NewGameTime();
         }
 
@@ -25,7 +26,7 @@ namespace TXDCL.Time
 
         private void Update()
         {
-            if (gameClockPasue) return;
+            if (gameClockPause) return;
             tikTime += UnityEngine.Time.deltaTime;
             if (!(tikTime >= Settings.secondThreshold)) return;
             tikTime -= Settings.secondThreshold;
@@ -61,7 +62,7 @@ namespace TXDCL.Time
             gameYear = 1;
             combatTime = 0;
             gameSeason = GameSeasons.Spring;
-            gameClockPasue = false;
+            gameClockPause = false;
             isCombat = false;
         }
 

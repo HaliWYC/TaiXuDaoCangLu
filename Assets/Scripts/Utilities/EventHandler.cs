@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TXDCL.Character;
+using TXDCL.Map;
 using UnityEngine;
 public static class  EventHandler
 {
@@ -26,9 +27,9 @@ public static class  EventHandler
 
     #region SceneManagement
 
-    public static event Action<MapData_SO, Vector3> SceneLoadedEvent;
+    public static event Action<SceneData_SO, Vector3> SceneLoadedEvent;
 
-    public static void CallSceneLoadedEvent(MapData_SO mapData, Vector3 targetPos)
+    public static void CallSceneLoadedEvent(SceneData_SO mapData, Vector3 targetPos)
     {
         SceneLoadedEvent?.Invoke(mapData,targetPos);
     }

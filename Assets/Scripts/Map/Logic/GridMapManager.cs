@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using TXDCL.Astar;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TXDCL.Map
 {
     public class GridMapManager : Singleton<GridMapManager> 
     {
-        public List<MapData_SO> miniMaps = new();
+        public List<SceneData_SO> miniMaps = new();
 
         private Dictionary<string, TileDetails> tileDetailsDict = new();
+        
 
         protected override void Awake()
         {
@@ -21,8 +23,7 @@ namespace TXDCL.Map
             }
             GenerateMapGrid();
         }
-
-        private void InitTileDetailsDict(MapData_SO mapData)
+        private void InitTileDetailsDict(SceneData_SO mapData)
         {
             foreach (var tileProperty in mapData.tileProperties)
             {
@@ -31,7 +32,7 @@ namespace TXDCL.Map
                     gridX = tileProperty.tileCoordinates.x,
                     gridY = tileProperty.tileCoordinates.y
                 };
-                var key = tileDetails.gridX + "x" + tileDetails.gridY + "y" + mapData.mapName;
+                var key = tileDetails.gridX + "x" + tileDetails.gridY + "y" + mapData.sceneName;
                 if (GetTileDetails(key) != null)
                 {
                     tileDetails = GetTileDetails(key);
@@ -85,7 +86,7 @@ namespace TXDCL.Map
                 {
                     for (var y = 0; y < map.gridHeight; y++)
                     {
-                        var key = (x + map.originX) + "x" + (y + map.originY) + "y" + map.mapName;
+                        var key = (x + map.originX) + "x" + (y + map.originY) + "y" + map.sceneName;
                         var tileDetails =  GetTileDetails(key);
                         if (tileDetails == null) continue;
                         var node = map.gridNodes.GetGridNode(x, y);
@@ -94,7 +95,6 @@ namespace TXDCL.Map
                 }
             }
         }
-        
 
         /// <summary>
         /// 获得网格数据
@@ -103,9 +103,9 @@ namespace TXDCL.Map
         /// <param name="gridDimensions">网格范围</param>
         /// <param name="gridOrigin">网格初始点</param>
         /// <returns></returns>
-        public bool GetGridDimensions(string sceneName, out MapData_SO mapData)
+        public bool GetGridDimensions(string sceneName, out SceneData_SO mapData)
         {
-            mapData = miniMaps.Find(m=>m.mapName == sceneName);
+            mapData = miniMaps.Find(m=>m.sceneName == sceneName);
             return mapData != null;
         }
     }

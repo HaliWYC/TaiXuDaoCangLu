@@ -1,3 +1,4 @@
+using TXDCL.Map;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -26,7 +27,7 @@ namespace TXDCL.Transition
          EventHandler.SceneLoadedEvent -= OnSceneLoadedEvent;
       }
 
-      private async void OnSceneLoadedEvent(MapData_SO data, Vector3 position)
+      private async void OnSceneLoadedEvent(SceneData_SO data, Vector3 position)
       {
          currentScene = data.SceneToLoad;
          await UnloadSceneTask();

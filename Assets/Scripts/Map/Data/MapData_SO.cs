@@ -1,19 +1,15 @@
 using System.Collections.Generic;
-using TXDCL.Astar;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-[CreateAssetMenu(fileName = "MapData", menuName = "Map/MapData")]
-public class MapData_SO : ScriptableObject
+namespace TXDCL.Map
 {
-    [SceneName]
-    public string mapName;
-    public AssetReference SceneToLoad;
-    public List<TileProperty> tileProperties;
-    public GridNodes gridNodes;
-    
-    public int gridWidth;
-    public int gridHeight;
-    public int originX;
-    public int originY;
+    [CreateAssetMenu(fileName = "MapData", menuName = "Map/MapData")]
+    public class MapData_SO : ScriptableObject
+    {
+        //大地图信息，一般由一个场景中的图片组成，图片上有几处可通往的区域
+        public string mapName;
+        public List<DistrictData_SO> Districts;
+    }
 }
+
+

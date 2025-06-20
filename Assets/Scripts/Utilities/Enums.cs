@@ -91,10 +91,21 @@ public enum PropertyType
     MainGongFaBasicSpeed,MainGongFaAdditionalSpeed,SubGongFaBasicSpeed
 }
 
+#region Map
 public enum GridType
 {
     CanDig,CanDrop,CanDestroy,CanAttack,CanLeave,Obstacle
 }
+
+public enum PlaceType
+{
+    Mountain/*无名山*/,Town/*小镇*/,ChengChi/*城池*/,ZongMen/*宗门*/,
+    Pass/*关卡*/,Maze/*迷宫*/,Fortress/*要塞*/,Cave/*洞穴*/, 
+    Teleport/*传送阵*/
+}
+
+
+#endregion
 
 public enum GameSeasons
 {

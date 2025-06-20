@@ -58,6 +58,8 @@ namespace TXDCL.Astar
             //gridNode的范围是从0，0开始，所以要减去初始点坐标得到实际网格坐标
             startNode = gridNodes.GetGridNode(start.x-originX, start.y-originY);
             targetNode = gridNodes.GetGridNode(end.x-originX, end.y-originY);
+            startNode.parentNode = null;
+            targetNode.parentNode = null;
             return true;
         }
 
@@ -87,7 +89,6 @@ namespace TXDCL.Astar
                 }
                 EvaluateNeighboursNode(node);
             }
-
             return pathFound;
         }
 
@@ -114,7 +115,6 @@ namespace TXDCL.Astar
                     }
                 }
             }
-            
         }
 
 

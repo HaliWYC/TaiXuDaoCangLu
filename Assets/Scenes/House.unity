@@ -747,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 0
 --- !u!1 &257167228
 GameObject:
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: d5c779276f78b437c88a9b92e7fcfdb6, type: 2}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 5
 --- !u!1 &389461241
 GameObject:
@@ -2425,7 +2425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517badc319a234bb89262d127475d164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToGo: {fileID: 11400000, guid: b94735fd221c1405cb2b8808e3566489, type: 2}
+  sceneToGo: {fileID: 11400000, guid: 9b110e5bc15be403795829b9811b6e67, type: 2}
   positionToGo: {x: -119, y: 120.5, z: 0}
 --- !u!1 &795014619
 GameObject:
@@ -3878,7 +3878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 2
 --- !u!1 &934668066
 GameObject:
@@ -4016,7 +4016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 1
 --- !u!1 &1018280636
 GameObject:
@@ -8628,7 +8628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 4
 --- !u!1 &1714213625
 GameObject:
@@ -8889,7 +8889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afa095a228664703934ee94ca168383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
   gridType: 3
 --- !u!1 &1780179342
 GameObject:

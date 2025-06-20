@@ -304,8 +304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniMaps:
-  - {fileID: 11400000, guid: b94735fd221c1405cb2b8808e3566489, type: 2}
-  - {fileID: 11400000, guid: d5c779276f78b437c88a9b92e7fcfdb6, type: 2}
+  - {fileID: 11400000, guid: 9b110e5bc15be403795829b9811b6e67, type: 2}
+  - {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: 725224788}
   - component: {fileID: 725224787}
   - component: {fileID: 725224786}
+  - component: {fileID: 725224793}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -891,6 +892,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &725224793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725224779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19bc278331fd4341988ce97790e7352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPosition: {x: -118, y: 120, z: 0}
+  targetPosition: {x: -108, y: 110, z: 0}
 --- !u!1 &733416978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131e7f7c079484c8b878e345dff62cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameClockPause: 0
+  isCombat: 0
 --- !u!4 &1442587636
 Transform:
   m_ObjectHideFlags: 0
@@ -1295,24 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8818c213a4f41f49a38b492dd719de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 725224789}
-  PotentialPath:
-    Tilemap: {fileID: 733416981}
-    TileBase: {fileID: 11400000, guid: d754776f7765341c583c5a1555122619, type: 2}
-  ComfirmPath:
-    Tilemap: {fileID: 0}
-    TileBase: {fileID: 0}
-  PotentialFaShuPath:
-    Tilemap: {fileID: 0}
-    TileBase: {fileID: 0}
-  ComfirmFaShuPath:
-    Tilemap: {fileID: 0}
-    TileBase: {fileID: 0}
-  PotentialTile:
-    Tilemap: {fileID: 0}
-    TileBase: {fileID: 0}
-  CharactersInCombat:
-  - {fileID: 725224789}
+  combatGridPath: {fileID: 1778130715}
 --- !u!4 &1686691269
 Transform:
   m_ObjectHideFlags: 0
@@ -1434,6 +1434,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1778130714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778130716}
+  - component: {fileID: 1778130715}
+  m_Layer: 0
+  m_Name: CombatGridPath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1778130715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778130714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d1fd195b5a941b1bbd67fb97f87e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PotentialPath:
+    Tilemap: {fileID: 733416981}
+    TileBase: {fileID: 11400000, guid: d754776f7765341c583c5a1555122619, type: 2}
+  ComfirmPath:
+    Tilemap: {fileID: 0}
+    TileBase: {fileID: 0}
+  PotentialFaShuPath:
+    Tilemap: {fileID: 0}
+    TileBase: {fileID: 0}
+  ComfirmFaShuPath:
+    Tilemap: {fileID: 0}
+    TileBase: {fileID: 0}
+  currentCharacter: {fileID: 725224789}
+  CharactersInCombat:
+  - {fileID: 725224789}
+--- !u!4 &1778130716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778130714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1449,4 +1508,5 @@ SceneRoots:
   - {fileID: 277196946}
   - {fileID: 270348066}
   - {fileID: 1686691269}
+  - {fileID: 1778130716}
   - {fileID: 1516246415}

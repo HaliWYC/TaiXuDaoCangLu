@@ -1,4 +1,5 @@
 using System;
+using TXDCL.Map;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,7 +7,7 @@ using UnityEngine.Tilemaps;
 [ExecuteInEditMode]
 public class GridMap : MonoBehaviour
 {
-    public MapData_SO mapData;
+    public SceneData_SO mapData;
     public GridType gridType;
     private Tilemap currentTilemap;
 
