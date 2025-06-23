@@ -21,12 +21,14 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent += OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent += OnMoveToPositionEvent;
-            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
+            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
+            
         }
 
-        private void OnBeforeCombatBeginEvent()
+        private void OnCombatBeginEvent()
         {
             InputDisable();
+            GetComponent<BoxCollider2D>().isTrigger = true;
         }
 
         private void OnDisable()
@@ -35,12 +37,11 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent -= OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent -= OnMoveToPositionEvent;
-            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
+            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
         }
         
         private void OnBeforeSceneLoadEvent()
         {
-            GetComponent<BoxCollider2D>().isTrigger = true;
             InputDisable();
         }
         private void OnAfterSceneLoadEvent()

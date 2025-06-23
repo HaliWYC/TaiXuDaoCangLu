@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BoundsConfiner
   - SelectionTileMap
+  - ConfirmationTileMap
   layers:
   - Default
   - TransparentFX
@@ -87,6 +88,9 @@ TagManager:
     locked: 0
   - name: Selection
     uniqueID: 1138696489
+    locked: 0
+  - name: Confirmation
+    uniqueID: 2373767197
     locked: 0
   m_RenderingLayers:
   - Default

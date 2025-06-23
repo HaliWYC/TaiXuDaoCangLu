@@ -6,7 +6,7 @@ namespace TXDCL.Character
     [CreateAssetMenu(fileName = "CharacterData", menuName = "Character/CharacterData")]
     public class CharacterData : ScriptableObject
     {
-        [Header("Basic Infor")] public string characterName; //角色名字
+        [Header("Basic Information")] public string characterName; //角色名字
         public int currentAge; //年龄
         public int maxAge; //寿元
         public int currentExp; //当前经验
@@ -21,9 +21,15 @@ namespace TXDCL.Character
         public int Attack; //攻击
         public int Reaction;//反应
         public int Speed;//速度
+        public int currentMovement;//当前剩余移动力
         public int maxMovementPerTurn; //每回合行动力
 
         [Header("Daocang")] public int maxDaocangPerTurn; //每回合总道藏
+        public int currentMetalDaocang;//当前剩余锐金道藏
+        public int currentWoodDaocang;//当前剩余灵木道藏
+        public int currentWaterDaocang;//当前剩余弱水道藏
+        public int currentFireDaocang;//当前剩余离火道藏
+        public int currentEarthDaocang;//当前剩余厚土道藏
         [Range(0f, 1f)] public float MetalLingGen;//锐金灵根
         [Range(0f, 1f)] public float WoodLingGen;//灵木灵根
         [Range(0f, 1f)] public float WaterLingGen;//弱水灵根

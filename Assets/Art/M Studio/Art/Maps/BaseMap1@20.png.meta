@@ -6730,32 +6730,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SelectionTile
+      name: Confirm
       rect:
         serializedVersion: 2
-        x: 180
-        y: 20
-        width: 20
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f42d686da353549ed9e4496fe1293055
-      internalID: -930252538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BaseMap1@20_333
-      rect:
-        serializedVersion: 2
-        x: 440
+        x: 260
         y: 20
         width: 20
         height: 20
@@ -6774,10 +6752,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_334
+      name: FaShuSelection
       rect:
         serializedVersion: 2
-        x: 460
+        x: 300
         y: 20
         width: 20
         height: 20
@@ -6796,10 +6774,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_335
+      name: FaShuConfirm
       rect:
         serializedVersion: 2
-        x: 480
+        x: 340
         y: 20
         width: 20
         height: 20
@@ -6821,7 +6799,7 @@ TextureImporter:
       name: BaseMap1@20_336
       rect:
         serializedVersion: 2
-        x: 500
+        x: 440
         y: 20
         width: 20
         height: 20
@@ -6843,7 +6821,7 @@ TextureImporter:
       name: BaseMap1@20_337
       rect:
         serializedVersion: 2
-        x: 540
+        x: 460
         y: 20
         width: 20
         height: 20
@@ -7569,7 +7547,7 @@ TextureImporter:
       name: BaseMap1@20_338
       rect:
         serializedVersion: 2
-        x: 580
+        x: 480
         y: 20
         width: 20
         height: 20
@@ -7588,7 +7566,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SeletionTile1
+      name: Seletion
       rect:
         serializedVersion: 2
         x: 220
@@ -7603,8 +7581,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 055397db9c750459d9bbb25aa33f487a
-      internalID: -447022846
+      spriteID: 7156cf090da1e4e02be152599cebdfaf
+      internalID: 652204256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseMap1@20_339
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 20
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3104420fcaab242efa57c02015a09003
+      internalID: -1941929183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseMap1@20_340
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 20
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea919e1366e44564a43ccb53b6790dc
+      internalID: -379685151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseMap1@20_341
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 20
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef0dad610aacd425385dd8e7492b001f
+      internalID: 1424400573
       vertices: []
       indices: 
       edges: []
@@ -7621,7 +7665,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       BaseMap1@20_0: 389204487
       BaseMap1@20_1: -1904258649
@@ -7883,13 +7929,13 @@ TextureImporter:
       BaseMap1@20_33: -1674261793
       BaseMap1@20_330: 387337984
       BaseMap1@20_331: 95891658
-      BaseMap1@20_333: -1577410056
-      BaseMap1@20_334: 639875457
-      BaseMap1@20_335: -1357593776
       BaseMap1@20_336: -279572060
       BaseMap1@20_337: -100000298
       BaseMap1@20_338: 183466810
+      BaseMap1@20_339: -1941929183
       BaseMap1@20_34: 1380195970
+      BaseMap1@20_340: -379685151
+      BaseMap1@20_341: 1424400573
       BaseMap1@20_35: 2128368169
       BaseMap1@20_36: -203895054
       BaseMap1@20_37: -1822310907
@@ -7961,8 +8007,10 @@ TextureImporter:
       BaseMap1@20_97: -2127695640
       BaseMap1@20_98: -297736609
       BaseMap1@20_99: 1012417248
-      SelectionTile: -930252538
-      SeletionTile1: -447022846
+      Confirm: -1577410056
+      FaShuConfirm: -1357593776
+      FaShuSelection: 639875457
+      Seletion: 652204256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

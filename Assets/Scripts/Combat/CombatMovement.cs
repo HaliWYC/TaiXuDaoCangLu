@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TXDCL.Astar;
 using TXDCL.Time;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TXDCL.Character;
 
 namespace TXDCL.Combat
 {
@@ -13,12 +12,12 @@ namespace TXDCL.Combat
     [RequireComponent(typeof(Animator))]
     public class CombatMovement : MonoBehaviour
     {
-        public Vector3Int currentPosition;
-        public Vector3Int targetPosition;
         private Grid grid;
-        private TimeSpan gameTime => TimeManager.Instance.currentGameTime;
-        
-        private Stack<MovementStep> movementSteps = new();
+        private CharacterBase character;
+        private void Awake()
+        {
+            character = GetComponent<CharacterBase>();
+        }
 
         private void OnEnable()
         {
@@ -35,32 +34,25 @@ namespace TXDCL.Combat
             grid = FindFirstObjectByType<Grid>();
         }
         
-        [ContextMenu("Move")]
-        private void Movement()
+        private void Movement(Stack<MovementStep> movementSteps)
         {
-            if (movementSteps.Count <= 1) return;
-            var movementStep = movementSteps.Pop();
-            transform.DOMove(GetWorldPosition((Vector3Int)movementStep.gridCoordinates), 0.3f).SetEase(Ease.Linear).onComplete =
-                Movement;
-        }
-        
-        
-        [ContextMenu("Test")]
-        public void BuildPath()
-        {
-            movementSteps.Clear();
-            AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, (Vector2Int)currentPosition,
-                (Vector2Int)targetPosition, movementSteps);
-
-            if (movementSteps.Count > 1)
+            if (movementSteps.Count <= 0)
             {
-                UpdateTimeOnPath();
+                CombatGridPath.Instance.DisplayCharactersMovementPath();
+                return;
             }
+            var movementStep = movementSteps.Pop();
+            var targetPos = movementStep.gridCoordinates;
+            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
+            {
+                CombatGridPath.Instance.SetCharactersInGridPos(character, targetPos);
+                Movement(movementSteps);
+            };
         }
-
-        private void UpdateTimeOnPath()
+        public void BuildPath(Stack<MovementStep> movementSteps)
         {
-            var time = gameTime;
+            if (movementSteps.Count < 1) return;
+            var time = TimeManager.Instance.currentGameTime;
             foreach (var step in movementSteps)
             {
                 step.hour = time.Hours;
@@ -70,12 +62,13 @@ namespace TXDCL.Combat
                 var nextStepTime = new TimeSpan(0, 0, 1);
                 time = time.Add(nextStepTime);
             }
+            Movement(movementSteps);
         }
 
         private Vector3 GetWorldPosition(Vector3Int gridPosition)
         {
             var gridPos = grid.CellToWorld(gridPosition);
-            return new Vector3(gridPos.x + Settings.gridCellSize / 2f, gridPos.y,
+            return new Vector3(gridPos.x + Settings.gridCellSize / 2f, gridPos.y + Settings.gridCellSize / 2f,
                 gridPos.z + Settings.gridCellSize / 2f);
         }
     }

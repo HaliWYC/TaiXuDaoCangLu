@@ -53,16 +53,27 @@ public static class  EventHandler
 
     #region Combat
 
-    public static event Action BeforeCombatBeginEvent;
-    public static void CallBeforeCombatBeginEvent()
+    public static event Action CombatBeginEvent;
+    public static void CallCombatBeginEvent()
     {
-        BeforeCombatBeginEvent?.Invoke();
+        CombatBeginEvent?.Invoke();
     }
     
     public static event Action<List<CharacterBase>> NewCharactersEnterCombatEvent;
     public static void CallNewCharactersEnterCombatEvent(List<CharacterBase> characters)
     {
         NewCharactersEnterCombatEvent?.Invoke(characters);
+    }
+    
+    public static event Action<CharacterBase> CharacterTurnBeginEvent;
+    public static void CallCharacterTurnBeginEvent(CharacterBase character)
+    {
+        CharacterTurnBeginEvent?.Invoke(character);
+    }
+    public static event Action<CharacterBase> CharacterTurnEndEvent;
+    public static void CallCharacterTurnEndEvent(CharacterBase character)
+    {
+        CharacterTurnEndEvent?.Invoke(character);
     }
 
     #endregion
