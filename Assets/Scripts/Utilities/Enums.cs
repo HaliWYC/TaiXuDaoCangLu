@@ -35,50 +35,49 @@ public enum QualityType
 
 #region GongFa
 
-public enum GongFaType
+public enum GongFaType//功法类型：元婴前仅能有一个主功法，元婴后元婴可再修炼一门功法
 {
     Main,Subsidiary
 }
 
 #endregion
-
-
 #region FaShu
 
 public enum FaShuType
 {
     Normal, ShenShi, ShenTong, MiShu
 }
-
-public enum FaShuPurposeType
+public enum FaShuTarget//法术释放目标
 {
-    Attack,Defense,Abilities
+    Self,Enemy,Ally,Any
 }
+// public enum FaShuRange//法术释放范围
+// {
+//     Single,Range,All
+// }
 
-public enum FaShuTargetType
-{
-    Self,Enemy,Ally
-}
-public enum FaShuTargetRangeType
-{
-    Single,Range,All
-}
-
-public enum FaShuDurationType
+public enum FaShuDuration//法术施法时间，如单次释放或需要持续施法
 {
     Once,Sustainable
 }
-
+#endregion
 #endregion
 
-#region ShenTong
+#region Effect
 
-public enum ShenTongDurationType
+public enum EffectTarget
+{
+    Self,Enemy,Ally,Any
+}
+//
+// public enum EffectRange
+// {
+//     Single,Range,All
+// }
+public enum EffectDuration
 {
     Once,Sustainable,Permanent
 }
-
-#endregion
 
 #endregion
 
@@ -99,7 +98,9 @@ public enum GridType
 
 public enum PlaceType
 {
-    Mountain/*无名山*/,Town/*小镇*/,ChengChi/*城池*/,ZongMen/*宗门*/,
+    Mountain/*无名山：包含矿藏、草药，小概率埋藏宝藏*/,Town/*小镇：集市可进行交易，旅店可供休息*/,
+    ChengChi/*城池：拍卖行、贸易中心进行交易、洞府可供修炼、休息，主建筑可领取悬赏及炼丹、炼器、制符、阵法房*/,
+    ZongMen/*宗门：功法、法术阁学习功法及法术，洞府可供修炼，药园采集草药、山脉开采矿藏，主建筑领取悬赏，广场进行切磋，炼丹、炼器、制符，阵法房供精进*/, 
     Pass/*关卡*/,Maze/*迷宫*/,Fortress/*要塞*/,Cave/*洞穴*/, 
     Teleport/*传送阵*/
 }

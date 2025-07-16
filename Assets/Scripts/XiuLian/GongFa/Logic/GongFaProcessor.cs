@@ -37,7 +37,7 @@ namespace TXDCL.XiuLian.GongFa
             MainGongFaBasicSpeed += MainGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
             SubGongFaBasicSpeed += SubGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
             MainGongFaAdditionalSpeed += MainGongFas.Sum(GongFa => GongFa.AdditionalXiuLianSpeed);
-            XiuLianSpeed = (int)((MainGongFaBasicSpeed + SubGongFaBasicSpeed) * MainGongFaAdditionalSpeed);
+            XiuLianSpeed = (int)((MainGongFaBasicSpeed + SubGongFaBasicSpeed) * (1 + MainGongFaAdditionalSpeed));
             foreach (var property in MainGongFas.SelectMany(MainGF => MainGF.PropertyList))
             {
                 characterData.AddProperty(property);

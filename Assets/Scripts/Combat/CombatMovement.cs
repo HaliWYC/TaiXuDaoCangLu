@@ -28,7 +28,6 @@ namespace TXDCL.Combat
         {
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
         }
-
         private void OnAfterSceneLoadEvent()
         {
             grid = FindFirstObjectByType<Grid>();
@@ -38,14 +37,18 @@ namespace TXDCL.Combat
         {
             if (movementSteps.Count <= 0)
             {
-                CombatGridPath.Instance.DisplayCharactersMovementPath();
+                CombatGridManager.Instance.DisplayCharactersMovementPath();
+                character.isMoving = false;
                 return;
             }
             var movementStep = movementSteps.Pop();
             var targetPos = movementStep.gridCoordinates;
+            character.SetPlayerFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x -
+                                               CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
             transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
             {
-                CombatGridPath.Instance.SetCharactersInGridPos(character, targetPos);
+                character.isMoving = true;
+                CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
                 Movement(movementSteps);
             };
         }

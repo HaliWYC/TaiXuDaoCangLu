@@ -1,28 +1,38 @@
 using System;
+using System.Collections.Generic;
+using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using TXDCL.XiuLian.GongFa;
-using Unity.Mathematics;
+using TXDCL.Effect;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace TXDCL.Character
 {
     [RequireComponent(typeof(GongFaProcessor))]
-    [RequireComponent(typeof(FaShuProcessor))]
-    [RequireComponent(typeof(ShenTongProcessor))]
+    [RequireComponent(typeof(CombatMovement))]
+    [RequireComponent(typeof(Animator))]
     public class CharacterBase : MonoBehaviour
     {
         public CharacterData templateData;
         public CharacterData CharacterData;
-
+        public Animator animator;
+        public List<CharacterBase> Enemies = new();
+        public List<EffectData> Effects = new();
+        
+        public bool isMoving;
+        
+        private float faceDirection = 0;
+        private int previousYear = 1;
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
             : null;
         //TODO：增加装备属性以及功法属性
         
         [Header("Bools")]
-        public bool isShenShiHuanSan; //是否神识涣散
-        public bool isCombating;//是否处于战斗状态
+        public bool isShenShiHuanSan = false; //是否神识涣散,神识涣散状态将减少40%命中率
+        //public bool isCombating;//是否处于战斗状态
+        public bool isJingjieFirmed = true;//境界是否稳固,未稳固将减少40%命中率
         
         protected virtual void Awake()
         {
@@ -34,6 +44,29 @@ namespace TXDCL.Character
             ResetValue();
         }
 
+        private void OnEnable()
+        {
+            EventHandler.GameDateEvent += OnGameDateEvent;
+            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBegin;
+        }
+        
+
+        private void OnDisable()
+        {
+            EventHandler.GameDateEvent -= OnGameDateEvent;
+            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBegin;
+        }
+        private void OnGameDateEvent(int day, int month, int year)
+        {
+            CharacterData.currentAge += year - previousYear;
+            previousYear = year;
+        }
+        private void OnCharacterTurnBegin(CharacterBase character)
+        {
+            if(character != this) return;
+                UpdateEffectList();
+        }
+
         private void Start()
         {
             UpdateLevel();
@@ -41,28 +74,12 @@ namespace TXDCL.Character
 
         #region Combat
 
-        public void TakeDamage(CharacterData attacker, CharacterData defender, FaShuData faShu)
+        public void TakeDamage(CharacterData attacker, CharacterData defender, int damage)
         {
+            //TODO:结算必定闪避的影响因素，如法术效果为下次攻击必定闪避
             var isDodge = false;
-            //TODO:检测必定闪避的影响事件
             if (CheckDodge(attacker.Jingjie.JingjieLevel, defender.Jingjie.JingjieLevel, isDodge)) return;
-            switch (faShu.FaShuType)
-            {
-                case FaShuType.Normal:
-                    defender.currentHealth = math.max(0,
-                        defender.currentHealth - faShu.NormalValue - (int)(faShu.AdditionalValue * attacker.Attack));
-                    break;
-                case FaShuType.ShenShi:
-                    defender.ShenShi = math.max(0,
-                        defender.ShenShi - faShu.NormalValue - (int)(faShu.AdditionalValue * attacker.ShenShi));
-                    break;
-                case FaShuType.ShenTong:
-                    break;
-                case FaShuType.MiShu:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            defender.currentHealth = Mathf.Max(0, defender.currentHealth - damage);
         }
 
         /// <summary>
@@ -71,17 +88,42 @@ namespace TXDCL.Character
         /// <param name="attacker"></param>
         /// <param name="defender"></param>
         /// <returns></returns>
-        private bool CheckDodge(JingjieLevel attacker, JingjieLevel defender, bool isDodge)
+        public bool CheckDodge(JingjieLevel attacker, JingjieLevel defender, bool isDodge)
         {
             if (isDodge)
             {
                 return true;
             }
             var dif = attacker - defender;//计算境界差
-            var dodgeRate = Random.Range(-0.05f + dif, 0.05f + dif) * 0.5f;//修正值
-            return Random.Range(0f, 1f) > dodgeRate;
+            var dodgeRate = Random.Range(-0.05f + dif, 0.05f + dif) * 0.5f;//0.05f为修正值，0.5f为每个境界相差命中率
+            //如果境界未稳固，则丢失40%命中率
+            if (!isJingjieFirmed)
+            {
+                dodgeRate += 0.4f;
+            }
+            //如果神识涣散，则丢失40%命中率
+            if (isShenShiHuanSan)
+            {
+                dodgeRate += 0.4f;
+            }
+            return Random.Range(0f, 1f) < dodgeRate;
         }
 
+        public bool CheckDodge()
+        {
+            var dodgeRate = 1f;
+            //如果境界未稳固，则丢失40%命中率
+            if (!isJingjieFirmed)
+            {
+                dodgeRate -= 0.4f;
+            }
+            //如果神识涣散，则丢失40%命中率
+            if (isShenShiHuanSan)
+            {
+                dodgeRate -= 0.4f;
+            }
+            return Random.Range(0f, 1f) > dodgeRate;
+        }
         #endregion
 
         
@@ -132,6 +174,35 @@ namespace TXDCL.Character
         }
 
         #endregion
+        
+        public void SetPlayerFacingDirection(float direction)
+        {
+            faceDirection = direction switch 
+            {
+                > 0 => 1,
+                < 0 => -1,
+                _ => (int)transform.localScale.x
+            };
+            //Debug.Log(direction);
+            transform.localScale = new Vector3(faceDirection, transform.localScale.y, transform.localScale.z);
+        }
+
+        private void UpdateEffectList()
+        {
+            for (var i = 0; i < Effects.Count; i++)
+            {
+                if (Effects[i].effectDuration != EffectDuration.Sustainable) return;
+                Effects[i].round--;
+                if ( Effects[i].round <= 0)
+                {
+                    Effects[i].OnEffectEnd(this);
+                    Effects.RemoveAt(i);
+                    i--;
+                    break;
+                }
+                Effects[i].OnEffectExecute();
+            }
+        }
     }
     
 }

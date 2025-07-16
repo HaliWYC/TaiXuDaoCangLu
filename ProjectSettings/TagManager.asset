@@ -74,6 +74,12 @@ TagManager:
   - name: Trap2
     uniqueID: 1433212067
     locked: 0
+  - name: Selection
+    uniqueID: 1138696489
+    locked: 0
+  - name: Confirmation
+    uniqueID: 2373767197
+    locked: 0
   - name: Instance
     uniqueID: 4021524843
     locked: 0
@@ -85,12 +91,6 @@ TagManager:
     locked: 0
   - name: Collision
     uniqueID: 3935347165
-    locked: 0
-  - name: Selection
-    uniqueID: 1138696489
-    locked: 0
-  - name: Confirmation
-    uniqueID: 2373767197
     locked: 0
   m_RenderingLayers:
   - Default

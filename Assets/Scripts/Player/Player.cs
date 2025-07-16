@@ -1,43 +1,68 @@
+using System;
+using System.Collections.Generic;
+using TXDCL.Combat;
+using TXDCL.XiuLian.FuShu;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 namespace TXDCL.Character
 {
     public class Player : CharacterBase
     {
         private PlayerController playerController;
         private Vector2 inputDirection;
-        [SerializeField] private Animator animator;
-
+        [SerializeField] private List<FaShuData> currentFaShuList = new();
+        [SerializeField] private List<FaShuData> PotentialFaShuList = new();
+        private FaShuData currentSelectingFaShu;
+        private bool isCombating;
         protected override void Awake()
         {
             base.Awake();
-            playerController = new PlayerController();
-            GetComponent<Rigidbody2D>();
+            playerController = new();
+            playerController.Gameplay.FaShu1.started += SelectFaShu;
+            playerController.Gameplay.FaShu2.started += SelectFaShu;
+            playerController.Gameplay.FaShu3.started += SelectFaShu;
+            playerController.Gameplay.FaShu4.started += SelectFaShu;
+            playerController.Gameplay.FaShu5.started += SelectFaShu;
+            playerController.Gameplay.FaShu6.started += SelectFaShu;
+            playerController.Gameplay.FaShu7.started += SelectFaShu;
+            playerController.Gameplay.FaShu8.started += SelectFaShu;
+            playerController.Gameplay.FaShu9.started += SelectFaShu;
+            playerController.Gameplay.FaShu0.started += SelectFaShu;
         }
-
         private void OnEnable()
         {
-            playerController.Enable();
+            InputEnable();
             EventHandler.BeforeSceneLoadEvent += OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent += OnMoveToPositionEvent;
             EventHandler.CombatBeginEvent += OnCombatBeginEvent;
-            
+            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+
+
         }
 
-        private void OnCombatBeginEvent()
+        private void OnCharacterTurnBeginEvent(CharacterBase character)
         {
-            InputDisable();
-            GetComponent<BoxCollider2D>().isTrigger = true;
+            if (character == this)
+            {
+                InputEnable();
+            }
+            else
+            {
+                InputDisable();
+            }
         }
 
         private void OnDisable()
         {
-            playerController.Disable();
+            InputDisable();
             EventHandler.BeforeSceneLoadEvent -= OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent -= OnMoveToPositionEvent;
             EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
+            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
         }
         
         private void OnBeforeSceneLoadEvent()
@@ -52,6 +77,12 @@ namespace TXDCL.Character
         {
             transform.position = position;
         }
+        
+        private void OnCombatBeginEvent()
+        {
+            isCombating = true;
+            GetComponent<BoxCollider2D>().isTrigger = true;
+        }
 
         private void Update()
         {
@@ -61,32 +92,27 @@ namespace TXDCL.Character
 
         private void FixedUpdate()
         {
-            Move();
+            if (!isCombating)
+                Move();
         }
 
         private void Move()
         {
             //设置朝向
-            int faceDir = (int)transform.localScale.x;
-            if (inputDirection.x > 0)
-                faceDir = 1;
-            else if (inputDirection.x < 0)
-                faceDir = -1;
-            transform.localScale = new Vector3(faceDir, transform.localScale.y, transform.localScale.z);
-
+            SetPlayerFacingDirection(inputDirection.x);
             //移动
             var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
+            isMoving = velocity != Vector2.zero;
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
                 GetComponent<Rigidbody2D>().linearVelocity = velocity * math.sqrt(2) / 2;
             }
-
             GetComponent<Rigidbody2D>().linearVelocity = velocity;
         }
 
         private void SwitchAnimation()
         {
-            
+            animator.SetBool("isMoving", isMoving);
         }
 
         private void InputEnable()
@@ -96,6 +122,27 @@ namespace TXDCL.Character
         private void InputDisable()
         {
             playerController.Disable();
+        }
+        private void SelectFaShu(InputAction.CallbackContext FaShu)
+        {
+            //TODO:制作攻击的UI选择
+            var index = Convert.ToInt32(FaShu.action.name[5].ToString());
+            if (currentFaShuList.Count <= index || CombatGridManager.Instance.currentCharacter != this) return;
+            if (currentSelectingFaShu != currentFaShuList[index] || !CursorManager.Instance.isCastingFaShu)
+            {
+                currentSelectingFaShu = currentFaShuList[index];
+                GameManager.Instance.SetGameCameraLenInGridSize(currentSelectingFaShu.ReleaseRange);
+                CombatGridManager.Instance.DisplayFaShuReleasePath(currentSelectingFaShu);
+                CursorManager.Instance.isCastingFaShu = true;
+            }
+            else
+            {
+                GameManager.Instance.ResetGameCameraLenInGridSize();
+                CombatGridManager.Instance.ClearPotentialTiles();
+                CombatGridManager.Instance.DisplayCharactersMovementPath();
+                CursorManager.Instance.isCastingFaShu = false;
+            }
+            CursorManager.Instance.isConfirm = false;
         }
     }
 }

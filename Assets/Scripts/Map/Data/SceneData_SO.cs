@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TXDCL.Astar;
+using TXDCL.Character;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,10 +15,18 @@ namespace TXDCL.Map
         public AssetReference SceneToLoad;
         public List<TileProperty> tileProperties;
         public GridNodes gridNodes;
+        public List<CharacterTransform> Characters;
     
         public int gridWidth;
         public int gridHeight;
         public int originX;
         public int originY;
+    }
+
+    [System.Serializable]
+    public class CharacterTransform
+    {
+        public GameObject character;
+        public Vector3 transform;
     }
 }

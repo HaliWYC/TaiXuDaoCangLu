@@ -10,6 +10,7 @@ public class CursorManager : Singleton<CursorManager>
     private bool cursorEnable;
     public bool isSelecting;//检测是否选中
     public bool isConfirm;
+    public bool isCastingFaShu;//检测是否释放法术中
     
     private void OnEnable()
     {
@@ -38,12 +39,27 @@ public class CursorManager : Singleton<CursorManager>
         if (!isSelecting) return;
         CheckCursorValid();
         if (!Input.GetMouseButtonDown(0)) return;
-        if (isConfirm)
+        if (isCastingFaShu)
         {
-            MoveConfirmPath();
+            if (isConfirm)
+            {
+                //获得目标范围内所有目标角色并执行法术
+                CombatGridManager.Instance.CheckFaShuConfirmTargets((Vector2Int)mouseGridPos);
+                return;
+            }
+            //显示确认范围
+            CombatGridManager.Instance.DisplayFaShuConfirmPath((Vector2Int)mouseGridPos);
         }
-        //显示确认路径
-        CombatGridPath.Instance.CheckInPotentialPath((Vector2Int)mouseGridPos);
+        else
+        {
+            if (isConfirm)
+            {
+                MoveConfirmPath();
+                return;
+            }
+            //显示确认路径
+            CombatGridManager.Instance.CheckInPotentialMovementPath((Vector2Int)mouseGridPos);
+        }
     }
     
     private void CheckCursorValid()
@@ -54,8 +70,7 @@ public class CursorManager : Singleton<CursorManager>
     
     private void MoveConfirmPath()
     {
-        if (!isConfirm) return;
         //移动
-        CombatGridPath.Instance.CheckInConfirmPath((Vector2Int)mouseGridPos);
+        CombatGridManager.Instance.CheckInConfirmMovementPath((Vector2Int)mouseGridPos);
     }
 }

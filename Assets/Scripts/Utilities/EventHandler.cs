@@ -77,4 +77,24 @@ public static class  EventHandler
     }
 
     #endregion
+
+    #region Effect
+
+    public static event Action<CharacterBase,CharacterBase> OnEffectCreateEvent;
+    public static void CallOnEffectCreateEvent(CharacterBase from, CharacterBase to)
+    {
+        OnEffectCreateEvent?.Invoke(from,to);
+    }
+    public static event Action OnEffectExecuteEvent;
+    public static void CallOnEffectExecuteEvent()
+    {
+        OnEffectExecuteEvent?.Invoke();
+    }
+    public static event Action<CharacterBase> OnEffectEndEvent;
+    public static void CallOnEffectEndEvent(CharacterBase currentTarget)
+    {
+        OnEffectEndEvent?.Invoke(currentTarget);
+    }
+
+    #endregion
 }

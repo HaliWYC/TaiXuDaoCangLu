@@ -99,8 +99,6 @@ namespace TXDCL.Time
                                 EventHandler.CallGameSeasonEvent(gameSeason);
                             }
                         }
-
-                        //TODO 结算自动吸取道藏
                         EventHandler.CallGameDateEvent(gameDay, gameMonth, gameYear);
                     }
 

@@ -278,6 +278,7 @@ MonoBehaviour:
   - tileCoordinates: {x: -111, y: 127}
     gridType: 5
     boolTypeValue: 1
+  Characters: []
   gridWidth: 292
   gridHeight: 312
   originX: -200

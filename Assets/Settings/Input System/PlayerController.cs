@@ -101,19 +101,91 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""eccbb817-9ca6-4012-beaf-1e54aa56297f"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""FaShu0"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a9146fb-4288-45ee-bd81-1feee56053f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu1"",
+                    ""type"": ""Button"",
+                    ""id"": ""9158e816-4933-460c-ab73-14310e9cef9d"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""FaShu2"",
                     ""type"": ""Button"",
-                    ""id"": ""df3024f6-2a47-46c8-867b-fddd72137747"",
-                    ""expectedControlType"": ""Button"",
+                    ""id"": ""e16b59f3-5fc9-40b7-8674-ed655b03b6c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu3"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff583499-fda6-4dda-8968-992f8c60d53c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu4"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e8adec6-41e4-4d5e-a5da-1f2f48ee703a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu5"",
+                    ""type"": ""Button"",
+                    ""id"": ""d88803fc-69e8-46c8-8de3-bc2680885b3b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu6"",
+                    ""type"": ""Button"",
+                    ""id"": ""82e84f91-c6d0-487b-b8b4-2b85ef615745"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu7"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1db1a74-63f2-4ebf-90b9-fcec799270c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu8"",
+                    ""type"": ""Button"",
+                    ""id"": ""997e77e3-776f-4fdb-a9d3-41b6b52557ef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaShu9"",
+                    ""type"": ""Button"",
+                    ""id"": ""776e28d1-7582-4356-96a2-796490ab414c"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -254,89 +326,111 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e5f5442-8668-4b27-a940-df99bad7e831"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""e558ddad-69b5-42b0-bfff-731c821fe591"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
+                    ""action"": ""FaShu1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""id"": ""310af67f-0dc1-4e4c-98eb-6c8515cda62f"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
+                    ""id"": ""dbce23c5-05f8-42be-bb92-d9c7e53b5a09"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Fire"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8255d333-5683-4943-a58a-ccb207ff1dce"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
+                    ""id"": ""986e56be-5a91-4c0b-9974-90622d371259"",
+                    ""path"": ""<Keyboard>/5"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Fire"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""684d94bc-8027-4300-9751-44a1352c2fda"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""caf6be03-6774-4d29-9a88-685739d41ddd"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0535d77f-11b6-4ad9-bd67-6a02651ef8c1"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20994e32-4c15-4ba3-9bbc-19f87915dd10"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7106482d-1e9b-4c0a-8799-6e9615b4261a"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c2f47e0-7222-48b2-a8d4-1954c2f2752a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FaShu0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -925,8 +1019,16 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
-        m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_FaShu0 = m_Gameplay.FindAction("FaShu0", throwIfNotFound: true);
+        m_Gameplay_FaShu1 = m_Gameplay.FindAction("FaShu1", throwIfNotFound: true);
+        m_Gameplay_FaShu2 = m_Gameplay.FindAction("FaShu2", throwIfNotFound: true);
+        m_Gameplay_FaShu3 = m_Gameplay.FindAction("FaShu3", throwIfNotFound: true);
+        m_Gameplay_FaShu4 = m_Gameplay.FindAction("FaShu4", throwIfNotFound: true);
+        m_Gameplay_FaShu5 = m_Gameplay.FindAction("FaShu5", throwIfNotFound: true);
+        m_Gameplay_FaShu6 = m_Gameplay.FindAction("FaShu6", throwIfNotFound: true);
+        m_Gameplay_FaShu7 = m_Gameplay.FindAction("FaShu7", throwIfNotFound: true);
+        m_Gameplay_FaShu8 = m_Gameplay.FindAction("FaShu8", throwIfNotFound: true);
+        m_Gameplay_FaShu9 = m_Gameplay.FindAction("FaShu9", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1021,8 +1123,16 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Look;
-    private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_FaShu0;
+    private readonly InputAction m_Gameplay_FaShu1;
+    private readonly InputAction m_Gameplay_FaShu2;
+    private readonly InputAction m_Gameplay_FaShu3;
+    private readonly InputAction m_Gameplay_FaShu4;
+    private readonly InputAction m_Gameplay_FaShu5;
+    private readonly InputAction m_Gameplay_FaShu6;
+    private readonly InputAction m_Gameplay_FaShu7;
+    private readonly InputAction m_Gameplay_FaShu8;
+    private readonly InputAction m_Gameplay_FaShu9;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -1039,13 +1149,45 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/Look".
+        /// Provides access to the underlying input action "Gameplay/FaShu0".
         /// </summary>
-        public InputAction @Look => m_Wrapper.m_Gameplay_Look;
+        public InputAction @FaShu0 => m_Wrapper.m_Gameplay_FaShu0;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/Fire".
+        /// Provides access to the underlying input action "Gameplay/FaShu1".
         /// </summary>
-        public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        public InputAction @FaShu1 => m_Wrapper.m_Gameplay_FaShu1;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu2".
+        /// </summary>
+        public InputAction @FaShu2 => m_Wrapper.m_Gameplay_FaShu2;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu3".
+        /// </summary>
+        public InputAction @FaShu3 => m_Wrapper.m_Gameplay_FaShu3;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu4".
+        /// </summary>
+        public InputAction @FaShu4 => m_Wrapper.m_Gameplay_FaShu4;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu5".
+        /// </summary>
+        public InputAction @FaShu5 => m_Wrapper.m_Gameplay_FaShu5;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu6".
+        /// </summary>
+        public InputAction @FaShu6 => m_Wrapper.m_Gameplay_FaShu6;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu7".
+        /// </summary>
+        public InputAction @FaShu7 => m_Wrapper.m_Gameplay_FaShu7;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu8".
+        /// </summary>
+        public InputAction @FaShu8 => m_Wrapper.m_Gameplay_FaShu8;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaShu9".
+        /// </summary>
+        public InputAction @FaShu9 => m_Wrapper.m_Gameplay_FaShu9;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1075,12 +1217,36 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
+            @FaShu0.started += instance.OnFaShu0;
+            @FaShu0.performed += instance.OnFaShu0;
+            @FaShu0.canceled += instance.OnFaShu0;
+            @FaShu1.started += instance.OnFaShu1;
+            @FaShu1.performed += instance.OnFaShu1;
+            @FaShu1.canceled += instance.OnFaShu1;
+            @FaShu2.started += instance.OnFaShu2;
+            @FaShu2.performed += instance.OnFaShu2;
+            @FaShu2.canceled += instance.OnFaShu2;
+            @FaShu3.started += instance.OnFaShu3;
+            @FaShu3.performed += instance.OnFaShu3;
+            @FaShu3.canceled += instance.OnFaShu3;
+            @FaShu4.started += instance.OnFaShu4;
+            @FaShu4.performed += instance.OnFaShu4;
+            @FaShu4.canceled += instance.OnFaShu4;
+            @FaShu5.started += instance.OnFaShu5;
+            @FaShu5.performed += instance.OnFaShu5;
+            @FaShu5.canceled += instance.OnFaShu5;
+            @FaShu6.started += instance.OnFaShu6;
+            @FaShu6.performed += instance.OnFaShu6;
+            @FaShu6.canceled += instance.OnFaShu6;
+            @FaShu7.started += instance.OnFaShu7;
+            @FaShu7.performed += instance.OnFaShu7;
+            @FaShu7.canceled += instance.OnFaShu7;
+            @FaShu8.started += instance.OnFaShu8;
+            @FaShu8.performed += instance.OnFaShu8;
+            @FaShu8.canceled += instance.OnFaShu8;
+            @FaShu9.started += instance.OnFaShu9;
+            @FaShu9.performed += instance.OnFaShu9;
+            @FaShu9.canceled += instance.OnFaShu9;
         }
 
         /// <summary>
@@ -1095,12 +1261,36 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
+            @FaShu0.started -= instance.OnFaShu0;
+            @FaShu0.performed -= instance.OnFaShu0;
+            @FaShu0.canceled -= instance.OnFaShu0;
+            @FaShu1.started -= instance.OnFaShu1;
+            @FaShu1.performed -= instance.OnFaShu1;
+            @FaShu1.canceled -= instance.OnFaShu1;
+            @FaShu2.started -= instance.OnFaShu2;
+            @FaShu2.performed -= instance.OnFaShu2;
+            @FaShu2.canceled -= instance.OnFaShu2;
+            @FaShu3.started -= instance.OnFaShu3;
+            @FaShu3.performed -= instance.OnFaShu3;
+            @FaShu3.canceled -= instance.OnFaShu3;
+            @FaShu4.started -= instance.OnFaShu4;
+            @FaShu4.performed -= instance.OnFaShu4;
+            @FaShu4.canceled -= instance.OnFaShu4;
+            @FaShu5.started -= instance.OnFaShu5;
+            @FaShu5.performed -= instance.OnFaShu5;
+            @FaShu5.canceled -= instance.OnFaShu5;
+            @FaShu6.started -= instance.OnFaShu6;
+            @FaShu6.performed -= instance.OnFaShu6;
+            @FaShu6.canceled -= instance.OnFaShu6;
+            @FaShu7.started -= instance.OnFaShu7;
+            @FaShu7.performed -= instance.OnFaShu7;
+            @FaShu7.canceled -= instance.OnFaShu7;
+            @FaShu8.started -= instance.OnFaShu8;
+            @FaShu8.performed -= instance.OnFaShu8;
+            @FaShu8.canceled -= instance.OnFaShu8;
+            @FaShu9.started -= instance.OnFaShu9;
+            @FaShu9.performed -= instance.OnFaShu9;
+            @FaShu9.canceled -= instance.OnFaShu9;
         }
 
         /// <summary>
@@ -1409,19 +1599,75 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FaShu0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
+        void OnFaShu0(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FaShu1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFire(InputAction.CallbackContext context);
+        void OnFaShu1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu5(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu6" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu6(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu7" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu7(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu8" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu8(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaShu9" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaShu9(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

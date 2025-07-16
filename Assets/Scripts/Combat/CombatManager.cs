@@ -32,7 +32,7 @@ namespace TXDCL.Combat
             {
                 CharacterTurnProgressDict.Add(character, 0);
             }
-            CombatGridPath.Instance.GetAndSetCharactersInGrid();
+            CombatGridManager.Instance.GetAndSetCharactersInGrid();
             turnProgressModifier = GetTurnProgressModifier();
         }
 
