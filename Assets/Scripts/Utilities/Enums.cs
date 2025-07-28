@@ -7,7 +7,7 @@ public enum WuXing
 
 public enum ShuXing
 {
-    甲木,乙木,丙火,丁火,戊土,己土,庚金,辛金,壬水,癸水,混沌,魔道,妖道
+    甲木,乙木,丙火,丁火,戊土,己土,庚金,辛金,壬水,癸水,阳雷,阴雷,混沌,魔道,妖道
 }
 
 public enum MiniJingjieLevel
@@ -19,14 +19,19 @@ public enum JingjieLevel
     凡人,炼气,筑基,结丹,元婴,化神
 }
 
-public enum MiniQuality
+public enum MiniRarity
 {
     初级,中级,高级,终极
 }
 
-public enum QualityType
+public enum Rarity
 {
     残,凡,人,地,天
+}
+
+public enum ItemRarity
+{
+    一品,二品,三品,四品,五品,六品,七品,八品,九品,极品
 }
 
 #endregion
@@ -45,7 +50,7 @@ public enum GongFaType//功法类型：元婴前仅能有一个主功法，元�
 
 public enum FaShuType
 {
-    Normal, ShenShi, ShenTong, MiShu
+    Normal, Melee,ShenShi
 }
 public enum FaShuTarget//法术释放目标
 {
@@ -81,6 +86,8 @@ public enum EffectDuration
 
 #endregion
 
+#region Inventory
+
 public enum PropertyType
 {
     MaxAge,MaxHealth,MaxMana,Attack,Reaction,Speed,MaxMovementPerTurn,MaxDaocangPerTurn,
@@ -89,6 +96,36 @@ public enum PropertyType
     Strength,Fitness,Eloquence,Wisdom,Luck,Comprehension,
     MainGongFaBasicSpeed,MainGongFaAdditionalSpeed,SubGongFaBasicSpeed
 }
+
+public enum ItemType
+{
+    法宝,消耗品,任务物品,其他物品
+}
+
+public enum FaBaoType
+{
+    主武器,副武器,防具,饰品,挂件,坐骑
+}
+public enum ConsumeItemType
+{
+    丹药,符箓,丹方,炼器图纸,制符图纸,阵法图纸
+}
+public enum TaskItemType
+{
+    
+}
+public enum OtherItemType
+{
+    草药,炼器材料,制符材料,常规材料
+}
+
+public enum CaoYaoStateType
+{
+    未处理,块状,粉状,液状
+}
+
+#endregion
+
 
 #region Map
 public enum GridType

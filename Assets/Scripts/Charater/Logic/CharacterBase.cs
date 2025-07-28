@@ -12,36 +12,37 @@ namespace TXDCL.Character
     [RequireComponent(typeof(GongFaProcessor))]
     [RequireComponent(typeof(CombatMovement))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterBase : MonoBehaviour
     {
         public CharacterData templateData;
         public CharacterData CharacterData;
+        public CharacterEquipmentData EquipmentData;//装备属性
+        private GongFaProcessor gongFaProcessor=>GetComponent<GongFaProcessor>(); 
+        public List<FaShuData> currentFaShuList = new();
+        public List<FaShuData> PotentialFaShuList = new();
         public Animator animator;
         public List<CharacterBase> Enemies = new();
-        public List<EffectData> Effects = new();
-        
+        public List<EffectData> TemporaryEffects;//暂时性效果如战斗中即战斗后持续状态
+        public List<EffectData> PermanentEffects;//永久性效果如天赋、能力等
         public bool isMoving;
-        
-        private float faceDirection = 0;
+        private float faceDirection;
+        protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
         private int previousYear = 1;
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
             : null;
-        //TODO：增加装备属性以及功法属性
-        
-        [Header("Bools")]
+        [Header("Bools")] 
+        public bool isZouHuoRuMo;//是否走火入魔
         public bool isShenShiHuanSan = false; //是否神识涣散,神识涣散状态将减少40%命中率
         //public bool isCombating;//是否处于战斗状态
         public bool isJingjieFirmed = true;//境界是否稳固,未稳固将减少40%命中率
         
         protected virtual void Awake()
         {
-            if (templateData != null)
-            {
-                CharacterData = Instantiate(templateData);
-            }
-            GetComponent<GongFaProcessor>().characterData = CharacterData;
-            ResetValue();
+            if (templateData == null) return;
+            CharacterData = Instantiate(templateData);
+            gongFaProcessor.characterData = CharacterData;
         }
 
         private void OnEnable()
@@ -70,6 +71,8 @@ namespace TXDCL.Character
         private void Start()
         {
             UpdateLevel();
+            ResetValue();
+            
         }
 
         #region Combat
@@ -137,12 +140,14 @@ namespace TXDCL.Character
             CharacterData.nextExp = data.NextEXP;
             CharacterData.maxAge = data.MaxAge;
             CharacterData.maxHealth = data.MaxHealth;
+            CharacterData.maxStamina = data.MaxStamina;
             CharacterData.maxMana = data.MaxMana;
             CharacterData.Attack = data.Attack;
             CharacterData.Reaction = data.Reaction;
             CharacterData.maxMovementPerTurn = data.MaxMovementPerTurn;
             CharacterData.ShenShiStrength = data.ShenShiStrength;
             CharacterData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
+            gongFaProcessor.InitializeGongFa();
         }
 
         public void CheckUpGrade()
@@ -170,6 +175,7 @@ namespace TXDCL.Character
         {
             CharacterData.currentHealth = CharacterData.maxHealth;
             CharacterData.currentMana = CharacterData.maxMana;
+            CharacterData.currentStamina = CharacterData.maxStamina;
             CharacterData.ShenShi = CharacterData.ShenShiStrength;
         }
 
@@ -189,18 +195,18 @@ namespace TXDCL.Character
 
         private void UpdateEffectList()
         {
-            for (var i = 0; i < Effects.Count; i++)
+            for (var i = 0; i < TemporaryEffects.Count; i++)
             {
-                if (Effects[i].effectDuration != EffectDuration.Sustainable) return;
-                Effects[i].round--;
-                if ( Effects[i].round <= 0)
+                if (TemporaryEffects[i].effectDuration != EffectDuration.Sustainable) return;
+                TemporaryEffects[i].round--;
+                if ( TemporaryEffects[i].round <= 0)
                 {
-                    Effects[i].OnEffectEnd(this);
-                    Effects.RemoveAt(i);
+                    TemporaryEffects[i].OnEffectEnd(this);
+                    TemporaryEffects.RemoveAt(i);
                     i--;
                     break;
                 }
-                Effects[i].OnEffectExecute();
+                TemporaryEffects[i].OnEffectExecute();
             }
         }
     }

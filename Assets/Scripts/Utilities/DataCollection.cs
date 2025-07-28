@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TXDCL.Inventory;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,6 +21,12 @@ public class Wuxing
         _=>WuXing.弱水
     };
 }
+[System.Serializable]
+public class WuxingDaoCang
+{
+    public Wuxing Wuxing;
+    public int DaoCang;
+}
 
 [System.Serializable]
 public class Property
@@ -37,17 +44,29 @@ public class Jingjie
 }
 
 [System.Serializable]
-public class JingjieData:ScriptableObject
+public class JingjieData : ScriptableObject
 {
     public int NextEXP;//下一级升级所需经验
     public int MaxAge;//寿元
-    public int MaxHealth;//气血
+    public int MaxHealth;//最大气血
+    public int MaxStamina;//最大体力
     public int MaxMana;//最大法力
     public int Attack;//攻击
     public int Reaction;//反应
     public int MaxMovementPerTurn;//每回合移动力
-    public int ShenShiStrength;
+    public int ShenShiStrength;//神识强度
     public int MaxDaocangPerTurn;//每回合总道藏获取量
+}
+
+[System.Serializable]
+public class CharacterEquipmentData
+{
+    public FaBaoDetails MainWeapon;
+    public FaBaoDetails SubWeapon;
+    public FaBaoDetails Cloth;
+    public FaBaoDetails FirstAccessory;
+    public FaBaoDetails SecondAccessory;
+    public FaBaoDetails Mount;
 }
 
 [System.Serializable]
@@ -70,29 +89,3 @@ public class TileDetails
     public bool obstacle;
 }
 
-// [System.Serializable]
-// public class WuXingInfor : Wuxing
-// {
-//     public int minAttack;
-//     public int maxAttack;
-//     public int minDefence;
-//     public int maxDefence;
-// }
-// public class WuxingMultiAttack
-// {
-//     public List<Wuxing> wuxings;
-//     public int Value;
-// }
-// public class WuxingAttack:Wuxing
-// {
-//     public int Value;
-// }
-// public class WuxingMultiDefense
-// {
-//     public List<Wuxing> wuxings;
-//     public int Value;
-// }
-// public class WuxingDefense:Wuxing
-// {
-//     public int Value;
-// }

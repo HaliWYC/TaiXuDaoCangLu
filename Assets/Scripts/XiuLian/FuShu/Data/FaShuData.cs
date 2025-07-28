@@ -11,8 +11,8 @@ namespace TXDCL.XiuLian.FuShu
         public string Name;
         public int ID;
         public Sprite FaShuIcon;
-        public MiniQuality MiniQuality;
-        public QualityType QualityType;
+        public MiniRarity MiniRarity;
+        public Rarity Rarity;
         [TextArea]
         public string Description;
         [Header("Type")]
@@ -33,16 +33,18 @@ namespace TXDCL.XiuLian.FuShu
         public int MaxCoolDownTime;
         public int ReleaseRange;//施法范围，以周身一格为1
         public int Range;//法术覆盖范围，以周身一格为1
+        public int HealthCost;//气血消耗
+        public int StaminaCost;//体力消耗
         public int ManaCost;//法力消耗
-        public int MetalCost;//锐金道藏消耗
-        public int WoodCost;//灵木道藏消耗
-        public int WaterCost;//弱水道藏消耗
-        public int FireCost;//离火道藏消耗
-        public int EarthCost;//厚土道藏消耗
+        public int JingShenLiCost;//精神力消耗
+        public List<WuxingDaoCang> DaoCangCosts;//道藏消耗
+        // public WuxingDaoCang MetalCost;//锐金道藏消耗
+        // public WuxingDaoCang WoodCost;//灵木道藏消耗
+        // public WuxingDaoCang WaterCost;//弱水道藏消耗
+        // public WuxingDaoCang FireCost;//离火道藏消耗
+        // public WuxingDaoCang EarthCost;//厚土道藏消耗
         public int SameCost;//相同道藏消耗
         public int DifCost;//不同道藏消耗
-        public int HealthCost;//气血消耗
-        public int JingShenLiCost;//精神力消耗
         //TODO:法术效果将用Buff形式展现
         public List<EffectData> EffectDatas;
         //public List<FaShuData> FaShuList = new List<FaShuData>();

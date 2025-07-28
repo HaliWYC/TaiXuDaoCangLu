@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109a784affff449b0a3d9e34395c6eaa, type: 3}
+  m_Name: "\u94C1\u5251"
+  m_EditorClassIdentifier: 
+  ID: 0
+  Name: "\u94C1\u5251"
+  Icon: {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1, type: 3}
+  ItemRarity: 0
+  MiniRarity: 0
+  itemType: 0
+  Price: 5
+  Description: "\u4E00\u628A\u666E\u901A\u7684\u94C1\u5251"
+  canStack: 0
+  stackSize: 1
+  canTrade: 1
+  TradeProportion: 0
+  canUseInCombat: 0
+  faBaoType: 0
+  properties:
+  - propertyType: 3
+    value: 2
+  effects: []

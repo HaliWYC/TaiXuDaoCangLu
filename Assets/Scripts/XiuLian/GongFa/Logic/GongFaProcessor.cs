@@ -31,9 +31,8 @@ namespace TXDCL.XiuLian.GongFa
             isReachLimit = false;
         }
 
-        private void Start()
+        public void InitializeGongFa()
         {
-            //Test
             MainGongFaBasicSpeed += MainGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
             SubGongFaBasicSpeed += SubGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
             MainGongFaAdditionalSpeed += MainGongFas.Sum(GongFa => GongFa.AdditionalXiuLianSpeed);
@@ -43,7 +42,6 @@ namespace TXDCL.XiuLian.GongFa
                 characterData.AddProperty(property);
                 AddProperty(property);
             }
-
             foreach (var property in SubGongFas.SelectMany(SubGongFa => SubGongFa.PropertyList))
             {
                 characterData.AddProperty(property);

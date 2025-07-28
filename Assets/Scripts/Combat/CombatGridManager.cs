@@ -248,6 +248,7 @@ namespace TXDCL.Combat
             if (range <= 0 ||!CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, potentialSelectingPath, false);
             DisplayPath(potentialSelectingPath, PotentialPathTile);
+            CombatUI.Instance.FadeCombatPanel(1f,true);
             CursorManager.Instance.isSelecting = true;
         }
         /// <summary>
@@ -262,6 +263,7 @@ namespace TXDCL.Combat
             AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, currentPos, position, confirmMovementSteps);
             confirmSelectingPath = confirmMovementSteps.Select(step => step.gridCoordinates).ToList();
             DisplayPath(confirmSelectingPath, ConfirmPathTile);
+            CombatUI.Instance.FadeCombatPanel(0.5f,false);
             lastTargetPos = position;
             CursorManager.Instance.isConfirm = true;
         }
@@ -299,6 +301,7 @@ namespace TXDCL.Combat
             if (currentFaShuData.ReleaseRange < 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, potentialFaShuSelectingPath, true);
             DisplayPath(potentialFaShuSelectingPath, PotentialFaShuPathTile);
+            CombatUI.Instance.FadeCombatPanel(1f, true);
             CursorManager.Instance.isCastingFaShu = true;
         }
         /// <summary>
@@ -311,6 +314,7 @@ namespace TXDCL.Combat
             if(currentFaShuData.Range < 0 || !potentialFaShuSelectingPath.Contains(startPos)) return;
             FindPotentialPath(GetGridPosition(startPos), currentFaShuData.Range, confirmFaShuSelectingPath, true);
             DisplayPath(confirmFaShuSelectingPath, ConfirmFaShuPathTile);
+            CombatUI.Instance.FadeCombatPanel(0.5f,false);
             lastFaShuTargetPos = startPos;
             CursorManager.Instance.isConfirm = true;
         }
@@ -320,15 +324,23 @@ namespace TXDCL.Combat
         /// <param name="position"></param>
         public void CheckFaShuConfirmTargets(Vector2Int position)
         {
-            if (lastFaShuTargetPos != position) return;
-            //获得范围内所有的目标
-            FaShuManager.Instance.ExecuteFaShu(currentFaShuData,currentCharacter, CharacterPositionsInCombatDict.Keys.Where(character => confirmFaShuSelectingPath.Contains(GetWorldPosition(CharacterPositionsInCombatDict[character]))).ToList());
-            CursorManager.Instance.isCastingFaShu = false;
-            CursorManager.Instance.isConfirm = false;
-            ClearPotentialTiles();
-            ClearConfirmPathTiles();
-            GameManager.Instance.ResetGameCameraLenInGridSize();
-            DisplayCharactersMovementPath();
+            if (lastFaShuTargetPos == position)
+            {
+                //获得范围内所有的目标
+                FaShuManager.Instance.ExecuteFaShu(currentFaShuData,currentCharacter, CharacterPositionsInCombatDict.Keys.Where(character => confirmFaShuSelectingPath.Contains(GetWorldPosition(CharacterPositionsInCombatDict[character]))).ToList());
+                CursorManager.Instance.isCastingFaShu = false;
+                CursorManager.Instance.isConfirm = false;
+                ClearPotentialTiles();
+                ClearConfirmPathTiles();
+                GameManager.Instance.ResetGameCameraLenInGridSize();
+                CombatUI.Instance.FadeCombatPanel(1f,true);
+                DisplayCharactersMovementPath();
+            }
+            else
+            {
+                DisplayFaShuConfirmPath(position);
+            }
+           
         }
 
         /// <summary>

@@ -9,14 +9,13 @@ namespace TXDCL.Time
         private GameSeasons gameSeason = GameSeasons.Spring;
         public bool gameClockPause, isCombat;
         private float tikTime;
-        private int combatTime;
+        //private int combatTime;
         public TimeSpan currentGameTime => new (gameHours, gameMinutes, gameSeconds);
         protected override void Awake()
         {
             base.Awake();
             NewGameTime();
         }
-
         private void Start()
         {
             EventHandler.CallGameHourEvent(gameHours);
@@ -38,16 +37,16 @@ namespace TXDCL.Time
                 }
             }
 
-            if (isCombat)
-            {
-                combatTime++;
-                if (combatTime >= Settings.combatTimeModifier)
-                {
-                    combatTime = 0;
-                    UpdateGameTime();
-                    return;
-                }
-            }
+            // if (isCombat)
+            // {
+            //     combatTime++;
+            //     if (combatTime >= Settings.combatTimeModifier)
+            //     {
+            //         combatTime = 0;
+            //         UpdateGameTime();
+            //         return;
+            //     }
+            // }
 
             UpdateGameTime();
         }
@@ -60,7 +59,7 @@ namespace TXDCL.Time
             gameDay = 1;
             gameMonth = 1;
             gameYear = 1;
-            combatTime = 0;
+            //combatTime = 0;
             gameSeason = GameSeasons.Spring;
             gameClockPause = false;
             isCombat = false;

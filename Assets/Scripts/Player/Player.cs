@@ -12,8 +12,6 @@ namespace TXDCL.Character
     {
         private PlayerController playerController;
         private Vector2 inputDirection;
-        [SerializeField] private List<FaShuData> currentFaShuList = new();
-        [SerializeField] private List<FaShuData> PotentialFaShuList = new();
         private FaShuData currentSelectingFaShu;
         private bool isCombating;
         protected override void Awake()
@@ -42,19 +40,6 @@ namespace TXDCL.Character
 
 
         }
-
-        private void OnCharacterTurnBeginEvent(CharacterBase character)
-        {
-            if (character == this)
-            {
-                InputEnable();
-            }
-            else
-            {
-                InputDisable();
-            }
-        }
-
         private void OnDisable()
         {
             InputDisable();
@@ -83,6 +68,17 @@ namespace TXDCL.Character
             isCombating = true;
             GetComponent<BoxCollider2D>().isTrigger = true;
         }
+        private void OnCharacterTurnBeginEvent(CharacterBase character)
+        {
+            if (character == this)
+            {
+                InputEnable();
+            }
+            else
+            {
+                InputDisable();
+            }
+        }
 
         private void Update()
         {
@@ -102,17 +98,16 @@ namespace TXDCL.Character
             SetPlayerFacingDirection(inputDirection.x);
             //移动
             var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
-            isMoving = velocity != Vector2.zero;
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
-                GetComponent<Rigidbody2D>().linearVelocity = velocity * math.sqrt(2) / 2;
+                rigidBody2D.linearVelocity = velocity * math.sqrt(2) / 2;
             }
-            GetComponent<Rigidbody2D>().linearVelocity = velocity;
+            rigidBody2D.linearVelocity = velocity;
         }
 
         private void SwitchAnimation()
         {
-            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isMoving", inputDirection != Vector2.zero);
         }
 
         private void InputEnable()

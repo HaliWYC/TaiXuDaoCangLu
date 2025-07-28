@@ -8,8 +8,8 @@ namespace TXDCL.XiuLian.GongFa
     {
         public string Name;
         public Sprite GongFaIcon;
-        public MiniQuality MiniQuality;
-        public QualityType QualityType;
+        public MiniRarity MiniRarity;
+        public Rarity Rarity;
         [TextArea]
         public string Description;
         

@@ -6,7 +6,9 @@ namespace TXDCL.Character
     [CreateAssetMenu(fileName = "CharacterData", menuName = "Character/CharacterData")]
     public class CharacterData : ScriptableObject
     {
-        [Header("Basic Information")] public string characterName; //角色名字
+        [Header("Basic Information")] 
+        public string characterName; //角色名字
+        public Sprite characterSprite;
         public int currentAge; //年龄
         public int maxAge; //寿元
         public int currentExp; //当前经验
@@ -16,7 +18,9 @@ namespace TXDCL.Character
         [Header("Basic Combat")] 
         public int currentHealth; //当前气血
         public int maxHealth; //最大气血
-        public int currentMana;//释放法术所消耗资源
+        public int currentStamina;//当前体力，体力用于释放近战法术
+        public int maxStamina;//最大体力
+        public int currentMana;//当前发力释放法术所消耗资源
         public int maxMana;//最大法力
         public int Attack; //攻击
         public int Reaction;//反应
@@ -37,8 +41,8 @@ namespace TXDCL.Character
         [Range(0f, 1f)] public float EarthLingGen;//厚土灵根
 
         [Header("Shenshi")] 
-        public int ShenShi;//神识
-        public int ShenShiStrength;//最大神识
+        public int ShenShi;//神识会按一定比例在每回合转化为精神力
+        public int ShenShiStrength;//神识强度：最大神识
         public int JingShenLi;//释放神识行动所消耗资源
 
         public void AddProperty(Property property)
@@ -83,9 +87,6 @@ namespace TXDCL.Character
                     break;
                 case PropertyType.EarthLingGen:
                     EarthLingGen += property.value;
-                    break;
-                case PropertyType.ShenShi:
-                    ShenShi += (int)property.value;
                     break;
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength += (int)property.value;
@@ -136,9 +137,6 @@ namespace TXDCL.Character
                     break;
                 case PropertyType.EarthLingGen:
                     EarthLingGen -= property.value;
-                    break;
-                case PropertyType.ShenShi:
-                    ShenShi -= (int)property.value;
                     break;
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength -= (int)property.value;

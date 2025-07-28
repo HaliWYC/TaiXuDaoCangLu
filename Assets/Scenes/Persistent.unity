@@ -581,7 +581,7 @@ MonoBehaviour:
   Composition:
     ScreenPosition: {x: 0, y: 0}
     DeadZone:
-      Enabled: 1
+      Enabled: 0
       Size: {x: 0.2, y: 0.2}
     HardLimits:
       Enabled: 0
@@ -788,10 +788,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   templateData: {fileID: 11400000, guid: 519f954ae32834b0a97c9d04d791afca, type: 2}
   CharacterData: {fileID: 0}
+  EquipmentData:
+    MainWeapon: {fileID: 0}
+    SubWeapon: {fileID: 0}
+    Cloth: {fileID: 0}
+    FirstAccessory: {fileID: 0}
+    SecondAccessory: {fileID: 0}
+    Mount: {fileID: 0}
   animator: {fileID: 725224792}
   Enemies: []
-  Effects: []
+  TemporaryEffects: []
+  PermanentEffects: []
   isMoving: 0
+  isZouHuoRuMo: 0
   isShenShiHuanSan: 0
   isJingjieFirmed: 1
   currentFaShuList:
@@ -1172,6 +1181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 670082187}
+  Player: {fileID: 725224789}
 --- !u!1 &1686691266
 GameObject:
   m_ObjectHideFlags: 0

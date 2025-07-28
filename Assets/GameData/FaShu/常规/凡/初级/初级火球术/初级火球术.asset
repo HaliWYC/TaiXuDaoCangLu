@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\u521D\u7EA7\u706B\u7403\u672F"
   ID: 0
-  FaShuIcon: {fileID: 0}
-  MiniQuality: 0
-  QualityType: 1
+  FaShuIcon: {fileID: 3755067282937903822, guid: 22edb9c1d6f2807409ea83b6f893b2c0, type: 3}
+  MiniRarity: 0
+  Rarity: 1
   Description: 
   FaShuType: 0
   FaShuTarget: 3
@@ -27,17 +27,17 @@ MonoBehaviour:
   CurrentCoolDownTime: 0
   MaxCoolDownTime: 0
   ReleaseRange: 4
-  Range: 1
+  Range: 0
+  HealthCost: 0
+  StaminaCost: 0
   ManaCost: 5
-  MetalCost: 0
-  WoodCost: 0
-  WaterCost: 0
-  FireCost: 2
-  EarthCost: 0
+  JingShenLiCost: 0
+  DaoCangCosts:
+  - Wuxing:
+      currentWuXing: 3
+    DaoCang: 2
   SameCost: 0
   DifCost: 0
-  HealthCost: 0
-  JingShenLiCost: 0
   EffectDatas:
   - {fileID: 11400000, guid: 26d59076dc72144df8ebc6d5087cec65, type: 2}
   LowerShenTongData: {fileID: 0}

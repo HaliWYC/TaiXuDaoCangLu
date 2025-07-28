@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace TXDCL.Character
 {
+    [DefaultExecutionOrder(-1)]
     public class CharacterManager : Singleton<CharacterManager>
     {
         private Dictionary<string, Jingjie> JingjieDataList = new();
         [SerializeField] private TextAsset JingjieTextAsset;
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -35,12 +36,13 @@ namespace TXDCL.Character
                 jingjieData.NextEXP = int.Parse(value[2].Trim());
                 jingjieData.MaxAge = int.Parse(value[3].Trim());
                 jingjieData.MaxHealth = int.Parse(value[4].Trim());
-                jingjieData.MaxMana = int.Parse(value[5].Trim());
-                jingjieData.Attack = int.Parse(value[6].Trim());
-                jingjieData.Reaction = int.Parse(value[7].Trim());
-                jingjieData.MaxMovementPerTurn = int.Parse(value[8].Trim());
-                jingjieData.ShenShiStrength = int.Parse(value[9].Trim());
-                jingjieData.MaxDaocangPerTurn = int.Parse(value[10].Trim());
+                jingjieData.MaxStamina = int.Parse(value[5].Trim());
+                jingjieData.MaxMana = int.Parse(value[6].Trim());
+                jingjieData.Attack = int.Parse(value[7].Trim());
+                jingjieData.Reaction = int.Parse(value[8].Trim());
+                jingjieData.MaxMovementPerTurn = int.Parse(value[9].Trim());
+                jingjieData.ShenShiStrength = int.Parse(value[10].Trim());
+                jingjieData.MaxDaocangPerTurn = int.Parse(value[11].Trim());
                 var jingjie = new Jingjie
                     { miniJingjieLevel = miniJingjieLevel, JingjieLevel = jingjieLevel, JingjieData = jingjieData };
                 if (GetJingjie(key) != null)

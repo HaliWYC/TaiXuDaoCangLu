@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\u57F9\u5143\u529F"
   GongFaIcon: {fileID: 0}
-  MiniQuality: 0
-  QualityType: 1
+  MiniRarity: 0
+  Rarity: 1
   Description: 
   GongFaType: 0
   BasicXiuLianSpeed: 100
   AdditionalXiuLianSpeed: 1.2
   MiniJingjie: 0
   Jingjie: 2
-  ShuXing: 10
+  ShuXing: 12
   PropertyList:
   - propertyType: 3
-    value: 5
+    value: 1
   LowerGongFaData: {fileID: 0}
   UpperGongFaData: {fileID: 0}

@@ -27,7 +27,7 @@ namespace TXDCL.Effect
         public override void OnEffectExecute()
         {
             if(target == null) return;
-                target.TakeDamage(from.CharacterData, target.CharacterData, (int)currentValue);
+            target.TakeDamage(from.CharacterData, target.CharacterData, (int)currentValue + from.CharacterData.Attack);
         }
 
         public override void OnEffectEnd(CharacterBase currentTarget)
