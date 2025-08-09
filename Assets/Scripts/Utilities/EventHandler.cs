@@ -70,10 +70,10 @@ public static class  EventHandler
     {
         CharacterTurnBeginEvent?.Invoke(character);
     }
-    public static event Action<CharacterBase> CharacterTurnEndEvent;
-    public static void CallCharacterTurnEndEvent(CharacterBase character)
+    public static event Action CharacterTurnEndEvent;
+    public static void CallCharacterTurnEndEvent()
     {
-        CharacterTurnEndEvent?.Invoke(character);
+        CharacterTurnEndEvent?.Invoke();
     }
 
     #endregion

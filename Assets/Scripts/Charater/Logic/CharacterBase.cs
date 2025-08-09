@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using TXDCL.XiuLian.GongFa;
@@ -15,64 +16,86 @@ namespace TXDCL.Character
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterBase : MonoBehaviour
     {
-        public CharacterData templateData;
+        [Header("CharacterData")]
+        [SerializeField] private CharacterData templateData;
         public CharacterData CharacterData;
         public CharacterEquipmentData EquipmentData;//装备属性
-        private GongFaProcessor gongFaProcessor=>GetComponent<GongFaProcessor>(); 
-        public List<FaShuData> currentFaShuList = new();
-        public List<FaShuData> PotentialFaShuList = new();
-        public Animator animator;
-        public List<CharacterBase> Enemies = new();
-        public List<EffectData> TemporaryEffects;//暂时性效果如战斗中即战斗后持续状态
-        public List<EffectData> PermanentEffects;//永久性效果如天赋、能力等
-        public bool isMoving;
-        private float faceDirection;
-        protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
-        private int previousYear = 1;
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
             : null;
+        [Header("FaShu&GongFa")]
+        private GongFaProcessor gongFaProcessor=>GetComponent<GongFaProcessor>(); 
+        public List<FaShuData> currentFaShuList = new();
+        [SerializeField] private List<FaShuData> tempFaShuList = new();
+        public List<FaShuData> PotentialFaShuList = new();
+        [Header("Components")]
+        public Animator animator;
+        private float faceDirection;
+        protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
         [Header("Bools")] 
+        public bool isMoving;
         public bool isZouHuoRuMo;//是否走火入魔
-        public bool isShenShiHuanSan = false; //是否神识涣散,神识涣散状态将减少40%命中率
+        public bool isShenShiHuanSan;//是否神识涣散,神识涣散状态将减少40%命中率
         //public bool isCombating;//是否处于战斗状态
         public bool isJingjieFirmed = true;//境界是否稳固,未稳固将减少40%命中率
+        [Header("Combat")]
+        public CharacterType characterType;
+        private int previousYear = 1;
+        public List<CharacterBase> Enemies = new();
         
         protected virtual void Awake()
         {
             if (templateData == null) return;
             CharacterData = Instantiate(templateData);
             gongFaProcessor.characterData = CharacterData;
+            currentFaShuList.Clear();
+            foreach (var FaShu in tempFaShuList)
+            {
+                currentFaShuList.Add(Instantiate(FaShu));
+            }
         }
 
         private void OnEnable()
         {
             EventHandler.GameDateEvent += OnGameDateEvent;
-            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBegin;
+            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
+            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
         }
-        
-
         private void OnDisable()
         {
             EventHandler.GameDateEvent -= OnGameDateEvent;
-            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBegin;
+            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
+            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
         }
+
         private void OnGameDateEvent(int day, int month, int year)
         {
             CharacterData.currentAge += year - previousYear;
             previousYear = year;
         }
-        private void OnCharacterTurnBegin(CharacterBase character)
+        protected virtual void OnCombatBeginEvent()
+        {
+            ResetFaShuCoolDown_PrepareTurns();
+        }
+        protected void OnCharacterTurnBeginEvent(CharacterBase character)
         {
             if(character != this) return;
-                UpdateEffectList();
+            CharacterData.JingShenLi = CharacterData.ShenShi / 100;
+            CharacterData.currentStamina =
+                Mathf.Min(CharacterData.currentStamina + (int)(CharacterData.maxStamina * 0.05f),
+                    CharacterData.maxStamina);
+            foreach (var fashu in currentFaShuList)
+            {
+                fashu.CurrentCoolDownTime--;
+            }
+            DistributeDaoCangs();
+            UpdateEffectList();
         }
 
         private void Start()
         {
             UpdateLevel();
             ResetValue();
-            
         }
 
         #region Combat
@@ -195,18 +218,63 @@ namespace TXDCL.Character
 
         private void UpdateEffectList()
         {
-            for (var i = 0; i < TemporaryEffects.Count; i++)
+            for (var i = 0; i < CharacterData.TemporaryEffects.Count; i++)
             {
-                if (TemporaryEffects[i].effectDuration != EffectDuration.Sustainable) return;
-                TemporaryEffects[i].round--;
-                if ( TemporaryEffects[i].round <= 0)
+                if (CharacterData.TemporaryEffects[i].effectDuration != EffectDuration.Sustainable) return;
+                CharacterData.TemporaryEffects[i].round--;
+                if (CharacterData.TemporaryEffects[i].round <= 0)
                 {
-                    TemporaryEffects[i].OnEffectEnd(this);
-                    TemporaryEffects.RemoveAt(i);
+                    CharacterData.TemporaryEffects[i].OnEffectEnd(this);
+                    CharacterData.TemporaryEffects.RemoveAt(i);
                     i--;
                     break;
                 }
-                TemporaryEffects[i].OnEffectExecute();
+                CharacterData.TemporaryEffects[i].OnEffectExecute();
+            }
+        }
+
+        private void DistributeDaoCangs()
+        {
+            var modifier = 1f / (CharacterData.MetalLingGen + CharacterData.WoodLingGen + CharacterData.WaterLingGen +
+                                   CharacterData.FireLingGen + CharacterData.EarthLingGen);
+            var totalDaoCang = CharacterData.maxDaocangPerTurn;
+            var LingGens = new[]
+            {
+                CharacterData.MetalLingGen * modifier,
+                CharacterData.WoodLingGen * modifier,
+                CharacterData.WaterLingGen * modifier,
+                CharacterData.FireLingGen * modifier,
+                CharacterData.EarthLingGen * modifier
+            };
+            var DaoCangs = new List<int> { 0, 0, 0, 0, 0 };
+            while (totalDaoCang > 0)
+            {
+                var value = Random.Range(0f, 1f);
+                for (var i = 0; i < LingGens.Length; i++)
+                {
+                    value-= LingGens[i];
+                    if (!(value < 0)) continue;
+                    DaoCangs[i] += 1;
+                    totalDaoCang -= 1;
+                    break;
+                }
+            }
+            CharacterData.currentMetalDaocang = DaoCangs[0];
+            CharacterData.currentWoodDaocang = DaoCangs[1];
+            CharacterData.currentWaterDaocang = DaoCangs[2];
+            CharacterData.currentFireDaocang = DaoCangs[3];
+            CharacterData.currentEarthDaocang = DaoCangs[4];
+        }
+
+        /// <summary>
+        /// 重置法术冷却以及准备回合
+        /// </summary>
+        public void ResetFaShuCoolDown_PrepareTurns()
+        {
+            foreach (var fashu in currentFaShuList)
+            {
+                fashu.CurrentCoolDownTime = 0;
+                fashu.currentPrepareTurns = 0;
             }
         }
     }

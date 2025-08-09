@@ -795,6 +795,10 @@ MonoBehaviour:
     FirstAccessory: {fileID: 0}
     SecondAccessory: {fileID: 0}
     Mount: {fileID: 0}
+  currentFaShuList: []
+  tempFaShuList:
+  - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
+  PotentialFaShuList: []
   animator: {fileID: 725224792}
   Enemies: []
   TemporaryEffects: []
@@ -803,9 +807,6 @@ MonoBehaviour:
   isZouHuoRuMo: 0
   isShenShiHuanSan: 0
   isJingjieFirmed: 1
-  currentFaShuList:
-  - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
-  PotentialFaShuList: []
 --- !u!212 &725224790
 SpriteRenderer:
   m_ObjectHideFlags: 0

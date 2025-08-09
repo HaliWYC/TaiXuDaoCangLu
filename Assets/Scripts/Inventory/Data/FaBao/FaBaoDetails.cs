@@ -8,6 +8,9 @@ namespace TXDCL.Inventory
     public class FaBaoDetails : ItemDetails
     {
         public FaBaoType faBaoType;
+        public float currentEndurance;
+        public float maxEndurance;
+        public bool ConstantEndurance;
         public List<Property> properties;
         public List<EffectData> effects;
     }

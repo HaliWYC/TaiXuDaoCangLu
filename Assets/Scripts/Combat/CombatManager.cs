@@ -9,10 +9,12 @@ namespace TXDCL.Combat
 {
     public class CombatManager : Singleton<CombatManager>
     {
-        public Dictionary<CharacterBase, int> CharacterTurnProgressDict = new();
+        private readonly Dictionary<CharacterBase, int> CharacterTurnProgressDict = new();
         // public CharacterBase player;
-        public bool isCharacterTurnActive = false;
+        public bool isCharacterTurnActive;
         public List<CharacterBase> CharactersInCombat = new();
+        public List<CharacterBase> PlayerSides;
+        public List<CharacterBase> EnemySides;
 
         private float turnProgressModifier = 0;
 
@@ -59,17 +61,36 @@ namespace TXDCL.Combat
                 EventHandler.CallCharacterTurnBeginEvent(character);
             }
         }
+        public void RegisterPlayerSide(CharacterBase character)
+        {
+            PlayerSides.Add(character);
+        }
+        public void RegisterEnemySide(CharacterBase character)
+        {
+            EnemySides.Add(character);
+        }
+
+        private void RegisterCharacterInCombat()
+        {
+            foreach (var character in PlayerSides.Where(character => !CharactersInCombat.Contains(character)))
+            {
+                CharactersInCombat.Add(character);
+            }
+        }
+        
         [ContextMenu("Combat Begin")]
         private void CombatBegin()
         {
             CharacterTurnProgressDict.Clear();
+            PlayerSides.Clear();
+            EnemySides.Clear();
             EventHandler.CallCombatBeginEvent();
             EventHandler.CallNewCharactersEnterCombatEvent(null);
         }
-
         private float GetTurnProgressModifier()
         {
             return 500f / Mathf.Max(CharactersInCombat.Select(c => c.CharacterData.Reaction).ToArray());
         }
+        
     }
 }

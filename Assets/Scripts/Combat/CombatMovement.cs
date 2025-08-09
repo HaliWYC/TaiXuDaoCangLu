@@ -38,7 +38,7 @@ namespace TXDCL.Combat
             if (movementSteps.Count <= 0)
             {
                 CombatGridManager.Instance.DisplayCharactersMovementPath();
-                CombatUI.Instance.FadeCombatPanel(1f,true);
+                CombatUI.Instance.FadeCombatPanel(1f);
                 character.isMoving = false;
                 return;
             }

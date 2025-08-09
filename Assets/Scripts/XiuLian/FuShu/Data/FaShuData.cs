@@ -22,7 +22,6 @@ namespace TXDCL.XiuLian.FuShu
         //神通是极强的法术，一般伴随着大量消耗和特殊释放条件
         public FaShuType FaShuType;//法术类型，如常规法术、神识法术、密术、神通等
         public FaShuTarget FaShuTarget;//法术目标，如自身、敌人、友军,任意等
-        // public FaShuRange FaShuRange;//法术范围，如单体、范围、群体等
         public FaShuDuration FaShuDuration;//法术持续，如单次、持续(可在下个回合主动停止，否则再次消耗道藏)等
         public ShuXing ShuXing;//法术属性，如五行、魔道等
         
@@ -38,15 +37,10 @@ namespace TXDCL.XiuLian.FuShu
         public int ManaCost;//法力消耗
         public int JingShenLiCost;//精神力消耗
         public List<WuxingDaoCang> DaoCangCosts;//道藏消耗
-        // public WuxingDaoCang MetalCost;//锐金道藏消耗
-        // public WuxingDaoCang WoodCost;//灵木道藏消耗
-        // public WuxingDaoCang WaterCost;//弱水道藏消耗
-        // public WuxingDaoCang FireCost;//离火道藏消耗
-        // public WuxingDaoCang EarthCost;//厚土道藏消耗
         public int SameCost;//相同道藏消耗
-        public int DifCost;//不同道藏消耗
-        //TODO:法术效果将用Buff形式展现
-        public List<EffectData> EffectDatas;
+        public List<EffectData> BasicEffectDatas;//法术基础效果
+        public List<EffectData> PromotionEffectDatas;//法术使用道藏为相生时额外附带效果
+        public List<EffectData> CounterEffectDatas;//法术使用道藏为相克时额外附带效果
         //public List<FaShuData> FaShuList = new List<FaShuData>();
         //TODO:增加施法条件
         //TODO：触发退化和进化条件需要写成泛型

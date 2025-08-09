@@ -20,7 +20,7 @@ MonoBehaviour:
   nextExp: 0
   Jingjie:
     miniJingjieLevel: 4
-    JingjieLevel: 0
+    JingjieLevel: 3
     JingjieData: {fileID: 0}
   currentHealth: 0
   maxHealth: 20
@@ -39,11 +39,11 @@ MonoBehaviour:
   currentWaterDaocang: 0
   currentFireDaocang: 0
   currentEarthDaocang: 0
-  MetalLingGen: 0
-  WoodLingGen: 0
-  WaterLingGen: 0
-  FireLingGen: 0
-  EarthLingGen: 0
+  MetalLingGen: 20
+  WoodLingGen: 20
+  WaterLingGen: 20
+  FireLingGen: 20
+  EarthLingGen: 20
   ShenShi: 0
   ShenShiStrength: 0
   JingShenLi: 0

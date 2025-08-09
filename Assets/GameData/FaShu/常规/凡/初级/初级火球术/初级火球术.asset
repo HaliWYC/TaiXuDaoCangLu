@@ -37,8 +37,9 @@ MonoBehaviour:
       currentWuXing: 3
     DaoCang: 2
   SameCost: 0
-  DifCost: 0
-  EffectDatas:
+  BasicEffectDatas:
   - {fileID: 11400000, guid: 26d59076dc72144df8ebc6d5087cec65, type: 2}
+  PromotionEffectDatas: []
+  CounterEffectDatas: []
   LowerShenTongData: {fileID: 0}
   UpperShenTongData: {fileID: 0}

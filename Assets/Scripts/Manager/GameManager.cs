@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using DG.Tweening;
@@ -8,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private CinemachineCamera gameCamera;
     private float gameCameraLenSize;
     public CharacterBase Player;
-
+    
     protected override void Awake()
     {
         base.Awake();

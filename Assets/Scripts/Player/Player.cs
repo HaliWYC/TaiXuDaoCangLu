@@ -37,8 +37,6 @@ namespace TXDCL.Character
             EventHandler.MoveToPositionEvent += OnMoveToPositionEvent;
             EventHandler.CombatBeginEvent += OnCombatBeginEvent;
             EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
-
-
         }
         private void OnDisable()
         {
@@ -62,24 +60,13 @@ namespace TXDCL.Character
         {
             transform.position = position;
         }
-        
-        private void OnCombatBeginEvent()
+
+        protected override void OnCombatBeginEvent()
         {
+            base.OnCombatBeginEvent();
             isCombating = true;
             GetComponent<BoxCollider2D>().isTrigger = true;
         }
-        private void OnCharacterTurnBeginEvent(CharacterBase character)
-        {
-            if (character == this)
-            {
-                InputEnable();
-            }
-            else
-            {
-                InputDisable();
-            }
-        }
-
         private void Update()
         {
             inputDirection = playerController.Gameplay.Move.ReadValue<Vector2>();
@@ -98,6 +85,7 @@ namespace TXDCL.Character
             SetPlayerFacingDirection(inputDirection.x);
             //移动
             var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
+            isMoving = velocity.magnitude > 0;
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
                 rigidBody2D.linearVelocity = velocity * math.sqrt(2) / 2;
@@ -107,9 +95,8 @@ namespace TXDCL.Character
 
         private void SwitchAnimation()
         {
-            animator.SetBool("isMoving", inputDirection != Vector2.zero);
+            animator.SetBool("isMoving", isMoving);
         }
-
         private void InputEnable()
         {
             playerController.Enable();
@@ -122,22 +109,7 @@ namespace TXDCL.Character
         {
             //TODO:制作攻击的UI选择
             var index = Convert.ToInt32(FaShu.action.name[5].ToString());
-            if (currentFaShuList.Count <= index || CombatGridManager.Instance.currentCharacter != this) return;
-            if (currentSelectingFaShu != currentFaShuList[index] || !CursorManager.Instance.isCastingFaShu)
-            {
-                currentSelectingFaShu = currentFaShuList[index];
-                GameManager.Instance.SetGameCameraLenInGridSize(currentSelectingFaShu.ReleaseRange);
-                CombatGridManager.Instance.DisplayFaShuReleasePath(currentSelectingFaShu);
-                CursorManager.Instance.isCastingFaShu = true;
-            }
-            else
-            {
-                GameManager.Instance.ResetGameCameraLenInGridSize();
-                CombatGridManager.Instance.ClearPotentialTiles();
-                CombatGridManager.Instance.DisplayCharactersMovementPath();
-                CursorManager.Instance.isCastingFaShu = false;
-            }
-            CursorManager.Instance.isConfirm = false;
+            CombatUI.Instance.FaShuPanelUI.SelectFaShuSlot(index);
         }
     }
 }

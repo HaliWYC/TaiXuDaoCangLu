@@ -56,10 +56,6 @@ public enum FaShuTarget//法术释放目标
 {
     Self,Enemy,Ally,Any
 }
-// public enum FaShuRange//法术释放范围
-// {
-//     Single,Range,All
-// }
 
 public enum FaShuDuration//法术施法时间，如单次释放或需要持续施法
 {
@@ -74,11 +70,6 @@ public enum EffectTarget
 {
     Self,Enemy,Ally,Any
 }
-//
-// public enum EffectRange
-// {
-//     Single,Range,All
-// }
 public enum EffectDuration
 {
     Once,Sustainable,Permanent
@@ -145,6 +136,14 @@ public enum PlaceType
 
 #endregion
 
+#region Combat
+
+public enum CharacterType
+{
+    Player, PlayerSide, EnemySide, Neutral
+}
+
+#endregion
 public enum GameSeasons
 {
     Spring,Summer,Autumn,Winter

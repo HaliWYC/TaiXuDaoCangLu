@@ -6,14 +6,16 @@ public class CombatUI : Singleton<CombatUI>
 {
     public CanvasGroup canvasGroup;
     public CharacterStats CharacterStatsPanel;
-    public FaShuPanelUI FaShuPanel;
+    public FaShuPanelUI FaShuPanelUI;
     private void OnEnable()
     {
         EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+        EventHandler.CharacterTurnEndEvent += OnCharacterTurnEndEvent;
     }
     private void OnDisable()
     {
         EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
+        EventHandler.CharacterTurnEndEvent -= OnCharacterTurnEndEvent;
     }
     
     private void OnCharacterTurnBeginEvent(CharacterBase character)
@@ -21,18 +23,24 @@ public class CombatUI : Singleton<CombatUI>
         if (character != GameManager.Instance.Player)
         {
             CharacterStatsPanel.gameObject.SetActive(false);
-            FaShuPanel.gameObject.SetActive(false);
+            FaShuPanelUI.gameObject.SetActive(false);
             return;
         }
         CharacterStatsPanel.gameObject.SetActive(true);
-        FaShuPanel.gameObject.SetActive(true);
+        FaShuPanelUI.gameObject.SetActive(true);
         CharacterStatsPanel.UpdateCharacterStats(character.CharacterData);
-        FaShuPanel.SetUpFaShuSlots(character.currentFaShuList);
+        FaShuPanelUI.SetUpFaShuSlots(character);
+        DaoCangPanelUI.Instance.InitializeDaoCangPanel(character);
+    }
+    
+    private void OnCharacterTurnEndEvent()
+    {
+        CharacterStatsPanel.gameObject.SetActive(false);
+        FaShuPanelUI.gameObject.SetActive(false);
     }
 
-    public void FadeCombatPanel(float alpha, bool blockcast)
+    public void FadeCombatPanel(float alpha)
     {
         canvasGroup.alpha = alpha;
-        canvasGroup.blocksRaycasts = blockcast;
     }
 }

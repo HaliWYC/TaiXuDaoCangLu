@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using TXDCL.Effect;
 using UnityEngine;
 
 namespace TXDCL.Character
@@ -22,28 +24,36 @@ namespace TXDCL.Character
         public int maxStamina;//最大体力
         public int currentMana;//当前发力释放法术所消耗资源
         public int maxMana;//最大法力
+        public int currentDanDu;//当前丹毒,丹毒超过一定比例会获得Debuff
+        public int maxDanDu;//最大丹毒
+        public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff
+        public int maxShaQi;//最大煞气
         public int Attack; //攻击
         public int Reaction;//反应
         public int Speed;//速度
         public int currentMovement;//当前剩余移动力
         public int maxMovementPerTurn; //每回合行动力
 
-        [Header("Daocang")] public int maxDaocangPerTurn; //每回合总道藏
+        [Header("Daocang")] 
+        public int maxDaocangPerTurn; //每回合总道藏
         public int currentMetalDaocang;//当前剩余锐金道藏
         public int currentWoodDaocang;//当前剩余灵木道藏
         public int currentWaterDaocang;//当前剩余弱水道藏
         public int currentFireDaocang;//当前剩余离火道藏
         public int currentEarthDaocang;//当前剩余厚土道藏
-        [Range(0f, 1f)] public float MetalLingGen;//锐金灵根
-        [Range(0f, 1f)] public float WoodLingGen;//灵木灵根
-        [Range(0f, 1f)] public float WaterLingGen;//弱水灵根
-        [Range(0f, 1f)] public float FireLingGen;//离火灵根
-        [Range(0f, 1f)] public float EarthLingGen;//厚土灵根
+        public int MetalLingGen;//锐金灵根
+        public int WoodLingGen;//灵木灵根
+        public int WaterLingGen;//弱水灵根
+        public int FireLingGen;//离火灵根
+        public int EarthLingGen;//厚土灵根
 
         [Header("Shenshi")] 
         public int ShenShi;//神识会按一定比例在每回合转化为精神力
         public int ShenShiStrength;//神识强度：最大神识
         public int JingShenLi;//释放神识行动所消耗资源
+        
+        public List<EffectData> TemporaryEffects;//暂时性效果如战斗中即战斗后持续状态
+        public List<EffectData> PermanentEffects;//永久性效果如天赋、能力等
 
         public void AddProperty(Property property)
         {
@@ -74,19 +84,19 @@ namespace TXDCL.Character
                     maxDaocangPerTurn += (int)property.value;
                     break;
                 case PropertyType.MetalLingGen:
-                    MetalLingGen += property.value;
+                    MetalLingGen += (int)property.value;
                     break;
                 case PropertyType.WoodLingGen:
-                    WoodLingGen += property.value;
+                    WoodLingGen += (int)property.value;
                     break;
                 case PropertyType.WaterLingGen:
-                    WaterLingGen += property.value;
+                    WaterLingGen += (int)property.value;
                     break;
                 case PropertyType.FireLingGen:
-                    FireLingGen += property.value;
+                    FireLingGen += (int)property.value;
                     break;
                 case PropertyType.EarthLingGen:
-                    EarthLingGen += property.value;
+                    EarthLingGen += (int)property.value;
                     break;
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength += (int)property.value;
@@ -124,19 +134,19 @@ namespace TXDCL.Character
                     maxDaocangPerTurn -= (int)property.value;
                     break;
                 case PropertyType.MetalLingGen:
-                    MetalLingGen -= property.value;
+                    MetalLingGen -= (int)property.value;
                     break;
                 case PropertyType.WoodLingGen:
-                    WoodLingGen -= property.value;
+                    WoodLingGen -= (int)property.value;
                     break;
                 case PropertyType.WaterLingGen:
-                    WaterLingGen -= property.value;
+                    WaterLingGen -= (int)property.value;
                     break;
                 case PropertyType.FireLingGen:
-                    FireLingGen -= property.value;
+                    FireLingGen -= (int)property.value;
                     break;
                 case PropertyType.EarthLingGen:
-                    EarthLingGen -= property.value;
+                    EarthLingGen -= (int)property.value;
                     break;
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength -= (int)property.value;

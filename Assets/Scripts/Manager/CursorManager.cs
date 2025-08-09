@@ -1,5 +1,6 @@
 using TXDCL.Combat;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CursorManager : Singleton<CursorManager>
 {
@@ -38,7 +39,12 @@ public class CursorManager : Singleton<CursorManager>
         if (!cursorEnable) return;
         if (!isSelecting) return;
         CheckCursorValid();
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CombatGridManager.Instance.DisplayCharactersMovementPath();
+            DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
+        }
+        if (!Input.GetMouseButtonDown(0) || InteractWithUI()) return;
         if (isCastingFaShu)
         {
             if (isConfirm)
@@ -72,5 +78,14 @@ public class CursorManager : Singleton<CursorManager>
     {
         //移动
         CombatGridManager.Instance.CheckInConfirmMovementPath((Vector2Int)mouseGridPos);
+    }
+
+    /// <summary>
+    /// 是否与UI互动
+    /// </summary>
+    /// <returns></returns>
+    public bool InteractWithUI()
+    {
+        return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
     }
 }
