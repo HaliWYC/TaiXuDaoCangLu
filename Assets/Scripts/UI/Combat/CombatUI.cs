@@ -33,7 +33,7 @@ public class CombatUI : Singleton<CombatUI>
         DaoCangPanelUI.Instance.InitializeDaoCangPanel(character);
     }
     
-    private void OnCharacterTurnEndEvent()
+    private void OnCharacterTurnEndEvent(CharacterBase character)
     {
         CharacterStatsPanel.gameObject.SetActive(false);
         FaShuPanelUI.gameObject.SetActive(false);

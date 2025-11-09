@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TXDCL.Inventory;
 using UnityEngine;
 

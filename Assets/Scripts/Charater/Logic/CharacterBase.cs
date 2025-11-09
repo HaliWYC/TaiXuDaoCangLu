@@ -23,25 +23,30 @@ namespace TXDCL.Character
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
             : null;
-        [Header("FaShu&GongFa")]
-        private GongFaProcessor gongFaProcessor=>GetComponent<GongFaProcessor>(); 
-        public List<FaShuData> currentFaShuList = new();
-        [SerializeField] private List<FaShuData> tempFaShuList = new();
-        public List<FaShuData> PotentialFaShuList = new();
+
+        [Header("FaShu&GongFa")] 
+        protected GongFaProcessor gongFaProcessor => GetComponent<GongFaProcessor>();
+        public readonly List<FaShuData> currentFaShuList = new();//不可编辑的装备上的法术列表，只用于法术的调用
+        [SerializeField] private List<FaShuData> tempFaShuList = new();//可编辑的装备上的法术列表，用于初始化角色法术列表
+        public List<FaShuData> PotentialFaShuList = new();//习得的所有法术
         [Header("Components")]
         public Animator animator;
         private float faceDirection;
         protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
         [Header("Bools")] 
-        public bool isMoving;
+        public bool isMoving;//是否正在移动
+        public bool isHurt;//是否受伤
+        public bool isDead;//是否死亡
         public bool isZouHuoRuMo;//是否走火入魔
         public bool isShenShiHuanSan;//是否神识涣散,神识涣散状态将减少40%命中率
         //public bool isCombating;//是否处于战斗状态
-        public bool isJingjieFirmed = true;//境界是否稳固,未稳固将减少40%命中率
-        [Header("Combat")]
-        public CharacterType characterType;
-        private int previousYear = 1;
+        public bool isJingjieUnstable;//境界是否稳固,未稳固将减少40%命中率
+        [Header("Combat")] 
+        public List<CharacterBase> Allies = new();
         public List<CharacterBase> Enemies = new();
+        protected CombatMovement combatMovement => GetComponent<CombatMovement>();
+        private int previousYear = 1;
+        
         
         protected virtual void Awake()
         {
@@ -58,14 +63,14 @@ namespace TXDCL.Character
         private void OnEnable()
         {
             EventHandler.GameDateEvent += OnGameDateEvent;
-            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
-            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
+            //EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
         }
         private void OnDisable()
         {
             EventHandler.GameDateEvent -= OnGameDateEvent;
-            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
-            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
+            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
+            //EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
         }
 
         private void OnGameDateEvent(int day, int month, int year)
@@ -73,17 +78,20 @@ namespace TXDCL.Character
             CharacterData.currentAge += year - previousYear;
             previousYear = year;
         }
-        protected virtual void OnCombatBeginEvent()
+        protected virtual void OnBeforeCombatBeginEvent()
         {
+            Allies.Clear();
+            Enemies.Clear();
             ResetFaShuCoolDown_PrepareTurns();
         }
-        protected void OnCharacterTurnBeginEvent(CharacterBase character)
+        protected virtual void OnCharacterTurnBeginEvent(CharacterBase character)
         {
             if(character != this) return;
             CharacterData.JingShenLi = CharacterData.ShenShi / 100;
             CharacterData.currentStamina =
                 Mathf.Min(CharacterData.currentStamina + (int)(CharacterData.maxStamina * 0.05f),
                     CharacterData.maxStamina);
+            CharacterData.currentMovement = CharacterData.maxMovementPerTurn;
             foreach (var fashu in currentFaShuList)
             {
                 fashu.CurrentCoolDownTime--;
@@ -97,58 +105,50 @@ namespace TXDCL.Character
             UpdateLevel();
             ResetValue();
         }
-
         #region Combat
 
-        public void TakeDamage(CharacterData attacker, CharacterData defender, int damage)
+        public void TakeDamage(CharacterBase attacker, CharacterBase defender, int damage)
         {
             //TODO:结算必定闪避的影响因素，如法术效果为下次攻击必定闪避
             var isDodge = false;
-            if (CheckDodge(attacker.Jingjie.JingjieLevel, defender.Jingjie.JingjieLevel, isDodge)) return;
-            defender.currentHealth = Mathf.Max(0, defender.currentHealth - damage);
+            if (CheckDodge(attacker, defender, isDodge)) return;
+            //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
+            defender.CharacterData.currentHealth = Mathf.Max(0, defender.CharacterData.currentHealth - damage);
+            defender.isHurt = true;
+            if (defender.CharacterData.currentHealth <= 0)
+            {
+                defender.CharacterData.currentHealth = 0;
+                defender.isDead = true;
+            }
+            //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
         }
-
         /// <summary>
         /// 判断攻击是否闪避
         /// </summary>
         /// <param name="attacker"></param>
         /// <param name="defender"></param>
         /// <returns></returns>
-        public bool CheckDodge(JingjieLevel attacker, JingjieLevel defender, bool isDodge)
+        private bool CheckDodge(CharacterBase attacker, CharacterBase defender, bool isDodge)
         {
             if (isDodge)
             {
                 return true;
             }
-            var dif = attacker - defender;//计算境界差
-            var dodgeRate = Random.Range(-0.05f + dif, 0.05f + dif) * 0.5f;//0.05f为修正值，0.5f为每个境界相差命中率
+            var dif = attacker.CharacterData.Jingjie.JingjieLevel - defender.CharacterData.Jingjie.JingjieLevel;//计算大境界差
+            var miniDif = attacker.CharacterData.Jingjie.miniJingjieLevel - defender.CharacterData.Jingjie.miniJingjieLevel;//计算小境界差
+            var accurateRate = Random.Range(-0.05f + dif * 0.5f + miniDif * 0.1f, 0.05f + dif * 0.5f + miniDif * 0.1f);//0.05f为修正值，0.5f为每个大境界相差命中率，0.1f为每个小境界差值
             //如果境界未稳固，则丢失40%命中率
-            if (!isJingjieFirmed)
+            if (attacker.isJingjieUnstable)
             {
-                dodgeRate += 0.4f;
+                accurateRate -= 0.4f;
             }
             //如果神识涣散，则丢失40%命中率
-            if (isShenShiHuanSan)
+            if (attacker.isShenShiHuanSan)
             {
-                dodgeRate += 0.4f;
+                accurateRate -= 0.4f;
             }
-            return Random.Range(0f, 1f) < dodgeRate;
-        }
-
-        public bool CheckDodge()
-        {
-            var dodgeRate = 1f;
-            //如果境界未稳固，则丢失40%命中率
-            if (!isJingjieFirmed)
-            {
-                dodgeRate -= 0.4f;
-            }
-            //如果神识涣散，则丢失40%命中率
-            if (isShenShiHuanSan)
-            {
-                dodgeRate -= 0.4f;
-            }
-            return Random.Range(0f, 1f) > dodgeRate;
+            
+            return Random.Range(0f, 1f) < accurateRate;
         }
         #endregion
 
@@ -158,8 +158,9 @@ namespace TXDCL.Character
 
         public void UpdateLevel()
         {
-            CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
-            var data = CharacterData.Jingjie.JingjieData;
+            var jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
+            if (jingjie == null) return;
+            var data = jingjie.JingjieData;
             CharacterData.nextExp = data.NextEXP;
             CharacterData.maxAge = data.MaxAge;
             CharacterData.maxHealth = data.MaxHealth;
@@ -196,6 +197,7 @@ namespace TXDCL.Character
 
         public void ResetValue()
         {
+            if (CharacterData == null) return;
             CharacterData.currentHealth = CharacterData.maxHealth;
             CharacterData.currentMana = CharacterData.maxMana;
             CharacterData.currentStamina = CharacterData.maxStamina;
@@ -238,6 +240,7 @@ namespace TXDCL.Character
             var modifier = 1f / (CharacterData.MetalLingGen + CharacterData.WoodLingGen + CharacterData.WaterLingGen +
                                    CharacterData.FireLingGen + CharacterData.EarthLingGen);
             var totalDaoCang = CharacterData.maxDaocangPerTurn;
+            if (totalDaoCang <= 0) return;
             var LingGens = new[]
             {
                 CharacterData.MetalLingGen * modifier,
@@ -247,17 +250,21 @@ namespace TXDCL.Character
                 CharacterData.EarthLingGen * modifier
             };
             var DaoCangs = new List<int> { 0, 0, 0, 0, 0 };
-            while (totalDaoCang > 0)
+            //设置最大循环数防止陷入死循环
+            var LoopMaxCount = 0;
+            while (totalDaoCang > 0 && LoopMaxCount < 9999)
             {
                 var value = Random.Range(0f, 1f);
                 for (var i = 0; i < LingGens.Length; i++)
                 {
-                    value-= LingGens[i];
+                    value -= LingGens[i];
                     if (!(value < 0)) continue;
                     DaoCangs[i] += 1;
                     totalDaoCang -= 1;
                     break;
                 }
+                LoopMaxCount++;
+                if(LoopMaxCount >= 9999) Debug.Log("Invalid Daocang Amount");
             }
             CharacterData.currentMetalDaocang = DaoCangs[0];
             CharacterData.currentWoodDaocang = DaoCangs[1];

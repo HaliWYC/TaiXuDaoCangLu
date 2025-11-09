@@ -53,10 +53,16 @@ public static class  EventHandler
 
     #region Combat
 
-    public static event Action CombatBeginEvent;
-    public static void CallCombatBeginEvent()
+    
+    public static event Action BeforeCombatBeginEvent;
+    public static void CallBeforeCombatBeginEvent()
     {
-        CombatBeginEvent?.Invoke();
+        BeforeCombatBeginEvent?.Invoke();
+    }
+    public static event Action AfterCombatBeginEvent;
+    public static void CallAfterCombatBeginEvent()
+    {
+        AfterCombatBeginEvent?.Invoke();
     }
     
     public static event Action<List<CharacterBase>> NewCharactersEnterCombatEvent;
@@ -70,10 +76,10 @@ public static class  EventHandler
     {
         CharacterTurnBeginEvent?.Invoke(character);
     }
-    public static event Action CharacterTurnEndEvent;
-    public static void CallCharacterTurnEndEvent()
+    public static event Action<CharacterBase> CharacterTurnEndEvent;
+    public static void CallCharacterTurnEndEvent(CharacterBase character)
     {
-        CharacterTurnEndEvent?.Invoke();
+        CharacterTurnEndEvent?.Invoke(character);
     }
 
     #endregion

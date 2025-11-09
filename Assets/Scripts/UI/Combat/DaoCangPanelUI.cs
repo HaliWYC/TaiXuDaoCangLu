@@ -36,7 +36,7 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
     
     private void OnEndTurnButtonClick()
     {
-        EventHandler.CallCharacterTurnEndEvent();
+        EventHandler.CallCharacterTurnEndEvent(currentCharacter);
         CombatManager.Instance.isCharacterTurnActive = false;
     }
 
@@ -147,7 +147,7 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
             switch (ActiveSelectedDaoCangSlot)
             {
                case 1:
-                   while (LoopMaxCount <1000)
+                   while (LoopMaxCount < 9999)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);

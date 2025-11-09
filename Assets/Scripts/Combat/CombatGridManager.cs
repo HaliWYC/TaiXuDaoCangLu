@@ -48,18 +48,18 @@ namespace TXDCL.Combat
         private void OnEnable()
         {
             EventHandler.NewCharactersEnterCombatEvent += OnNewCharactersEnterCombatEvent;
-            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
-            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+            //EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent += OnCharacterTurnEndEvent;
         }
         
         private void OnDisable()
         {
             EventHandler.NewCharactersEnterCombatEvent -= OnNewCharactersEnterCombatEvent;
-            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
-            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
+            //EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent -= OnCharacterTurnEndEvent;
         }
 
@@ -72,7 +72,7 @@ namespace TXDCL.Combat
             ConfirmFaShuPathTile.Tilemap = GameObject.FindWithTag("ConfirmationTileMap").GetComponent<Tilemap>();
         }
 
-        private void OnCombatBeginEvent()
+        private void OnBeforeCombatBeginEvent()
         {
             TimeManager.Instance.gameClockPause = true;
             GridMapManager.Instance.GetGridDimensions(SceneManager.GetActiveScene().name, out var mapData);
@@ -92,14 +92,15 @@ namespace TXDCL.Combat
         
         private void OnCharacterTurnBeginEvent(CharacterBase character)
         {
-            currentCharacter = character;
-            if(currentCharacter.CharacterData == null) return;
-            currentCharacter.CharacterData.currentMovement = currentCharacter.CharacterData.maxMovementPerTurn;
-            if(character.CompareTag("Player"))
-                DisplayCharactersMovementPath();
+            Debug.Log(character.CharacterData.characterName);
+            if (character != GameManager.Instance.Player) return;
+            // currentCharacter = character;
+            // currentCharacter.CharacterData.currentMovement = currentCharacter.CharacterData.maxMovementPerTurn;
+            // if(character.CompareTag("Player"))
+            //     DisplayCharactersMovementPath();
         }
         
-        private void OnCharacterTurnEndEvent()
+        private void OnCharacterTurnEndEvent(CharacterBase character)
         {
             CombatManager.Instance.isCharacterTurnActive = false;
             ClearPotentialTiles();
@@ -127,8 +128,9 @@ namespace TXDCL.Combat
         /// <param name="gridDimensions"></param>
         /// <param name="gridOrigin"></param>
         /// <returns></returns>
-        private void FindPotentialPath(Vector2Int Position, int range, List<Vector2Int> path, bool isFaShu)
+        public List<Vector2Int> FindPotentialPath(Vector2Int Position, int range, bool isFaShu)
         {
+            var path = new List<Vector2Int>();
             path.Clear();
             //最大距离
             var maxDistance = range * 10;
@@ -144,6 +146,7 @@ namespace TXDCL.Combat
                     path.Add(GetWorldPosition(new Vector2Int(x, y)));
                 }
             }
+            return path;
         }
         
         /// <summary>
@@ -202,9 +205,11 @@ namespace TXDCL.Combat
             if(CombatManager.Instance.CharactersInCombat.Count<=0) return;
             foreach (var character in CombatManager.Instance.CharactersInCombat)
             {
+                //设置最大循环数防止死循环
+                var LoopMaxCount = 0;
                 //获得角色网格坐标需要减去原点
                 var pos = GetGridPosition((Vector2Int)grid.WorldToCell(character.transform.position));
-                while (CharacterPositionsInCombatDict.ContainsValue(pos) || !GetValidNodeEdge(pos.x, pos.y,true, out var Node))
+                while (CharacterPositionsInCombatDict.ContainsValue(pos) || !GetValidNodeEdge(pos.x, pos.y,true, out var Node) && LoopMaxCount < 9999 )
                 {
                     //如果当前位置已有角色或者修正后在障碍中，则随机在上下左右一格检测，直到空白
                     var direction = Random.Range(0,3);
@@ -215,6 +220,7 @@ namespace TXDCL.Combat
                         2 => (pos + Vector2Int.right).x < gridWidth ? pos + Vector2Int.right : pos,
                         _ => (pos + Vector2Int.down).y < gridHeight ? pos + Vector2Int.down : pos
                     };
+                    LoopMaxCount++;
                 }
                 //更新角色位置为世界坐标需要加上原点以及修正值确保角色在当前格子正中心
                 var worldPos = GetWorldPosition(pos);
@@ -248,9 +254,9 @@ namespace TXDCL.Combat
             ClearConfirmPathTiles();
             //重置位置
             lastTargetPos = Vector2Int.zero;
-            if (range <= 0 ||!CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
+            if (range <= 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             //找到并显示路径
-            FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, potentialSelectingPath, false);
+            potentialSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, false);
             DisplayPath(potentialSelectingPath, PotentialPathTile);
             //完全显示战斗UI面版
             CombatUI.Instance.FadeCombatPanel(1f);
@@ -262,7 +268,7 @@ namespace TXDCL.Combat
         /// <param name="position">鼠标点击的网格位置</param>
         public void CheckInPotentialMovementPath(Vector2Int position)
         {
-            if (!potentialSelectingPath.Contains(position) /*|| CursorManager.Instance.InteractWithUI()*/) return;
+            if (!potentialSelectingPath.Contains(position)) return;
             confirmMovementSteps.Clear();
             var currentPos = GetWorldPosition(CharacterPositionsInCombatDict[currentCharacter]);
             AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, currentPos, position, confirmMovementSteps);
@@ -280,11 +286,8 @@ namespace TXDCL.Combat
         {
             if (lastTargetPos == position)
             {
-                gridNodes.GetGridNode(CharacterPositionsInCombatDict[currentCharacter].x,
-                    CharacterPositionsInCombatDict[currentCharacter].y).isObstacle = false;
-                currentCharacter.CharacterData.currentMovement -= confirmMovementSteps.Count - 1;
-                currentCharacter.GetComponent<CombatMovement>().BuildPath(confirmMovementSteps);
-                gridNodes.GetGridNode(position.x - originX, position.y - originY).isObstacle = true;
+                currentCharacter.GetComponent<CombatMovement>().BuildPath(confirmMovementSteps, true,
+                    currentCharacter.CharacterData.currentMovement);
                 CursorManager.Instance.isConfirm = false;
                 potentialSelectingPath.Clear();
                 confirmSelectingPath.Clear();
@@ -304,7 +307,7 @@ namespace TXDCL.Combat
             ClearConfirmPathTiles();
             currentFaShuData = faShuData;
             if (currentFaShuData.ReleaseRange < 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
-            FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, potentialFaShuSelectingPath, true);
+            potentialFaShuSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, true);
             DisplayPath(potentialFaShuSelectingPath, PotentialFaShuPathTile);
             CombatUI.Instance.FadeCombatPanel(0.5f);
             CursorManager.Instance.isCastingFaShu = true;
@@ -313,15 +316,14 @@ namespace TXDCL.Combat
         /// 根据鼠标点击网格位置判断是否在法术可释放范围中，如果是则显示法术覆盖范围，如果不是则重新选择
         /// </summary>
         /// <param name="startPos"></param>
-        public void DisplayFaShuConfirmPath(Vector2Int startPos)
+        public void DisplayFaShuConfirmPath(Vector2Int targetPos)
         {
             ClearConfirmPathTiles();
-            if (currentFaShuData.Range < 0 || !potentialFaShuSelectingPath.Contains(startPos)/* ||
-                CursorManager.Instance.InteractWithUI()*/) return;
-            FindPotentialPath(GetGridPosition(startPos), currentFaShuData.Range, confirmFaShuSelectingPath, true);
+            if (currentFaShuData.Range < 0 || !potentialFaShuSelectingPath.Contains(targetPos)) return;
+            confirmFaShuSelectingPath = FindPotentialPath(GetGridPosition(targetPos), currentFaShuData.Range, true);
             DisplayPath(confirmFaShuSelectingPath, ConfirmFaShuPathTile);
             CombatUI.Instance.FadeCombatPanel(0.5f);
-            lastFaShuTargetPos = startPos;
+            lastFaShuTargetPos = targetPos;
             CursorManager.Instance.isConfirm = true;
         }
         /// <summary>
@@ -333,7 +335,8 @@ namespace TXDCL.Combat
             if (lastFaShuTargetPos == position)
             {
                 //获得范围内所有的目标
-                FaShuManager.Instance.ExecuteFaShu(currentFaShuData,currentCharacter, CharacterPositionsInCombatDict.Keys.Where(character => confirmFaShuSelectingPath.Contains(GetWorldPosition(CharacterPositionsInCombatDict[character]))).ToList());
+                FaShuManager.Instance.ExecuteFaShu(currentFaShuData,currentCharacter,GetAllGridInCombatDict(confirmFaShuSelectingPath));
+                currentCharacter.animator.SetTrigger("Attack");
                 CursorManager.Instance.isCastingFaShu = false;
                 CursorManager.Instance.isConfirm = false;
                 ClearPotentialTiles();
@@ -348,6 +351,10 @@ namespace TXDCL.Combat
             }
         }
 
+        public void SetGridObstacle(Vector2Int position, bool isObstacle)
+        {
+            gridNodes.GetGridNode(position.x, position.y).isObstacle = isObstacle;
+        }
         /// <summary>
         /// 设置角色在目标网格位置
         /// </summary>
@@ -366,6 +373,12 @@ namespace TXDCL.Combat
         public Vector2Int GetGridPosition(Vector2Int position)
         {
             return new Vector2Int(position.x - originX, position.y - originY);
+        }
+
+        public List<CharacterBase> GetAllGridInCombatDict(List<Vector2Int> path)
+        {
+            return CharacterPositionsInCombatDict.Keys.Where(character =>
+                path.Contains(GetWorldPosition(CharacterPositionsInCombatDict[character]))).ToList();
         }
     }
     [Serializable]

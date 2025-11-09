@@ -20,7 +20,7 @@ public class FaShuPanelUI : MonoBehaviour
         {
             if (i < character.currentFaShuList.Count)
             {
-                FaShuSlots[i].SetUpFaShuSlotUI(character.currentFaShuList[i], FaShuManager.Instance.CheckReleaseFaShuConditions(character.CharacterData, character.currentFaShuList[i]));
+                FaShuSlots[i].SetUpFaShuSlotUI(character.currentFaShuList[i], FaShuManager.Instance.CheckReleaseFaShuConditions(character.CharacterData, character.currentFaShuList[i], true));
                 FaShuSlots[i].FaShuIcon.gameObject.SetActive(true);
             }
             else
@@ -45,10 +45,5 @@ public class FaShuPanelUI : MonoBehaviour
             DaoCangPanelUI.Instance.CancelButtonOnClick();
         }
         CursorManager.Instance.isConfirm = false;
-    }
-
-    public void ConfirmSelectingFaShu()
-    {
-        
     }
 }

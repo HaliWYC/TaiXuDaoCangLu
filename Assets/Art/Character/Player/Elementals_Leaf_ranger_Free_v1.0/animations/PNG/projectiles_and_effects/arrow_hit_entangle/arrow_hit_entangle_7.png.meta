@@ -1,34 +1,10 @@
 fileFormatVersion: 2
-guid: 43bc0b0d9c07b4dbca48454705d5b074
+guid: 27f357c84feeb45008efdf5c2ce75b2a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6693464891516713821
-    second: MetalDaoCang_0
-  - first:
-      213: -861205545992987725
-    second: MetalDaoCang_1
-  - first:
-      213: 8193291888702091652
-    second: MetalDaoCang_2
-  - first:
-      213: -4813177963717310644
-    second: MetalDaoCang_3
-  - first:
-      213: -1319356931458060933
-    second: MetalDaoCang_4
-  - first:
-      213: -3468900949214269779
-    second: MetalDaoCang_5
-  - first:
-      213: -8776952220470430725
-    second: MetalDaoCang_6
-  - first:
-      213: 3693842823281492089
-    second: MetalDaoCang_7
-  - first:
-      213: 8715747184199262291
-    second: MetalDaoCang_8
+      213: 8430466249414988254
+    second: arrow_hit_entangle_7_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -137,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MetalDaoCang_0
+      name: arrow_hit_entangle_7_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 768
+        x: 113
+        y: 30
+        width: 81
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a4099805290c13a0800000000000000
-      internalID: -6693464891516713821
+      spriteID: ed1dc4723680ff470800000000000000
+      internalID: 8430466249414988254
       vertices: []
       indices: 
       edges: []
@@ -162,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d2edbea3c46034d0495e4d90b45a653d
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -170,11 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":768.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      MetalDaoCang_0: -6693464891516713821
+      arrow_hit_entangle_7_0: 8430466249414988254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

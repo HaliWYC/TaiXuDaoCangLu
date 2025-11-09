@@ -14,10 +14,14 @@ namespace TXDCL.Character
         private Vector2 inputDirection;
         private FaShuData currentSelectingFaShu;
         private bool isCombating;
+        [Header("Animation")]
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int IsHurt = Animator.StringToHash("isHurt");
+        private static readonly int IsDead = Animator.StringToHash("isDead");
         protected override void Awake()
         {
             base.Awake();
-            playerController = new();
+            playerController = new PlayerController();
             playerController.Gameplay.FaShu1.started += SelectFaShu;
             playerController.Gameplay.FaShu2.started += SelectFaShu;
             playerController.Gameplay.FaShu3.started += SelectFaShu;
@@ -35,7 +39,8 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent += OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent += OnMoveToPositionEvent;
-            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
+            EventHandler.AfterCombatBeginEvent += OnAfterCombatBeginEvent;
             EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
         }
         private void OnDisable()
@@ -44,7 +49,8 @@ namespace TXDCL.Character
             EventHandler.BeforeSceneLoadEvent -= OnBeforeSceneLoadEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.MoveToPositionEvent -= OnMoveToPositionEvent;
-            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
+            EventHandler.AfterCombatBeginEvent -= OnAfterCombatBeginEvent;
             EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
         }
         
@@ -61,11 +67,17 @@ namespace TXDCL.Character
             transform.position = position;
         }
 
-        protected override void OnCombatBeginEvent()
+        protected override void OnBeforeCombatBeginEvent()
         {
-            base.OnCombatBeginEvent();
+            base.OnBeforeCombatBeginEvent();
+            CombatManager.Instance.RegisterPlayerSide(this);
             isCombating = true;
             GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+        private void OnAfterCombatBeginEvent()
+        {
+            Allies.AddRange(CombatManager.Instance.PlayerSides);
+            Enemies.AddRange(CombatManager.Instance.EnemySides);
         }
         private void Update()
         {
@@ -85,17 +97,23 @@ namespace TXDCL.Character
             SetPlayerFacingDirection(inputDirection.x);
             //移动
             var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
-            isMoving = velocity.magnitude > 0;
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
                 rigidBody2D.linearVelocity = velocity * math.sqrt(2) / 2;
             }
             rigidBody2D.linearVelocity = velocity;
+            isMoving = velocity.magnitude > 0;
         }
 
         private void SwitchAnimation()
         {
-            animator.SetBool("isMoving", isMoving);
+            animator.SetBool(IsMoving, isMoving);
+            animator.SetBool(IsDead, isDead);
+            if (isHurt)
+            {
+                animator.SetTrigger(IsHurt);
+                isHurt = false;
+            }
         }
         private void InputEnable()
         {

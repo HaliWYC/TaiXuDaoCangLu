@@ -32,41 +32,58 @@ namespace TXDCL.XiuLian.FuShu
             return FaShuDataDict.GetValueOrDefault(id);
         }
 
+        /// <summary>
+        /// 根据法术信息执行法术动画
+        /// </summary>
+        /// <param name="FaShu"></param>
+        /// <param name="from"></param>
+        /// <param name="targetCharacters"></param>
+        public void ReleaseFaShu(FaShuData FaShu, CharacterBase from, List<CharacterBase> targetCharacters)
+        {
+            
+        }
+        /// <summary>
+        /// 根据法术信息结算法术
+        /// </summary>
+        /// <param name="FaShu">法术信息</param>
+        /// <param name="from">施法者</param>
+        /// <param name="targetCharacters">目标人群</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ExecuteFaShu(FaShuData FaShu, CharacterBase from, List<CharacterBase> targetCharacters)
         {
             if (targetCharacters.Count <= 0) return;
             switch (FaShu.FaShuTarget)
             {
                 case FaShuTarget.Self:
-                    foreach (var effects in FaShu.BasicEffectDatas)
+                    foreach (var effect in FaShu.BasicEffectDatas)
                     {
-                        effects.OnEffectCreate(from, from);
+                        effect.OnEffectCreate(from, from);
                     }
                     break;
                 case FaShuTarget.Enemy:
-                    foreach (var character in targetCharacters.Where(character => CombatManager.Instance.EnemySides.Contains(character)))
+                    foreach (var character in targetCharacters.Where(character => from.Enemies.Contains(character)))
                     {
-                        foreach (var effects in FaShu.BasicEffectDatas)
+                        foreach (var effect in FaShu.BasicEffectDatas)
                         {
-                            effects.OnEffectCreate(from, character);
+                            effect.OnEffectCreate(from, character);
                         }
                     }
                     break;
                 case FaShuTarget.Ally:
-                    foreach (var character in targetCharacters.Where(character => CombatManager.Instance.PlayerSides.Contains(character)))
+                    foreach (var character in targetCharacters.Where(character => from.Allies.Contains(character)))
                     {
-                        foreach (var effects in FaShu.BasicEffectDatas)
+                        foreach (var effect in FaShu.BasicEffectDatas)
                         {
-                            effects.OnEffectCreate(from, character);
+                            effect.OnEffectCreate(from, character);
                         }
                     }
                     break;
                 case FaShuTarget.Any:
                     foreach (var character in targetCharacters)
                     {
-                        foreach (var effects in FaShu.BasicEffectDatas)
+                        foreach (var effect in FaShu.BasicEffectDatas)
                         {
-                            effects.OnEffectCreate(from, character);
+                            effect.OnEffectCreate(from, character);
                         }
                     }
                     break;
@@ -79,7 +96,13 @@ namespace TXDCL.XiuLian.FuShu
             CombatUI.Instance.FaShuPanelUI.SetUpFaShuSlots(from);
         }
 
-        public bool CheckReleaseFaShuConditions(CharacterData characterData, FaShuData faShuData)
+        /// <summary>
+        /// 检测当前角色属性及道藏是否满足释放目标法术
+        /// </summary>
+        /// <param name="characterData">当前角色属性及道藏信息</param>
+        /// <param name="faShuData">目标法术信息</param>
+        /// <returns></returns>
+        public bool CheckReleaseFaShuConditions(CharacterData characterData, FaShuData faShuData, bool isPlayer)
         {
             //检测法术冷却和准备时间
             if (faShuData.CurrentCoolDownTime > 0 || faShuData.currentPrepareTurns < faShuData.MaxPrepareTurns)
@@ -90,11 +113,11 @@ namespace TXDCL.XiuLian.FuShu
                                  faShuData.ManaCost <= characterData.currentMana &&
                                  faShuData.JingShenLiCost <= characterData.JingShenLi;
             //检测法术道藏消耗
-            var DaoCangConditions = CheckReleaseFaShuDaoCangCosts(characterData, faShuData);
+            var DaoCangConditions = CheckReleaseFaShuDaoCangCosts(characterData, faShuData,isPlayer);
             return baseConditions && DaoCangConditions;
         }
 
-        private bool CheckReleaseFaShuDaoCangCosts(CharacterData characterData, FaShuData faShuData)
+        private bool CheckReleaseFaShuDaoCangCosts(CharacterData characterData, FaShuData faShuData, bool isPlayer)
         {
             //检测基础道藏
             var selectDaoCangs = new List<int>
@@ -157,6 +180,9 @@ namespace TXDCL.XiuLian.FuShu
                 if (!enoughDaoCang) return false;
             }
 
+            //判断是否是玩家，非玩家的角色不需要检测相同道藏
+            if (!isPlayer) return true;
+
             var enoughSameDaoCang = false;
             //检测相同道藏
             if (faShuData.SameCost > 0)
@@ -180,14 +206,36 @@ namespace TXDCL.XiuLian.FuShu
             character.CharacterData.currentMana -= faShuData.ManaCost;
             character.CharacterData.JingShenLi -= faShuData.JingShenLiCost;
             faShuData.CurrentCoolDownTime = faShuData.MaxCoolDownTime;
-            if (character == GameManager.Instance.Player)
+            if (character == GameManager.Instance.Player && character.CompareTag("Player"))
             {
                 DaoCangPanelUI.Instance.UpdateDaoCangCost();
                 DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
             }
             else
             {
-                
+                foreach (var DaoCang in faShuData.DaoCangCosts)
+                {
+                    switch (DaoCang.Wuxing.currentWuXing)
+                    {
+                        case WuXing.锐金:
+                            character.CharacterData.currentMetalDaocang -= DaoCang.DaoCang;
+                            break;
+                        case WuXing.灵木:
+                            character.CharacterData.currentWoodDaocang -=  DaoCang.DaoCang;
+                            break;
+                        case WuXing.弱水:
+                            character.CharacterData.currentWaterDaocang -= DaoCang.DaoCang;
+                            break;
+                        case WuXing.离火:
+                            character.CharacterData.currentFireDaocang -=  DaoCang.DaoCang;
+                            break;
+                        case WuXing.厚土:
+                            character.CharacterData.currentEarthDaocang -=  DaoCang.DaoCang;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
         }
     }

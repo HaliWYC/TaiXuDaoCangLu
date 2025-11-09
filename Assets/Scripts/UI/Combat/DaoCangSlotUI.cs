@@ -9,8 +9,8 @@ public class DaoCangSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDr
     public Image Icon;
     public TextMeshProUGUI AmountText;
     public WuxingDaoCang wuxingDaoCang;
-    public bool isSelectingSlot;
-    public bool isRequireDaoCang;
+    public bool isSelectingSlot;//是否为已选择的道藏槽
+    public bool isRequireDaoCang;//是否为必要消耗的道藏，如火焰类法术几乎必定需要消耗一定数量的火道藏
     public int sameDaoCangCost;
     
     public void SetUpDaoCangSlotUI(WuxingDaoCang DaoCang, bool IsSelectingSlot, bool IsRequireDaoCang)

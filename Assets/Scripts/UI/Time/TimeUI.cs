@@ -32,7 +32,7 @@ namespace TXDCL.Time
             EventHandler.GameHourEvent += OnGameHourEvent;
             EventHandler.GameSeasonEvent += OnGameSeasonEvent;
             EventHandler.GameDateEvent += OnGameDateEvent;
-            EventHandler.CombatBeginEvent += OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
         }
 
         private void OnDisable()
@@ -40,10 +40,10 @@ namespace TXDCL.Time
             EventHandler.GameHourEvent -= OnGameHourEvent;
             EventHandler.GameSeasonEvent -= OnGameSeasonEvent;
             EventHandler.GameDateEvent -= OnGameDateEvent;
-            EventHandler.CombatBeginEvent -= OnCombatBeginEvent;
+            EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
         }
 
-        private void OnCombatBeginEvent()
+        private void OnBeforeCombatBeginEvent()
         {
             TimeManager.Instance.gameClockPause = true;
             TimeUIs.gameObject.SetActive(false);

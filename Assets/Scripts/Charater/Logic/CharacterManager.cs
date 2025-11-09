@@ -58,7 +58,7 @@ namespace TXDCL.Character
 
         public Jingjie GetJingjie(string key)
         {
-            return JingjieDataList.GetValueOrDefault(key);
+            return key != null ? JingjieDataList.GetValueOrDefault(key) : null;
         }
     }
 }

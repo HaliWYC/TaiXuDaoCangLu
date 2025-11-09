@@ -33,10 +33,13 @@ namespace TXDCL.Combat
             grid = FindFirstObjectByType<Grid>();
         }
         
-        private void Movement(Stack<MovementStep> movementSteps)
+        private void Movement(Stack<MovementStep> movementSteps, bool isPlayer)
         {
             if (movementSteps.Count <= 0)
             {
+                CombatGridManager.Instance.SetGridObstacle(
+                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
+                if (!isPlayer) return;
                 CombatGridManager.Instance.DisplayCharactersMovementPath();
                 CombatUI.Instance.FadeCombatPanel(1f);
                 character.isMoving = false;
@@ -49,11 +52,13 @@ namespace TXDCL.Combat
             transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
             {
                 character.isMoving = true;
+                character.CharacterData.currentMovement--;
                 CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
-                Movement(movementSteps);
+                Movement(movementSteps, isPlayer);
             };
+
         }
-        public void BuildPath(Stack<MovementStep> movementSteps)
+        public void BuildPath(Stack<MovementStep> movementSteps, bool isPlayer, int MovementRange)
         {
             if (movementSteps.Count < 1) return;
             var time = TimeManager.Instance.currentGameTime;
@@ -66,7 +71,11 @@ namespace TXDCL.Combat
                 var nextStepTime = new TimeSpan(0, 0, 1);
                 time = time.Add(nextStepTime);
             }
-            Movement(movementSteps);
+
+            CombatGridManager.Instance.SetGridObstacle(
+                CombatGridManager.Instance.CharacterPositionsInCombatDict[character], false);
+            character.CharacterData.currentMovement++;
+            Movement(movementSteps, isPlayer);
         }
 
         private Vector3 GetWorldPosition(Vector3Int gridPosition)

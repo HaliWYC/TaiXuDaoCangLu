@@ -13,6 +13,8 @@ namespace TXDCL.XiuLian.FuShu
         public Sprite FaShuIcon;
         public MiniRarity MiniRarity;
         public Rarity Rarity;
+        public FaShuLevel FaShuLevel;//法术层数
+        public FaShuProficiency FaShuProficiency;//法术熟练度
         [TextArea]
         public string Description;
         [Header("Type")]
@@ -20,7 +22,7 @@ namespace TXDCL.XiuLian.FuShu
         //神识法术，一般消耗法力和精神力释放
         //秘术，一般消耗大量法力、气血、五行道藏等资源释放，通常有无与伦比的效果
         //神通是极强的法术，一般伴随着大量消耗和特殊释放条件
-        public FaShuType FaShuType;//法术类型，如常规法术、神识法术、密术、神通等
+        public FaShuType FaShuType;//法术类型，如常规法术、神识法术、武功、密术、神通等
         public FaShuTarget FaShuTarget;//法术目标，如自身、敌人、友军,任意等
         public FaShuDuration FaShuDuration;//法术持续，如单次、持续(可在下个回合主动停止，否则再次消耗道藏)等
         public ShuXing ShuXing;//法术属性，如五行、魔道等

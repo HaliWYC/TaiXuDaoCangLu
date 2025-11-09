@@ -10,13 +10,12 @@ namespace TXDCL.Combat
     public class CombatManager : Singleton<CombatManager>
     {
         private readonly Dictionary<CharacterBase, int> CharacterTurnProgressDict = new();
-        // public CharacterBase player;
         public bool isCharacterTurnActive;
         public List<CharacterBase> CharactersInCombat = new();
         public List<CharacterBase> PlayerSides;
         public List<CharacterBase> EnemySides;
 
-        private float turnProgressModifier = 0;
+        private float turnProgressModifier;
 
         private void OnEnable()
         {
@@ -55,7 +54,9 @@ namespace TXDCL.Combat
                 value += (int)(character.CharacterData.Reaction * Settings.TurnProgress * turnProgressModifier *
                                UnityEngine.Time.fixedDeltaTime);
                 CharacterTurnProgressDict[character] = value;
+                //更新UI
                 if (CharacterTurnProgressDict[character] < Settings.TurnThreshold) continue;
+                //Debug.Log(character.CharacterData.characterName);
                 CharacterTurnProgressDict[character] -= Settings.TurnThreshold;
                 isCharacterTurnActive = true;
                 EventHandler.CallCharacterTurnBeginEvent(character);
@@ -64,28 +65,29 @@ namespace TXDCL.Combat
         public void RegisterPlayerSide(CharacterBase character)
         {
             PlayerSides.Add(character);
-        }
-        public void RegisterEnemySide(CharacterBase character)
-        {
-            EnemySides.Add(character);
-        }
-
-        private void RegisterCharacterInCombat()
-        {
-            foreach (var character in PlayerSides.Where(character => !CharactersInCombat.Contains(character)))
+            if (!CharactersInCombat.Contains(character))
             {
                 CharactersInCombat.Add(character);
             }
         }
-        
+        public void RegisterEnemySide(CharacterBase character)
+        {
+            EnemySides.Add(character);
+            if (!CharactersInCombat.Contains(character))
+            {
+                CharactersInCombat.Add(character);
+            }
+        }
         [ContextMenu("Combat Begin")]
         private void CombatBegin()
         {
             CharacterTurnProgressDict.Clear();
             PlayerSides.Clear();
             EnemySides.Clear();
-            EventHandler.CallCombatBeginEvent();
+            CharactersInCombat.Clear();
+            EventHandler.CallBeforeCombatBeginEvent();
             EventHandler.CallNewCharactersEnterCombatEvent(null);
+            EventHandler.CallAfterCombatBeginEvent();
         }
         private float GetTurnProgressModifier()
         {

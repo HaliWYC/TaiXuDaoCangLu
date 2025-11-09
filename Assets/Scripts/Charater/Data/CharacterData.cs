@@ -16,6 +16,12 @@ namespace TXDCL.Character
         public int currentExp; //当前经验
         public int nextExp; //升级所需经验
         public Jingjie Jingjie;
+        public int currentVigor;//当前精力，用于进行非战斗类活动，如顿悟功法/法术，炼丹，炼器等
+        public int maxVigor;//最大精力
+        public int currentDanDu;//当前丹毒,丹毒超过一定比例会获得Debuff,食用丹药将积累丹毒
+        public int maxDanDu;//最大丹毒
+        public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff，短时间内大量杀死生灵或其他特殊情况将积累煞气
+        public int maxShaQi;//最大煞气
 
         [Header("Basic Combat")] 
         public int currentHealth; //当前气血
@@ -24,10 +30,6 @@ namespace TXDCL.Character
         public int maxStamina;//最大体力
         public int currentMana;//当前发力释放法术所消耗资源
         public int maxMana;//最大法力
-        public int currentDanDu;//当前丹毒,丹毒超过一定比例会获得Debuff
-        public int maxDanDu;//最大丹毒
-        public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff
-        public int maxShaQi;//最大煞气
         public int Attack; //攻击
         public int Reaction;//反应
         public int Speed;//速度

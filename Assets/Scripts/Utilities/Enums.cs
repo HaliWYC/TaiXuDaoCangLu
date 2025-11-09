@@ -50,16 +50,25 @@ public enum GongFaType//功法类型：元婴前仅能有一个主功法，元�
 
 public enum FaShuType
 {
-    Normal, Melee,ShenShi
+    FaShu, WuGong, ShenShi
 }
 public enum FaShuTarget//法术释放目标
 {
-    Self,Enemy,Ally,Any
+    Self, Enemy, Ally, Any
 }
 
 public enum FaShuDuration//法术施法时间，如单次释放或需要持续施法
 {
     Once,Sustainable
+}
+
+public enum FaShuLevel//随着对法术的领悟进行突破，领悟需要消耗时间以及精力
+{
+    零, 壹, 贰, 叁, 肆, 伍, 陆, 柒, 捌, 玖
+}
+public enum FaShuProficiency//随着法术有效使用次数进行叠加，速率可受多方面影响，如功法、Buff等
+{
+    初窥门径, 一知半解, 半生不熟, 融会贯通, 游刃有余, 炉火纯青, 登峰造极, 臻至化境, 出神入化, 太虚之境
 }
 #endregion
 #endregion
@@ -117,6 +126,14 @@ public enum CaoYaoStateType
 
 #endregion
 
+#region Combat
+
+public enum CharacterFactionType
+{
+    Player,PlayerAlly,NPC,Enemy
+}
+
+#endregion
 
 #region Map
 public enum GridType
@@ -133,15 +150,6 @@ public enum PlaceType
     Teleport/*传送阵*/
 }
 
-
-#endregion
-
-#region Combat
-
-public enum CharacterType
-{
-    Player, PlayerSide, EnemySide, Neutral
-}
 
 #endregion
 public enum GameSeasons

@@ -17,6 +17,8 @@ MonoBehaviour:
   FaShuIcon: {fileID: 3755067282937903822, guid: 22edb9c1d6f2807409ea83b6f893b2c0, type: 3}
   MiniRarity: 0
   Rarity: 1
+  FaShuLevel: 0
+  FaShuProficiency: 0
   Description: 
   FaShuType: 0
   FaShuTarget: 3
