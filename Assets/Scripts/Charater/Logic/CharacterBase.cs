@@ -54,6 +54,7 @@ namespace TXDCL.Character
             CharacterData = Instantiate(templateData);
             gongFaProcessor.characterData = CharacterData;
             currentFaShuList.Clear();
+            animator = GetComponent<Animator>();
             foreach (var FaShu in tempFaShuList)
             {
                 currentFaShuList.Add(Instantiate(FaShu));

@@ -48,7 +48,7 @@ public enum GongFaType//功法类型：元婴前仅能有一个主功法，元�
 #endregion
 #region FaShu
 
-public enum FaShuType
+public enum FaShuType//法术类型，如常规法术、凡人武功或体质类法术、神识法术等
 {
     FaShu, WuGong, ShenShi
 }
@@ -69,6 +69,11 @@ public enum FaShuLevel//随着对法术的领悟进行突破，领悟需要消�
 public enum FaShuProficiency//随着法术有效使用次数进行叠加，速率可受多方面影响，如功法、Buff等
 {
     初窥门径, 一知半解, 半生不熟, 融会贯通, 游刃有余, 炉火纯青, 登峰造极, 臻至化境, 出神入化, 太虚之境
+}
+
+public enum FaShuDerivativeTrackType
+{
+    ReleaserMobile/*从施法者位置移动至目标位置*/,ReleaserFixed/*从施法者位置不移动*/,SpecificMobile/*从特定位置移动至目标位置*/,SpecificFixed/*从特定位置不移动*/
 }
 #endregion
 #endregion

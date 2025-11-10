@@ -48,6 +48,9 @@ namespace TXDCL.XiuLian.FuShu
         //TODO：触发退化和进化条件需要写成泛型
         public FaShuData LowerShenTongData;//退化法术，如受到致命伤或神通影响导致法术降级
         public FaShuData UpperShenTongData;//进化法术，如集齐残页或获得大机缘导致法术进化
+        
+        [Header("FaShuDerivative")]
+        public FaShuDerivative FaShuDerivative;
     }
 }
 

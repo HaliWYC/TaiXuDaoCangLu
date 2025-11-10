@@ -7,6 +7,7 @@ namespace TXDCL.Effect
     public abstract class EffectData : ScriptableObject
     {
         public Sprite effectIcon;
+        public int Index;//法术释放过程中特效阶段效果执行顺序，如法术特效第一阶段执行部分效果，法术特效第二阶段执行其余效果等
         protected float currentValue => value == 0 ? currentValue : value;
         public float value;
         public int round;

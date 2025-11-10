@@ -79,8 +79,8 @@ public class NPCController : CharacterBase
     {
         //执行移动
         //执行法术
-        //TODO:补充法术特效
-        FaShuManager.Instance.ExecuteFaShu(faShuData, this,
+        animator.SetTrigger("CastFaShu");
+        FaShuManager.Instance.ReleaseFaShu(faShuData, currentEnemy.transform.position,this,
             CombatGridManager.Instance.GetAllGridInCombatDict(CombatGridManager.Instance.FindPotentialPath(
                 CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy], faShuData.Range, true)));
     }

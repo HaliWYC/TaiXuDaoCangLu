@@ -125,7 +125,6 @@ namespace TXDCL.Character
         }
         private void SelectFaShu(InputAction.CallbackContext FaShu)
         {
-            //TODO:制作攻击的UI选择
             var index = Convert.ToInt32(FaShu.action.name[5].ToString());
             CombatUI.Instance.FaShuPanelUI.SelectFaShuSlot(index);
         }

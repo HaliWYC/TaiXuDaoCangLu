@@ -45,3 +45,4 @@ MonoBehaviour:
   CounterEffectDatas: []
   LowerShenTongData: {fileID: 0}
   UpperShenTongData: {fileID: 0}
+  FaShuDerivative: {fileID: 6809280914317697011, guid: 8d5997a193be34060983449625757260, type: 3}

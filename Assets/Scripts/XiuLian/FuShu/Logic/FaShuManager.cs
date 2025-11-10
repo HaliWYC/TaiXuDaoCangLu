@@ -35,12 +35,12 @@ namespace TXDCL.XiuLian.FuShu
         /// <summary>
         /// 根据法术信息执行法术动画
         /// </summary>
-        /// <param name="FaShu"></param>
+        /// <param name="FaShuData"></param>
         /// <param name="from"></param>
         /// <param name="targetCharacters"></param>
-        public void ReleaseFaShu(FaShuData FaShu, CharacterBase from, List<CharacterBase> targetCharacters)
+        public void ReleaseFaShu(FaShuData FaShuData,Vector3 targetPosition,CharacterBase from, List<CharacterBase> targetCharacters)
         {
-            
+            PoolTool.Instance.GetFaShuDerivativeFromPool(FaShuData, targetPosition, from, targetCharacters);
         }
         /// <summary>
         /// 根据法术信息结算法术

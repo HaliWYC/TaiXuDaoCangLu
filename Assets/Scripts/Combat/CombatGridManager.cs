@@ -335,8 +335,8 @@ namespace TXDCL.Combat
             if (lastFaShuTargetPos == position)
             {
                 //获得范围内所有的目标
-                FaShuManager.Instance.ExecuteFaShu(currentFaShuData,currentCharacter,GetAllGridInCombatDict(confirmFaShuSelectingPath));
-                currentCharacter.animator.SetTrigger("Attack");
+                FaShuManager.Instance.ReleaseFaShu(currentFaShuData, (Vector3Int)position, currentCharacter, GetAllGridInCombatDict(confirmFaShuSelectingPath));
+                currentCharacter.animator.SetTrigger("CastFaShu");
                 CursorManager.Instance.isCastingFaShu = false;
                 CursorManager.Instance.isConfirm = false;
                 ClearPotentialTiles();
