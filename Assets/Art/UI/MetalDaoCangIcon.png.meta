@@ -140,12 +140,12 @@ TextureImporter:
       name: MetalDaoCangIcon_0
       rect:
         serializedVersion: 2
-        x: 158
-        y: 242
-        width: 136
-        height: 242
+        x: 0
+        y: 0
+        width: 768
+        height: 768
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -158,187 +158,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_1
-      rect:
-        serializedVersion: 2
-        x: 262
-        y: 246
-        width: 90
-        height: 268
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5832a56db6bd246d0800000000000000
-      internalID: -3007600344925854843
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_2
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 286
-        width: 122
-        height: 442
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 405002f2d72b35960800000000000000
-      internalID: 7589606047780701444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_3
-      rect:
-        serializedVersion: 2
-        x: 398
-        y: 256
-        width: 100
-        height: 258
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c1b925eb874c8f40800000000000000
-      internalID: 5732035091906539973
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_4
-      rect:
-        serializedVersion: 2
-        x: 430
-        y: 109
-        width: 152
-        height: 177
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 23f484b1f8fd58690800000000000000
-      internalID: -7600422990386802894
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_5
-      rect:
-        serializedVersion: 2
-        x: 468
-        y: 248
-        width: 130
-        height: 236
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 22ecf219065bc8630800000000000000
-      internalID: 3930716001144917538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_6
-      rect:
-        serializedVersion: 2
-        x: 176
-        y: 102
-        width: 161
-        height: 162
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ab9f5e440f190c10800000000000000
-      internalID: 2020180011207596965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_7
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 64
-        width: 104
-        height: 218
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fb9ca2645b677ced0800000000000000
-      internalID: -2393814155985761857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MetalDaoCangIcon_8
-      rect:
-        serializedVersion: 2
-        x: 394
-        y: 151
-        width: 56
-        height: 131
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff3af0a9c4428d270800000000000000
-      internalID: 8275404226714117119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 86b73b9fd3628493fa01d1f203ea0003
     internalID: 0
     vertices: []
     indices: 
@@ -346,17 +170,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":768.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       MetalDaoCangIcon_0: 7684926016472161760
-      MetalDaoCangIcon_1: -3007600344925854843
-      MetalDaoCangIcon_2: 7589606047780701444
-      MetalDaoCangIcon_3: 5732035091906539973
-      MetalDaoCangIcon_4: -7600422990386802894
-      MetalDaoCangIcon_5: 3930716001144917538
-      MetalDaoCangIcon_6: 2020180011207596965
-      MetalDaoCangIcon_7: -2393814155985761857
-      MetalDaoCangIcon_8: 8275404226714117119
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class NPCController : CharacterBase
 {
+    private static readonly int CastFaShu = Animator.StringToHash("CastFaShu");
     private List<FaShuData> currentFaShuInTurn = new();
     private CharacterBase currentEnemy;
     private Vector2Int currentPosition;
@@ -54,8 +55,8 @@ public class NPCController : CharacterBase
         currentEnemy = Enemies[Random.Range(0, Enemies.Count)];
         //选择法术
         SelectPotentialFaShu();
-        if(currentFaShuInTurn.Count == 0) return;
-        Debug.Log(currentFaShuInTurn.Count);
+        // if(currentFaShuInTurn.Count == 0) return;
+        // Debug.Log(currentFaShuInTurn.Count);
     }
 
     private void SelectPotentialFaShu()
@@ -79,7 +80,8 @@ public class NPCController : CharacterBase
     {
         //执行移动
         //执行法术
-        animator.SetTrigger("CastFaShu");
+        SetCharacterFacingDirection(currentEnemy.transform.position.x - transform.position.x);
+        animator.SetTrigger(CastFaShu);
         FaShuManager.Instance.ReleaseFaShu(faShuData, currentEnemy.transform.position,this,
             CombatGridManager.Instance.GetAllGridInCombatDict(CombatGridManager.Instance.FindPotentialPath(
                 CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy], faShuData.Range, true)));

@@ -59,6 +59,7 @@ namespace TXDCL.Combat
                 //Debug.Log(character.CharacterData.characterName);
                 CharacterTurnProgressDict[character] -= Settings.TurnThreshold;
                 isCharacterTurnActive = true;
+                CursorManager.Instance.isSelecting = false;
                 EventHandler.CallCharacterTurnBeginEvent(character);
             }
         }

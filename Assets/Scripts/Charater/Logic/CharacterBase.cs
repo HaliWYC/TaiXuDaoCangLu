@@ -32,8 +32,13 @@ namespace TXDCL.Character
         [Header("Components")]
         public Animator animator;
         private float faceDirection;
+        [Header("Animation")]
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int IsHurt = Animator.StringToHash("isHurt");
+        private static readonly int IsDead = Animator.StringToHash("isDead");
         protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
         [Header("Bools")] 
+        public bool isIconFacingLeft;//角色素材朝向是否为左
         public bool isMoving;//是否正在移动
         public bool isHurt;//是否受伤
         public bool isDead;//是否死亡
@@ -46,8 +51,6 @@ namespace TXDCL.Character
         public List<CharacterBase> Enemies = new();
         protected CombatMovement combatMovement => GetComponent<CombatMovement>();
         private int previousYear = 1;
-        
-        
         protected virtual void Awake()
         {
             if (templateData == null) return;
@@ -106,6 +109,22 @@ namespace TXDCL.Character
             UpdateLevel();
             ResetValue();
         }
+
+        protected virtual void Update()
+        {
+            SwitchAnimation();
+        }
+
+        protected virtual void SwitchAnimation()
+        {
+            animator.SetBool(IsMoving, isMoving);
+            animator.SetBool(IsDead, isDead);
+            if (isHurt)
+            {
+                animator.SetTrigger(IsHurt);
+                isHurt = false;
+            }
+        }
         #region Combat
 
         public void TakeDamage(CharacterBase attacker, CharacterBase defender, int damage)
@@ -121,6 +140,9 @@ namespace TXDCL.Character
                 defender.CharacterData.currentHealth = 0;
                 defender.isDead = true;
             }
+            //TODO:后面把UI显示放在Buff部分，因为每个NPC也需要实时结算属性UI
+            if (defender == GameManager.Instance.Player)
+                CombatUI.Instance.CharacterStatsPanel.UpdateCharacterStats(GameManager.Instance.Player.CharacterData);
             //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
         }
         /// <summary>
@@ -148,8 +170,8 @@ namespace TXDCL.Character
             {
                 accurateRate -= 0.4f;
             }
-            
-            return Random.Range(0f, 1f) < accurateRate;
+            //随机值需大于精准率才触发闪避
+            return Random.Range(0f, 1f) > accurateRate;
         }
         #endregion
 
@@ -207,15 +229,15 @@ namespace TXDCL.Character
 
         #endregion
         
-        public void SetPlayerFacingDirection(float direction)
+        public void SetCharacterFacingDirection(float direction)
         {
+            direction = isIconFacingLeft ? -direction : direction;
             faceDirection = direction switch 
             {
                 > 0 => 1,
                 < 0 => -1,
                 _ => (int)transform.localScale.x
             };
-            //Debug.Log(direction);
             transform.localScale = new Vector3(faceDirection, transform.localScale.y, transform.localScale.z);
         }
 

@@ -14,10 +14,6 @@ namespace TXDCL.Character
         private Vector2 inputDirection;
         private FaShuData currentSelectingFaShu;
         private bool isCombating;
-        [Header("Animation")]
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-        private static readonly int IsHurt = Animator.StringToHash("isHurt");
-        private static readonly int IsDead = Animator.StringToHash("isDead");
         protected override void Awake()
         {
             base.Awake();
@@ -79,10 +75,10 @@ namespace TXDCL.Character
             Allies.AddRange(CombatManager.Instance.PlayerSides);
             Enemies.AddRange(CombatManager.Instance.EnemySides);
         }
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
             inputDirection = playerController.Gameplay.Move.ReadValue<Vector2>();
-            SwitchAnimation();
         }
 
         private void FixedUpdate()
@@ -94,7 +90,7 @@ namespace TXDCL.Character
         private void Move()
         {
             //设置朝向
-            SetPlayerFacingDirection(inputDirection.x);
+            SetCharacterFacingDirection(inputDirection.x);
             //移动
             var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
             if (inputDirection.x != 0 && inputDirection.y != 0)
@@ -103,17 +99,6 @@ namespace TXDCL.Character
             }
             rigidBody2D.linearVelocity = velocity;
             isMoving = velocity.magnitude > 0;
-        }
-
-        private void SwitchAnimation()
-        {
-            animator.SetBool(IsMoving, isMoving);
-            animator.SetBool(IsDead, isDead);
-            if (isHurt)
-            {
-                animator.SetTrigger(IsHurt);
-                isHurt = false;
-            }
         }
         private void InputEnable()
         {

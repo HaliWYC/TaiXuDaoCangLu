@@ -5,14 +5,13 @@ using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using UnityEngine;
 
-public class FaShuPanelUI : MonoBehaviour
+public class FaShuPanelUI : Singleton<FaShuPanelUI>
 {
+    private List<FaShuData> currentFaShuList;
+    private FaShuData currentSelectingFaShu;
     public GameObject FaBaoPanel;
     public List<FaShuSlotUI> FaShuSlots;
     public GameObject DaoCangPanel;
-    private List<FaShuData> currentFaShuList;
-    private FaShuData currentSelectingFaShu;
-
     public void SetUpFaShuSlots(CharacterBase character)
     {
         currentFaShuList = character.currentFaShuList;
@@ -32,13 +31,13 @@ public class FaShuPanelUI : MonoBehaviour
 
     public void SelectFaShuSlot(int index)
     {
-        if (currentFaShuList.Count <= index || !FaShuSlots[index].CanCastFaShu) return;
+        if (currentFaShuList.Count <= index || !FaShuSlots[index].CanCastFaShu ||
+            !CombatGridManager.Instance.canCurrentCharacterCastFaShu) return;
         //如果选择的并非已选中的法术或者为处于释放法术期间，则重新选择新的，否则取消选择
         if (currentSelectingFaShu != currentFaShuList[index] || !CursorManager.Instance.isCastingFaShu)
         {
             currentSelectingFaShu = currentFaShuList[index];
             DaoCangPanelUI.Instance.SelectFaShu(currentSelectingFaShu);
-            CursorManager.Instance.isCastingFaShu = true;
         }
         else
         {

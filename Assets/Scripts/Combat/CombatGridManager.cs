@@ -43,6 +43,7 @@ namespace TXDCL.Combat
         [Header("Character")]
         //[SerializeField]private CharacterBase player;
         public CharacterBase currentCharacter;//当前进行回合的角色
+        public bool canCurrentCharacterCastFaShu;
         private FaShuData currentFaShuData;//当前选择的法术
         public readonly Dictionary<CharacterBase,Vector2Int> CharacterPositionsInCombatDict = new();//储存角色信息以及角色网格坐标
         private void OnEnable()
@@ -50,7 +51,7 @@ namespace TXDCL.Combat
             EventHandler.NewCharactersEnterCombatEvent += OnNewCharactersEnterCombatEvent;
             EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
-            //EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+            EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent += OnCharacterTurnEndEvent;
         }
         
@@ -59,7 +60,7 @@ namespace TXDCL.Combat
             EventHandler.NewCharactersEnterCombatEvent -= OnNewCharactersEnterCombatEvent;
             EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
-            //EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
+            EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent -= OnCharacterTurnEndEvent;
         }
 
@@ -92,12 +93,12 @@ namespace TXDCL.Combat
         
         private void OnCharacterTurnBeginEvent(CharacterBase character)
         {
-            Debug.Log(character.CharacterData.characterName);
+            //Debug.Log(character.CharacterData.characterName);
             if (character != GameManager.Instance.Player) return;
-            // currentCharacter = character;
-            // currentCharacter.CharacterData.currentMovement = currentCharacter.CharacterData.maxMovementPerTurn;
-            // if(character.CompareTag("Player"))
-            //     DisplayCharactersMovementPath();
+            currentCharacter = character;
+            currentCharacter.CharacterData.currentMovement = currentCharacter.CharacterData.maxMovementPerTurn;
+            if(character.CompareTag("Player"))
+                DisplayCharactersMovementPath();
         }
         
         private void OnCharacterTurnEndEvent(CharacterBase character)
@@ -261,6 +262,7 @@ namespace TXDCL.Combat
             //完全显示战斗UI面版
             CombatUI.Instance.FadeCombatPanel(1f);
             CursorManager.Instance.isSelecting = true;
+            canCurrentCharacterCastFaShu = true;
         }
         /// <summary>
         /// 判断鼠标点击的网格位置是否在角色可移动的范围网格内，如果是则生成并储存对应的最短路径瓦片路径
@@ -269,6 +271,8 @@ namespace TXDCL.Combat
         public void CheckInPotentialMovementPath(Vector2Int position)
         {
             if (!potentialSelectingPath.Contains(position)) return;
+            canCurrentCharacterCastFaShu = false;
+            DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
             confirmMovementSteps.Clear();
             var currentPos = GetWorldPosition(CharacterPositionsInCombatDict[currentCharacter]);
             AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, currentPos, position, confirmMovementSteps);
@@ -277,6 +281,7 @@ namespace TXDCL.Combat
             CombatUI.Instance.FadeCombatPanel(0.5f);
             lastTargetPos = position;
             CursorManager.Instance.isConfirm = true;
+            
         }
         /// <summary>
         /// 判断鼠标点击网格位置是否在储存的已选择的瓦片地图路径中，如果是则移动到目标点上，如果不是则重新生成并储存新的路径
@@ -335,7 +340,9 @@ namespace TXDCL.Combat
             if (lastFaShuTargetPos == position)
             {
                 //获得范围内所有的目标
-                FaShuManager.Instance.ReleaseFaShu(currentFaShuData, (Vector3Int)position, currentCharacter, GetAllGridInCombatDict(confirmFaShuSelectingPath));
+                var NewPos = new Vector3(position.x + 0.5f, position.y + 0.5f);
+                FaShuManager.Instance.ReleaseFaShu(currentFaShuData, NewPos, currentCharacter, GetAllGridInCombatDict(confirmFaShuSelectingPath));
+                currentCharacter.SetCharacterFacingDirection(NewPos.x - currentCharacter.transform.position.x);
                 currentCharacter.animator.SetTrigger("CastFaShu");
                 CursorManager.Instance.isCastingFaShu = false;
                 CursorManager.Instance.isConfirm = false;

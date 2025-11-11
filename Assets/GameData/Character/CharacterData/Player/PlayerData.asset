@@ -20,7 +20,7 @@ MonoBehaviour:
   nextExp: 0
   Jingjie:
     miniJingjieLevel: 4
-    JingjieLevel: 1
+    JingjieLevel: 4
     JingjieData: {fileID: 0}
   currentVigor: 0
   maxVigor: 0

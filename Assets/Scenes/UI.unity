@@ -10431,7 +10431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be432b8e8b08e43cb9aa451ca6098b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MetalDaoCangIcon: {fileID: -6693464891516713821, guid: 43bc0b0d9c07b4dbca48454705d5b074, type: 3}
+  MetalDaoCangIcon: {fileID: 7684926016472161760, guid: 43bc0b0d9c07b4dbca48454705d5b074, type: 3}
   WoodDaoCangIcon: {fileID: 3302002990723455257, guid: 9ccd794442a8d4adaad19e53bd272e4e, type: 3}
   WaterDaoCangIcon: {fileID: 4195972870720650726, guid: 965675f04914f4309950debbc965124b, type: 3}
   FireDaoCangIcon: {fileID: -5299123351754655990, guid: 66ebce0d137844a95b2e6c859009ab90, type: 3}

@@ -29,7 +29,7 @@ MonoBehaviour:
   CurrentCoolDownTime: 0
   MaxCoolDownTime: 0
   ReleaseRange: 4
-  Range: 0
+  Range: 1
   HealthCost: 0
   StaminaCost: 0
   ManaCost: 5

@@ -261,7 +261,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  startPosition: {x: -119, y: 120, z: 0}
+  startPosition: {x: -119, y: 115.5, z: 0}
 --- !u!1 &277196945
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +486,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -118.69, y: 120.93, z: -10}
+  m_LocalPosition: {x: -118.69, y: 115.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -647,7 +647,7 @@ Transform:
   m_GameObject: {fileID: 670082184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -118.69, y: 120.93, z: -10}
+  m_LocalPosition: {x: -118.69, y: 115.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -711,7 +711,7 @@ Transform:
   m_GameObject: {fileID: 725224779}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -118.69, y: 120.93, z: 0}
+  m_LocalPosition: {x: -118.69, y: 115.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -798,6 +798,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
   PotentialFaShuList: []
   animator: {fileID: 725224792}
+  isIconFacingLeft: 0
   isMoving: 0
   isHurt: 0
   isDead: 0
@@ -1356,6 +1357,7 @@ MonoBehaviour:
     Tilemap: {fileID: 0}
     TileBase: {fileID: 11400000, guid: 72f8e82a2494e48f583e2437d4708c50, type: 2}
   currentCharacter: {fileID: 0}
+  canCurrentCharacterCastFaShu: 0
 --- !u!4 &1778130716
 Transform:
   m_ObjectHideFlags: 0

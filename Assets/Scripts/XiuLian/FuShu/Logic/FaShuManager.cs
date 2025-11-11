@@ -90,10 +90,6 @@ namespace TXDCL.XiuLian.FuShu
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            //结算法术消耗
-            UpdateFaShuCost(from, FaShu);
-            CombatUI.Instance.CharacterStatsPanel.UpdateCharacterStats(GameManager.Instance.Player.CharacterData);
-            CombatUI.Instance.FaShuPanelUI.SetUpFaShuSlots(from);
         }
 
         /// <summary>
