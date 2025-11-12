@@ -14,6 +14,7 @@ namespace TXDCL.Combat
     {
         private Grid grid;
         private CharacterBase character;
+        public bool arriveTargetPosition;//移动停下后才可释放法术
         private void Awake()
         {
             character = GetComponent<CharacterBase>();
@@ -33,31 +34,7 @@ namespace TXDCL.Combat
             grid = FindFirstObjectByType<Grid>();
         }
         
-        private void Movement(Stack<MovementStep> movementSteps, bool isPlayer)
-        {
-            if (movementSteps.Count <= 0)
-            {
-                CombatGridManager.Instance.SetGridObstacle(
-                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
-                if (!isPlayer) return;
-                CombatGridManager.Instance.DisplayCharactersMovementPath();
-                CombatUI.Instance.FadeCombatPanel(1f);
-                character.isMoving = false;
-                return;
-            }
-            var movementStep = movementSteps.Pop();
-            var targetPos = movementStep.gridCoordinates;
-            character.SetCharacterFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x - CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
-            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
-            {
-                character.isMoving = true;
-                character.CharacterData.currentMovement--;
-                CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
-                Movement(movementSteps, isPlayer);
-            };
-
-        }
-        public void BuildPath(Stack<MovementStep> movementSteps, bool isPlayer, int MovementRange)
+        public void BuildPath(Stack<MovementStep> movementSteps, bool isPlayer)
         {
             if (movementSteps.Count < 1) return;
             var time = TimeManager.Instance.currentGameTime;
@@ -74,9 +51,84 @@ namespace TXDCL.Combat
             CombatGridManager.Instance.SetGridObstacle(
                 CombatGridManager.Instance.CharacterPositionsInCombatDict[character], false);
             character.CharacterData.currentMovement++;
+            arriveTargetPosition = false;
             Movement(movementSteps, isPlayer);
         }
+        private void Movement(Stack<MovementStep> movementSteps, bool isPlayer)
+        {
+            if (movementSteps.Count <= 0)
+            {
+                character.isMoving = false;
+                CombatGridManager.Instance.SetGridObstacle(
+                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
+                arriveTargetPosition = true;
+                if (!isPlayer) return;
+                CombatGridManager.Instance.DisplayCharactersMovementPath();
+                CombatUI.Instance.FadeCombatPanel(1f);
+                return;
+            }
+            var movementStep = movementSteps.Pop();
+            var targetPos = movementStep.gridCoordinates;
+            character.SetCharacterFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x - CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
+            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
+            {
+                character.isMoving = true;
+                character.CharacterData.currentMovement--;
+                CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
+                Movement(movementSteps, isPlayer);
+            };
+        }
+        /// <summary>
+        /// 根据生成的最短路径进行移动并且在到达最小范围时停下
+        /// </summary>
+        /// <param name="movementSteps"></param>
+        /// <param name="isPlayer"></param>
+        /// <param name="minimumRange">最小范围</param>
+        public void BuildPath(Stack<MovementStep> movementSteps, bool isPlayer, int minimumRange)
+        {
+            if (movementSteps.Count < 1) return;
+            var time = TimeManager.Instance.currentGameTime;
+            foreach (var step in movementSteps)
+            {
+                step.hour = time.Hours;
+                step.minute = time.Minutes;
+                step.second = time.Seconds;
 
+                var nextStepTime = new TimeSpan(0, 0, 1);
+                time = time.Add(nextStepTime);
+            }
+
+            CombatGridManager.Instance.SetGridObstacle(
+                CombatGridManager.Instance.CharacterPositionsInCombatDict[character], false);
+            character.CharacterData.currentMovement++;
+            arriveTargetPosition = false;
+            Movement(movementSteps, isPlayer, minimumRange);
+        }
+        private void Movement(Stack<MovementStep> movementSteps, bool isPlayer, int minimumRange)
+        {
+            if (movementSteps.Count <= 0 || movementSteps.Count <= minimumRange)
+            {
+                CombatGridManager.Instance.SetGridObstacle(
+                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
+                character.isMoving = false;
+                arriveTargetPosition = true;
+                if (!isPlayer) return;
+                CombatGridManager.Instance.DisplayCharactersMovementPath();
+                CombatUI.Instance.FadeCombatPanel(1f);
+                return;
+            }
+            var movementStep = movementSteps.Pop();
+            var targetPos = movementStep.gridCoordinates;
+            character.SetCharacterFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x - CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
+            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
+            {
+                character.isMoving = true;
+                character.CharacterData.currentMovement--;
+                CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
+                Movement(movementSteps, isPlayer, minimumRange);
+            };
+        }
+        
         private Vector3 GetWorldPosition(Vector3Int gridPosition)
         {
             var gridPos = grid.CellToWorld(gridPosition);

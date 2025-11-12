@@ -20,18 +20,20 @@ MonoBehaviour:
   nextExp: 0
   Jingjie:
     miniJingjieLevel: 0
-    JingjieLevel: 3
+    JingjieLevel: 4
     JingjieData: {fileID: 0}
+  currentVigor: 0
+  maxVigor: 0
+  currentDanDu: 0
+  maxDanDu: 0
+  currentShaQi: 0
+  maxShaQi: 0
   currentHealth: 0
   maxHealth: 0
   currentStamina: 0
   maxStamina: 0
   currentMana: 0
   maxMana: 0
-  currentDanDu: 0
-  maxDanDu: 0
-  currentShaQi: 0
-  maxShaQi: 0
   Attack: 0
   Reaction: 0
   Speed: 0

@@ -157,18 +157,20 @@ namespace TXDCL.Character
             {
                 return true;
             }
+            if (attacker == defender) return false;
             var dif = attacker.CharacterData.Jingjie.JingjieLevel - defender.CharacterData.Jingjie.JingjieLevel;//计算大境界差
             var miniDif = attacker.CharacterData.Jingjie.miniJingjieLevel - defender.CharacterData.Jingjie.miniJingjieLevel;//计算小境界差
-            var accurateRate = Random.Range(-0.05f + dif * 0.5f + miniDif * 0.1f, 0.05f + dif * 0.5f + miniDif * 0.1f);//0.05f为修正值，0.5f为每个大境界相差命中率，0.1f为每个小境界差值
+            var accurateRate = Random.Range(-0.05f + dif * 0.5f + miniDif * 0.1f + 1, 0.05f + dif * 0.5f + miniDif * 0.1f + 1);//0.05f为修正值，0.5f为每个大境界相差命中率，0.1f为每个小境界差值
+            
             //如果境界未稳固，则丢失40%命中率
             if (attacker.isJingjieUnstable)
             {
-                accurateRate -= 0.4f;
+                accurateRate -= accurateRate * 0.4f;
             }
             //如果神识涣散，则丢失40%命中率
             if (attacker.isShenShiHuanSan)
             {
-                accurateRate -= 0.4f;
+                accurateRate -= accurateRate * 0.4f;
             }
             //随机值需大于精准率才触发闪避
             return Random.Range(0f, 1f) > accurateRate;

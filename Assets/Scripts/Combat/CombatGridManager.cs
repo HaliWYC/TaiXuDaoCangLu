@@ -291,8 +291,7 @@ namespace TXDCL.Combat
         {
             if (lastTargetPos == position)
             {
-                currentCharacter.GetComponent<CombatMovement>().BuildPath(confirmMovementSteps, true,
-                    currentCharacter.CharacterData.currentMovement);
+                currentCharacter.GetComponent<CombatMovement>().BuildPath(confirmMovementSteps, true);
                 CursorManager.Instance.isConfirm = false;
                 potentialSelectingPath.Clear();
                 confirmSelectingPath.Clear();

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TXDCL.Astar;
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class NPCController : CharacterBase
 {
     private static readonly int CastFaShu = Animator.StringToHash("CastFaShu");
-    private List<FaShuData> currentFaShuInTurn = new();
+    private List<FaShuData> availableFaShu = new();
     private CharacterBase currentEnemy;
     private Vector2Int currentPosition;
     private Vector2Int targetPosition;
@@ -21,6 +22,7 @@ public class NPCController : CharacterBase
         EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
         EventHandler.AfterCombatBeginEvent += OnAfterCombatBeginEvent;
         EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
+        EventHandler.AfterFaShuReleasedEvent += OnAfterFaShuReleasedEvent;
     }
 
     private void OnDisable()
@@ -28,8 +30,9 @@ public class NPCController : CharacterBase
         EventHandler.BeforeCombatBeginEvent -= OnBeforeCombatBeginEvent;
         EventHandler.AfterCombatBeginEvent -= OnAfterCombatBeginEvent;
         EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
+        EventHandler.AfterFaShuReleasedEvent -= OnAfterFaShuReleasedEvent;
     }
-
+    
     protected override void OnBeforeCombatBeginEvent()
     {
         base.OnBeforeCombatBeginEvent();
@@ -45,59 +48,74 @@ public class NPCController : CharacterBase
     {
         base.OnCharacterTurnBeginEvent(character);
         if(character!= this) return;
-        SelectFaShu();
+        availableFaShu.Clear();
+        SelectEnemy();
+        SelectPotentialFaShu();
+    }
+    private void OnAfterFaShuReleasedEvent(FaShuData fashuData)
+    {
+        if (availableFaShu.Count <= 0) return;
+        SelectEnemy();
+        SelectPotentialFaShu();
     }
 
-    private void SelectFaShu()
+    private void SelectEnemy()
     {
-        currentFaShuInTurn.Clear();
         if (Enemies.Count == 0) return;
         currentEnemy = Enemies[Random.Range(0, Enemies.Count)];
-        //选择法术
-        SelectPotentialFaShu();
-        // if(currentFaShuInTurn.Count == 0) return;
-        // Debug.Log(currentFaShuInTurn.Count);
     }
 
     private void SelectPotentialFaShu()
     {
-        var maxLoopCount = 0;
-        while (maxLoopCount < 999)
+        if (availableFaShu.Count == 0)
         {
-            maxLoopCount++;
-            //获得随机序号
-            var FaShuIndex = Random.Range(0, currentFaShuList.Count);
-            //寻找法术并验证是否可以释放
-            if (!FaShuManager.Instance.CheckReleaseFaShuConditions(CharacterData, currentFaShuList[FaShuIndex],
-                    false) || !CheckEnoughDistance(currentFaShuList[FaShuIndex].ReleaseRange)) continue;
-            //释放法术
-            ReleaseFaShu(currentFaShuList[FaShuIndex]);
-            break;
+            //初始化本回合潜在能够法术
+            foreach (var fashu in currentFaShuList.Where(fashu =>
+                         FaShuManager.Instance.CheckReleaseFaShuConditions(CharacterData, fashu, false) &&
+                         CheckEnoughDistance(fashu.ReleaseRange)))
+            {
+                availableFaShu.Add(fashu);
+            }
         }
+        else
+        {
+            //删除不能释放的法术，留下潜在能够释放的法术
+            foreach (var fashu in availableFaShu.Where(fashu =>
+                         !FaShuManager.Instance.CheckReleaseFaShuConditions(CharacterData, fashu, false) ||
+                         !CheckEnoughDistance(fashu.ReleaseRange)).ToList())
+            {
+                availableFaShu.Remove(fashu);
+            }
+        }
+        //释放法术
+        if(availableFaShu.Count == 0) return;
+        StartCoroutine(ReleaseFaShu(availableFaShu[Random.Range(0, availableFaShu.Count - 1)]));
     }
-
-    private void ReleaseFaShu(FaShuData faShuData)
+    
+    /// <summary>
+    /// 根据法术释放范围指定最短移动路径并且等到到达终点后才执行之后的动作
+    /// </summary>
+    /// <param name="faShuData"></param>
+    /// <returns></returns>
+    private IEnumerator ReleaseFaShu(FaShuData faShuData)
     {
         //执行移动
-        //执行法术
+        movementSteps.Clear();
+        var startPos = new Vector2Int((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+        var endPos = new Vector2Int((int)(currentEnemy.transform.position.x - 0.5f), (int)(currentEnemy.transform.position.y - 0.5f));
+        CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy],false);
+        AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, startPos, endPos, movementSteps);
+        CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy],true);
         SetCharacterFacingDirection(currentEnemy.transform.position.x - transform.position.x);
+        combatMovement.BuildPath(movementSteps, false, faShuData.ReleaseRange);
+        yield return new WaitUntil(() => combatMovement.arriveTargetPosition);
+        //执行法术
+        //SetCharacterFacingDirection(currentEnemy.transform.position.x - transform.position.x);
         animator.SetTrigger(CastFaShu);
         FaShuManager.Instance.ReleaseFaShu(faShuData, currentEnemy.transform.position,this,
             CombatGridManager.Instance.GetAllGridInCombatDict(CombatGridManager.Instance.FindPotentialPath(
                 CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy], faShuData.Range, true)));
     }
-
-    private void CharacterMove(int FaShuReleaseRange)
-    {
-        AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, currentPosition, targetPosition, movementSteps);
-        var moveDis = FaShuReleaseRange;
-        while (moveDis > 0)
-        {
-            var step = movementSteps.Pop();
-            moveDis--;
-        }
-    }
-    
     /// <summary>
     /// 检测当前角色企图攻击的目标是否在自己最大可移动范围加上法术范围内
     /// </summary>

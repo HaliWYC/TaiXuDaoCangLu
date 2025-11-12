@@ -54,7 +54,7 @@ namespace TXDCL.XiuLian.FuShu
             {
                 case FaShuDerivativeTrackType.ReleaserMobile:
                     transform.position = startPos + startPositionModifier;
-                    transform.DOMove(targetPos + targetPositionModifier, 5f, false).SetEase(Ease.Linear).onComplete = () =>
+                    transform.DOMove(targetPos + targetPositionModifier, 0.5f, false).SetEase(Ease.Linear).onComplete = () =>
                     {
                         animator.SetTrigger(Arrived);
                     };
@@ -65,7 +65,7 @@ namespace TXDCL.XiuLian.FuShu
                     break;
                 case FaShuDerivativeTrackType.SpecificMobile:
                     transform.position = targetPos + specificPositionModifier;
-                    transform.DOMove(targetPos + targetPositionModifier, 5f, false).SetEase(Ease.Linear).onComplete = () =>
+                    transform.DOMove(targetPos + targetPositionModifier, 0.5f, false).SetEase(Ease.Linear).onComplete = () =>
                     {
                         animator.SetTrigger(Arrived);
                     };
@@ -91,6 +91,7 @@ namespace TXDCL.XiuLian.FuShu
         private void Finish()
         {
             PoolTool.Instance.FaShuDerivativePool.Release(gameObject);
+            EventHandler.CallAfterFaShuReleasedEvent(FaShuData);
         }
         
     }

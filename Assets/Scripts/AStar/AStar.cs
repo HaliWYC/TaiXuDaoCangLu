@@ -74,9 +74,10 @@ namespace TXDCL.Astar
         {
             //添加起始点
             openNodesList.Add(startNode);
-            
-            while (openNodesList.Count > 0)
+            var maxLoopCount = 0;
+            while (openNodesList.Count > 0 && maxLoopCount < 9999)
             {
+                maxLoopCount++;
                 //节点排序
                 openNodesList.Sort();
                 var node = openNodesList[0];

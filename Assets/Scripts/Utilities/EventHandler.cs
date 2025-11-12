@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TXDCL.Character;
 using TXDCL.Map;
+using TXDCL.XiuLian.FuShu;
 using UnityEngine;
 public static class  EventHandler
 {
@@ -52,8 +53,6 @@ public static class  EventHandler
     #endregion
 
     #region Combat
-
-    
     public static event Action BeforeCombatBeginEvent;
     public static void CallBeforeCombatBeginEvent()
     {
@@ -80,6 +79,12 @@ public static class  EventHandler
     public static void CallCharacterTurnEndEvent(CharacterBase character)
     {
         CharacterTurnEndEvent?.Invoke(character);
+    }
+
+    public static event Action<FaShuData> AfterFaShuReleasedEvent;
+    public static void CallAfterFaShuReleasedEvent(FaShuData faShuData)
+    {
+        AfterFaShuReleasedEvent?.Invoke(faShuData);
     }
 
     #endregion
