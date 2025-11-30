@@ -2351,7 +2351,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 336450158}
-  - component: {fileID: 336450159}
   m_Layer: 5
   m_Name: CharacterStats
   m_TagString: Untagged
@@ -2366,7 +2365,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336450157}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2376,34 +2375,13 @@ RectTransform:
   - {fileID: 604967245}
   - {fileID: 904107923}
   - {fileID: 930911976}
-  m_Father: {fileID: 956855860}
+  m_Father: {fileID: 653159270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &336450159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336450157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3071cb5dc9cb4dcab6998b20bf3bbf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterImage: {fileID: 424950769}
-  HealthBar: {fileID: 775998461}
-  HealthText: {fileID: 158922204}
-  ManaBar: {fileID: 1142515149}
-  ManaText: {fileID: 1727788137}
-  StaminaBar: {fileID: 1998781072}
-  StaminaText: {fileID: 1269644736}
-  ShenShiBar: {fileID: 2072457354}
-  ShenShiText: {fileID: 1843014954}
 --- !u!1 &339877446
 GameObject:
   m_ObjectHideFlags: 0
@@ -4589,6 +4567,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629838898}
   m_CullTransparentMesh: 1
+--- !u!1 &653159269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 653159270}
+  - component: {fileID: 653159271}
+  m_Layer: 5
+  m_Name: CharaterStatsPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &653159270
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653159269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 336450158}
+  m_Father: {fileID: 956855860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &653159271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653159269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3071cb5dc9cb4dcab6998b20bf3bbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharaterStats: {fileID: 336450157}
+  CharacterImage: {fileID: 424950769}
+  HealthBar: {fileID: 775998461}
+  HealthText: {fileID: 158922204}
+  ManaBar: {fileID: 1142515149}
+  ManaText: {fileID: 1727788137}
+  StaminaBar: {fileID: 1998781072}
+  StaminaText: {fileID: 1269644736}
+  ShenShiBar: {fileID: 2072457354}
+  ShenShiText: {fileID: 1843014954}
 --- !u!1 &654440206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6654,7 +6691,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 336450158}
+  - {fileID: 653159270}
   - {fileID: 1679870439}
   m_Father: {fileID: 2012417467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13665,7 +13702,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 956855863}
-  CharacterStatsPanel: {fileID: 336450159}
   FaShuPanelUI: {fileID: 1679870442}
 --- !u!1 &2034195653
 GameObject:

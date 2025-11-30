@@ -43,7 +43,8 @@ namespace TXDCL.Combat
         [Header("Character")]
         //[SerializeField]private CharacterBase player;
         public CharacterBase currentCharacter;//当前进行回合的角色
-        public bool canCurrentCharacterCastFaShu;
+        public bool canCurrentCharacterCastFaShu;//当前角色能否释放法术
+        public bool canDisplayCharacterStats;//能否显示角色基础属性信息，在角色非空闲状态下无法显示角色信息
         private FaShuData currentFaShuData;//当前选择的法术
         public readonly Dictionary<CharacterBase,Vector2Int> CharacterPositionsInCombatDict = new();//储存角色信息以及角色网格坐标
         private void OnEnable()
@@ -255,6 +256,8 @@ namespace TXDCL.Combat
             ClearConfirmPathTiles();
             //重置位置
             lastTargetPos = Vector2Int.zero;
+            //可以显示角色面板信息
+            canDisplayCharacterStats = true;
             if (range <= 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             //找到并显示路径
             potentialSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, false);
@@ -272,6 +275,7 @@ namespace TXDCL.Combat
         {
             if (!potentialSelectingPath.Contains(position)) return;
             canCurrentCharacterCastFaShu = false;
+            canDisplayCharacterStats = false;
             DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
             confirmMovementSteps.Clear();
             var currentPos = GetWorldPosition(CharacterPositionsInCombatDict[currentCharacter]);
@@ -310,6 +314,7 @@ namespace TXDCL.Combat
             ClearPotentialTiles();
             ClearConfirmPathTiles();
             currentFaShuData = faShuData;
+            canDisplayCharacterStats = false;
             if (currentFaShuData.ReleaseRange < 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             potentialFaShuSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, true);
             DisplayPath(potentialFaShuSelectingPath, PotentialFaShuPathTile);
@@ -323,6 +328,7 @@ namespace TXDCL.Combat
         public void DisplayFaShuConfirmPath(Vector2Int targetPos)
         {
             ClearConfirmPathTiles();
+            canDisplayCharacterStats = false;
             if (currentFaShuData.Range < 0 || !potentialFaShuSelectingPath.Contains(targetPos)) return;
             confirmFaShuSelectingPath = FindPotentialPath(GetGridPosition(targetPos), currentFaShuData.Range, true);
             DisplayPath(confirmFaShuSelectingPath, ConfirmFaShuPathTile);

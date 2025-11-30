@@ -79,7 +79,7 @@ namespace TXDCL.XiuLian.FuShu
             }
             //结算法术消耗,不管是否命中目标都消耗道藏、法力等资源
             FaShuManager.Instance.UpdateFaShuCost(from, faShuData);
-            CombatUI.Instance.CharacterStatsPanel.UpdateCharacterStats(GameManager.Instance.Player.CharacterData);
+            StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player));
             CombatUI.Instance.FaShuPanelUI.SetUpFaShuSlots(from);
         }
 

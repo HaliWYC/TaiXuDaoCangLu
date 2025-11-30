@@ -54,7 +54,7 @@ public class NPCController : CharacterBase
     }
     private void OnAfterFaShuReleasedEvent(FaShuData fashuData)
     {
-        if (availableFaShu.Count <= 0) return;
+        if(availableFaShu.Count == 0) return;
         SelectEnemy();
         SelectPotentialFaShu();
     }
@@ -88,7 +88,12 @@ public class NPCController : CharacterBase
             }
         }
         //释放法术
-        if(availableFaShu.Count == 0) return;
+        if (availableFaShu.Count == 0)
+        {
+            EventHandler.CallCharacterTurnEndEvent(this);
+            CombatManager.Instance.isCharacterTurnActive = false;
+            return;
+        }
         StartCoroutine(ReleaseFaShu(availableFaShu[Random.Range(0, availableFaShu.Count - 1)]));
     }
     

@@ -309,6 +309,37 @@ MonoBehaviour:
   miniMaps:
   - {fileID: 11400000, guid: 9b110e5bc15be403795829b9811b6e67, type: 2}
   - {fileID: 11400000, guid: 47f4108f0cac04a888a81cf51a29c04e, type: 2}
+--- !u!1 &285568047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285568048}
+  m_Layer: 0
+  m_Name: CombatOrderUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &285568048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285568047}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349260036
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +398,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -524,6 +556,22 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.Physics2DRaycaster
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 72
+  m_MaxRayIntersections: 0
 --- !u!1 &670082184
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +731,8 @@ GameObject:
   - component: {fileID: 725224789}
   - component: {fileID: 725224788}
   - component: {fileID: 725224793}
-  m_Layer: 0
+  - component: {fileID: 725224794}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -798,13 +847,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
   PotentialFaShuList: []
   animator: {fileID: 725224792}
+  Collider: {fileID: 0}
   isIconFacingLeft: 0
   isMoving: 0
   isHurt: 0
   isDead: 0
   isZouHuoRuMo: 0
   isShenShiHuanSan: 0
+  isCombating: 0
   isJingjieUnstable: 0
+  isShenShiPenetrated: 1
   Allies: []
   Enemies: []
 --- !u!212 &725224790
@@ -945,6 +997,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19bc278331fd4341988ce97790e7352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arriveTargetPosition: 0
+--- !u!70 &725224794
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725224779}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.004184723, y: 0.706192}
+  m_Size: {x: 0.8990402, y: 1.5016785}
+  m_Direction: 0
 --- !u!1 &906387068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775674182}
   - component: {fileID: 1775674183}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Character_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1358,6 +1448,7 @@ MonoBehaviour:
     TileBase: {fileID: 11400000, guid: 72f8e82a2494e48f583e2437d4708c50, type: 2}
   currentCharacter: {fileID: 0}
   canCurrentCharacterCastFaShu: 0
+  canDisplayCharacterStats: 0
 --- !u!4 &1778130716
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,3 +1483,4 @@ SceneRoots:
   - {fileID: 1778130716}
   - {fileID: 349260037}
   - {fileID: 1379574792}
+  - {fileID: 285568048}

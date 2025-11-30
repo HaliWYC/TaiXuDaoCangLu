@@ -5,7 +5,6 @@ using UnityEngine;
 public class CombatUI : Singleton<CombatUI>
 {
     public CanvasGroup canvasGroup;
-    public CharacterStats CharacterStatsPanel;
     public FaShuPanelUI FaShuPanelUI;
     private void OnEnable()
     {
@@ -22,20 +21,20 @@ public class CombatUI : Singleton<CombatUI>
     {
         if (character != GameManager.Instance.Player)
         {
-            CharacterStatsPanel.gameObject.SetActive(false);
+            CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(false);
             FaShuPanelUI.gameObject.SetActive(false);
             return;
         }
-        CharacterStatsPanel.gameObject.SetActive(true);
+        CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(true);
         FaShuPanelUI.gameObject.SetActive(true);
-        CharacterStatsPanel.UpdateCharacterStats(character.CharacterData);
+        StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(character));
         FaShuPanelUI.SetUpFaShuSlots(character);
         DaoCangPanelUI.Instance.InitializeDaoCangPanel(character);
     }
     
     private void OnCharacterTurnEndEvent(CharacterBase character)
     {
-        CharacterStatsPanel.gameObject.SetActive(false);
+        CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(false);
         FaShuPanelUI.gameObject.SetActive(false);
     }
 

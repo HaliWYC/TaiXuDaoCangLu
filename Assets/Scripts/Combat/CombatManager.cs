@@ -31,6 +31,7 @@ namespace TXDCL.Combat
         {
             foreach (var character in CharactersInCombat.Where(character => !CharacterTurnProgressDict.ContainsKey(character)))
             {
+                character.isCombating = true;
                 CharacterTurnProgressDict.Add(character, 0);
             }
             CombatGridManager.Instance.GetAndSetCharactersInGrid();
@@ -61,6 +62,7 @@ namespace TXDCL.Combat
                 isCharacterTurnActive = true;
                 CursorManager.Instance.isSelecting = false;
                 EventHandler.CallCharacterTurnBeginEvent(character);
+                return;
             }
         }
         public void RegisterPlayerSide(CharacterBase character)

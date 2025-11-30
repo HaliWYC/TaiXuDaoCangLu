@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TXDCL.Combat;
@@ -6,6 +7,7 @@ using TXDCL.XiuLian.FuShu;
 using TXDCL.XiuLian.GongFa;
 using TXDCL.Effect;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 namespace TXDCL.Character
@@ -14,7 +16,7 @@ namespace TXDCL.Character
     [RequireComponent(typeof(CombatMovement))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
-    public class CharacterBase : MonoBehaviour
+    public class CharacterBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("CharacterData")]
         [SerializeField] private CharacterData templateData;
@@ -31,6 +33,7 @@ namespace TXDCL.Character
         public List<FaShuData> PotentialFaShuList = new();//习得的所有法术
         [Header("Components")]
         public Animator animator;
+        public BoxCollider2D Collider;
         private float faceDirection;
         [Header("Animation")]
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
@@ -44,8 +47,9 @@ namespace TXDCL.Character
         public bool isDead;//是否死亡
         public bool isZouHuoRuMo;//是否走火入魔
         public bool isShenShiHuanSan;//是否神识涣散,神识涣散状态将减少40%命中率
-        //public bool isCombating;//是否处于战斗状态
+        public bool isCombating;//是否处于战斗状态
         public bool isJingjieUnstable;//境界是否稳固,未稳固将减少40%命中率
+        public bool isShenShiPenetrated;//是否被神识洞穿,被洞穿的目标可以实时查看基础属性
         [Header("Combat")] 
         public List<CharacterBase> Allies = new();
         public List<CharacterBase> Enemies = new();
@@ -58,6 +62,7 @@ namespace TXDCL.Character
             gongFaProcessor.characterData = CharacterData;
             currentFaShuList.Clear();
             animator = GetComponent<Animator>();
+            Collider = Collider == null ? GetComponent<BoxCollider2D>() : Collider;
             foreach (var FaShu in tempFaShuList)
             {
                 currentFaShuList.Add(Instantiate(FaShu));
@@ -142,7 +147,7 @@ namespace TXDCL.Character
             }
             //TODO:后面把UI显示放在Buff部分，因为每个NPC也需要实时结算属性UI
             if (defender == GameManager.Instance.Player)
-                CombatUI.Instance.CharacterStatsPanel.UpdateCharacterStats(GameManager.Instance.Player.CharacterData);
+                CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player);
             //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
         }
         /// <summary>
@@ -308,6 +313,28 @@ namespace TXDCL.Character
                 fashu.CurrentCoolDownTime = 0;
                 fashu.currentPrepareTurns = 0;
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
+            Debug.Log("1");
+            //CharacterStatsPanel.Instance.UpdateCharacterStats(eventData.pointerEnter.GetComponent<CharacterBase>());
+            StartCoroutine(ShowCharacterStats());
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (!isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
+            StopAllCoroutines();
+            //StopCoroutine(ShowCharacterStats());
+        }
+
+        private IEnumerator ShowCharacterStats()
+        {
+            //Debug.Log(CharacterData.characterName);
+            yield return new WaitForSeconds(2);
+            StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(this));
         }
     }
     

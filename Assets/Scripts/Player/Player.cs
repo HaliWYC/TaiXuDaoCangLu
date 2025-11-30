@@ -13,7 +13,6 @@ namespace TXDCL.Character
         private PlayerController playerController;
         private Vector2 inputDirection;
         private FaShuData currentSelectingFaShu;
-        private bool isCombating;
         protected override void Awake()
         {
             base.Awake();
@@ -67,8 +66,7 @@ namespace TXDCL.Character
         {
             base.OnBeforeCombatBeginEvent();
             CombatManager.Instance.RegisterPlayerSide(this);
-            isCombating = true;
-            GetComponent<BoxCollider2D>().isTrigger = true;
+            Collider.isTrigger = true;
         }
         private void OnAfterCombatBeginEvent()
         {
