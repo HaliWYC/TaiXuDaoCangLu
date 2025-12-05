@@ -4,12 +4,13 @@ using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class SwitchBounds : MonoBehaviour
+public class SwitchBounds : Singleton<SwitchBounds>
 {
-    private CinemachineConfiner2D Confiner2D;
+    public CinemachineConfiner2D Confiner2D;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Confiner2D = GetComponent<CinemachineConfiner2D>();
     }
 

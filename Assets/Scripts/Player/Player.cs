@@ -81,7 +81,7 @@ namespace TXDCL.Character
 
         private void FixedUpdate()
         {
-            if (!isCombating)
+            if (!CombatManager.Instance.isCombating)
                 Move();
         }
 
@@ -90,7 +90,7 @@ namespace TXDCL.Character
             //设置朝向
             SetCharacterFacingDirection(inputDirection.x);
             //移动
-            var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed);
+            var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed * 2);
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
                 rigidBody2D.linearVelocity = velocity * math.sqrt(2) / 2;

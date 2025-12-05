@@ -263,7 +263,7 @@ namespace TXDCL.Combat
             potentialSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, false);
             DisplayPath(potentialSelectingPath, PotentialPathTile);
             //完全显示战斗UI面版
-            CombatUI.Instance.FadeCombatPanel(1f);
+            CombatUI.Instance.IgnoreCombatPanel(false);
             CursorManager.Instance.isSelecting = true;
             canCurrentCharacterCastFaShu = true;
         }
@@ -282,7 +282,7 @@ namespace TXDCL.Combat
             AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, currentPos, position, confirmMovementSteps);
             confirmSelectingPath = confirmMovementSteps.Select(step => step.gridCoordinates).ToList();
             DisplayPath(confirmSelectingPath, ConfirmPathTile);
-            CombatUI.Instance.FadeCombatPanel(0.5f);
+            CombatUI.Instance.IgnoreCombatPanel(true);
             lastTargetPos = position;
             CursorManager.Instance.isConfirm = true;
             
@@ -318,7 +318,7 @@ namespace TXDCL.Combat
             if (currentFaShuData.ReleaseRange < 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             potentialFaShuSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, true);
             DisplayPath(potentialFaShuSelectingPath, PotentialFaShuPathTile);
-            CombatUI.Instance.FadeCombatPanel(0.5f);
+            CombatUI.Instance.IgnoreCombatPanel(true);
             CursorManager.Instance.isCastingFaShu = true;
         }
         /// <summary>
@@ -332,7 +332,7 @@ namespace TXDCL.Combat
             if (currentFaShuData.Range < 0 || !potentialFaShuSelectingPath.Contains(targetPos)) return;
             confirmFaShuSelectingPath = FindPotentialPath(GetGridPosition(targetPos), currentFaShuData.Range, true);
             DisplayPath(confirmFaShuSelectingPath, ConfirmFaShuPathTile);
-            CombatUI.Instance.FadeCombatPanel(0.5f);
+            CombatUI.Instance.IgnoreCombatPanel(true);
             lastFaShuTargetPos = targetPos;
             CursorManager.Instance.isConfirm = true;
         }
@@ -353,8 +353,6 @@ namespace TXDCL.Combat
                 CursorManager.Instance.isConfirm = false;
                 ClearPotentialTiles();
                 ClearConfirmPathTiles();
-                GameManager.Instance.ResetGameCameraLenInGridSize();
-                CombatUI.Instance.FadeCombatPanel(1f);
                 DisplayCharactersMovementPath();
             }
             else

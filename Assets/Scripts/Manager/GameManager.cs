@@ -19,12 +19,15 @@ public class GameManager : Singleton<GameManager>
     public void SetGameCameraLenInGridSize(int range)
     {
         if(range <=16) return;
-        var offset = gameCameraLenSize + range - 16;
-        DOVirtual.Float(gameCameraLenSize,offset,(range-16)/2f, value => gameCamera.Lens.OrthographicSize = value);
+        var offset = gameCameraLenSize + range + 2 - 16;
+        SwitchBounds.Instance.Confiner2D.OversizeWindow.Enabled = true;
+        DOVirtual.Float(gameCameraLenSize, offset, 0.5f, value => gameCamera.Lens.OrthographicSize = value);
     }
 
     public void ResetGameCameraLenInGridSize()
     {
+        SwitchBounds.Instance.Confiner2D.OversizeWindow.Enabled = false;
+        CombatUI.Instance.IgnoreCombatPanel(false);
         gameCamera.Lens.OrthographicSize = gameCameraLenSize;
     }
 }

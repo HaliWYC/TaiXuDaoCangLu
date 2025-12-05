@@ -91,6 +91,7 @@ namespace TXDCL.XiuLian.FuShu
         private void Finish()
         {
             PoolTool.Instance.FaShuDerivativePool.Release(gameObject);
+            GameManager.Instance.ResetGameCameraLenInGridSize();
             EventHandler.CallAfterFaShuReleasedEvent(FaShuData);
         }
         

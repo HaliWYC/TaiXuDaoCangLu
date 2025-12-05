@@ -47,7 +47,6 @@ namespace TXDCL.Character
         public bool isDead;//是否死亡
         public bool isZouHuoRuMo;//是否走火入魔
         public bool isShenShiHuanSan;//是否神识涣散,神识涣散状态将减少40%命中率
-        public bool isCombating;//是否处于战斗状态
         public bool isJingjieUnstable;//境界是否稳固,未稳固将减少40%命中率
         public bool isShenShiPenetrated;//是否被神识洞穿,被洞穿的目标可以实时查看基础属性
         [Header("Combat")] 
@@ -147,7 +146,7 @@ namespace TXDCL.Character
             }
             //TODO:后面把UI显示放在Buff部分，因为每个NPC也需要实时结算属性UI
             if (defender == GameManager.Instance.Player)
-                CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player);
+                StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player));
             //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
         }
         /// <summary>
@@ -317,15 +316,14 @@ namespace TXDCL.Character
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (!isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
-            Debug.Log("1");
+            if (!CombatManager.Instance.isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
             //CharacterStatsPanel.Instance.UpdateCharacterStats(eventData.pointerEnter.GetComponent<CharacterBase>());
             StartCoroutine(ShowCharacterStats());
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (!isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
+            if (!CombatManager.Instance.isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
             StopAllCoroutines();
             //StopCoroutine(ShowCharacterStats());
         }

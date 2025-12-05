@@ -64,13 +64,12 @@ namespace TXDCL.Combat
                 arriveTargetPosition = true;
                 if (!isPlayer) return;
                 CombatGridManager.Instance.DisplayCharactersMovementPath();
-                CombatUI.Instance.FadeCombatPanel(1f);
                 return;
             }
             var movementStep = movementSteps.Pop();
             var targetPos = movementStep.gridCoordinates;
             character.SetCharacterFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x - CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
-            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
+            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), CalculateMovementSpeed()).SetEase(Ease.Linear).onComplete = () =>
             {
                 character.isMoving = true;
                 character.CharacterData.currentMovement--;
@@ -114,19 +113,23 @@ namespace TXDCL.Combat
                 arriveTargetPosition = true;
                 if (!isPlayer) return;
                 CombatGridManager.Instance.DisplayCharactersMovementPath();
-                CombatUI.Instance.FadeCombatPanel(1f);
                 return;
             }
             var movementStep = movementSteps.Pop();
             var targetPos = movementStep.gridCoordinates;
             character.SetCharacterFacingDirection(CombatGridManager.Instance.GetGridPosition(targetPos).x - CombatGridManager.Instance.CharacterPositionsInCombatDict[character].x);
-            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), 0.3f).SetEase(Ease.Linear).onComplete = () =>
+            transform.DOMove(GetWorldPosition((Vector3Int)targetPos), CalculateMovementSpeed()).SetEase(Ease.Linear).onComplete = () =>
             {
                 character.isMoving = true;
                 character.CharacterData.currentMovement--;
                 CombatGridManager.Instance.SetCharactersInGridPos(character, targetPos);
                 Movement(movementSteps, isPlayer, minimumRange);
             };
+        }
+
+        private float CalculateMovementSpeed()
+        {
+            return 2.5f / (((int)character.CharacterData.Jingjie.JingjieLevel + 1) * 5 + ((int)character.CharacterData.Jingjie.miniJingjieLevel + 1) * 1);
         }
         
         private Vector3 GetWorldPosition(Vector3Int gridPosition)

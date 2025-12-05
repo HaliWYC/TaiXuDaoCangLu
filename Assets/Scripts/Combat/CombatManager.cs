@@ -9,12 +9,12 @@ namespace TXDCL.Combat
 {
     public class CombatManager : Singleton<CombatManager>
     {
+        public bool isCombating;
         private readonly Dictionary<CharacterBase, int> CharacterTurnProgressDict = new();
         public bool isCharacterTurnActive;
         public List<CharacterBase> CharactersInCombat = new();
         public List<CharacterBase> PlayerSides;
         public List<CharacterBase> EnemySides;
-
         private float turnProgressModifier;
 
         private void OnEnable()
@@ -29,9 +29,9 @@ namespace TXDCL.Combat
 
         private void OnNewCharacterEnterEvent(List<CharacterBase> characters)
         {
+            isCombating = true;
             foreach (var character in CharactersInCombat.Where(character => !CharacterTurnProgressDict.ContainsKey(character)))
             {
-                character.isCombating = true;
                 CharacterTurnProgressDict.Add(character, 0);
             }
             CombatGridManager.Instance.GetAndSetCharactersInGrid();

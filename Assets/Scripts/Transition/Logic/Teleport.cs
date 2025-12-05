@@ -1,4 +1,5 @@
 using System;
+using TXDCL.Combat;
 using TXDCL.Map;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace TXDCL.Transition
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && !CombatManager.Instance.isCombating)
             {
                 EventHandler.CallSceneLoadedEvent(sceneToGo, positionToGo);
             }

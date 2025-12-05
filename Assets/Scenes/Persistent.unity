@@ -318,8 +318,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 285568048}
+  - component: {fileID: 285568049}
   m_Layer: 0
-  m_Name: CombatOrderUI
+  m_Name: CombatOrderSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,6 +341,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &285568049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285568047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71219480087fc442ab7254382be21333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatOrderSlotUI
+  characterIcon: {fileID: 0}
 --- !u!1 &349260036
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +507,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -668,7 +682,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 10
+    OrthographicSize: 15
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -713,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98d761bfd8544b50a9d4b88d3d7ea2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Confiner2D: {fileID: 0}
 --- !u!1 &725224779
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +869,6 @@ MonoBehaviour:
   isDead: 0
   isZouHuoRuMo: 0
   isShenShiHuanSan: 0
-  isCombating: 0
   isJingjieUnstable: 0
   isShenShiPenetrated: 1
   Allies: []
@@ -1277,6 +1291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8818c213a4f41f49a38b492dd719de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCombating: 0
   isCharacterTurnActive: 0
   CharactersInCombat: []
   PlayerSides: []

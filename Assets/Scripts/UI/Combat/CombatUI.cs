@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CombatUI : Singleton<CombatUI>
 {
-    public CanvasGroup canvasGroup;
     public FaShuPanelUI FaShuPanelUI;
+    public GameObject CombatTurnProgressUIBar;
+    public CombatOrderSlotUI CombatOrderUIPrefab;
     private void OnEnable()
     {
         EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
@@ -38,8 +39,8 @@ public class CombatUI : Singleton<CombatUI>
         FaShuPanelUI.gameObject.SetActive(false);
     }
 
-    public void FadeCombatPanel(float alpha)
+    public void IgnoreCombatPanel(bool ignore)
     {
-        canvasGroup.alpha = alpha;
+       FaShuPanelUI.gameObject.SetActive(!ignore);
     }
 }
