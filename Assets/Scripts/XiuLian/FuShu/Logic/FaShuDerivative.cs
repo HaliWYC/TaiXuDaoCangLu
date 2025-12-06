@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using TXDCL.Character;
+using TXDCL.Combat;
 using UnityEngine;
 
 namespace TXDCL.XiuLian.FuShu
@@ -91,9 +92,9 @@ namespace TXDCL.XiuLian.FuShu
         private void Finish()
         {
             PoolTool.Instance.FaShuDerivativePool.Release(gameObject);
-            GameManager.Instance.ResetGameCameraLenInGridSize();
+            if(from == GameManager.Instance.Player)
+                GameManager.Instance.ResetGameCameraLenInGridSize();
             EventHandler.CallAfterFaShuReleasedEvent(FaShuData);
         }
-        
     }
 }

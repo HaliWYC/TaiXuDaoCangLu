@@ -89,7 +89,7 @@ namespace TXDCL.Combat
         {
             if(characters == null || characters.Count == 0) return;
             CombatManager.Instance.CharactersInCombat.AddRange(characters);
-            GetAndSetCharactersInGrid();
+            //GetAndSetCharactersInGrid();
         }
         
         private void OnCharacterTurnBeginEvent(CharacterBase character)

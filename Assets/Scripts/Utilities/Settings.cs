@@ -10,9 +10,8 @@ public class Settings
     public const float WuxingCounteredWuxing= 0.5f;
     public const float WuxingPromote = 1.2f;
     public const float WuxingCounter = 0.8f;
-    public const float TurnProgress = 1.2f;
-    [Range(-1000,2500)]
-    public const int TurnThreshold = 2500;
+    public const float TurnProgressBooster = 2f;
+    public const int TurnThreshold = 3500;
 
     [Header("Level")] 
     public const float Fanren = 0.8f;

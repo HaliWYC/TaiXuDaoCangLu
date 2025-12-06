@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using DG.Tweening;
 using TXDCL.Character;
+using TXDCL.Combat;
 
 public class GameManager : Singleton<GameManager>
 {

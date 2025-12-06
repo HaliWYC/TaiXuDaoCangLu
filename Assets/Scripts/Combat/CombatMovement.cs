@@ -107,8 +107,7 @@ namespace TXDCL.Combat
         {
             if (movementSteps.Count <= 0 || movementSteps.Count <= minimumRange)
             {
-                CombatGridManager.Instance.SetGridObstacle(
-                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
+                CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
                 character.isMoving = false;
                 arriveTargetPosition = true;
                 if (!isPlayer) return;
