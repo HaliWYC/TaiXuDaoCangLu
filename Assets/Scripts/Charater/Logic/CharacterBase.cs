@@ -22,9 +22,9 @@ namespace TXDCL.Character
         [SerializeField] private CharacterData templateData;
         public CharacterData CharacterData;
         public CharacterEquipmentData EquipmentData;//装备属性
+
         private string JingjieKey => CharacterData != null
-            ? CharacterData.Jingjie.miniJingjieLevel.ToString() + CharacterData.Jingjie.JingjieLevel
-            : null;
+            ? CharacterData.Jingjie.JingjieLevel.ToString() + CharacterData.Jingjie.miniJingjieLevel : null;
 
         [Header("FaShu&GongFa")] 
         protected GongFaProcessor gongFaProcessor => GetComponent<GongFaProcessor>();
@@ -113,7 +113,6 @@ namespace TXDCL.Character
             UpdateLevel();
             ResetValue();
         }
-
         protected virtual void Update()
         {
             SwitchAnimation();
@@ -205,7 +204,7 @@ namespace TXDCL.Character
 
         public void CheckUpGrade()
         {
-            while (CharacterData.currentExp >= CharacterData.nextExp)
+            while (CharacterData.currentExp >= CharacterData.nextExp && CharacterData.nextExp != 0)
             {
                 CharacterData.currentExp -= CharacterData.nextExp;
                 if (CharacterData.Jingjie.miniJingjieLevel + 1 > MiniJingjieLevel.大圆满)
@@ -220,7 +219,6 @@ namespace TXDCL.Character
 
                 CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
             }
-
             UpdateLevel();
         }
 

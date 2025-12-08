@@ -12,11 +12,11 @@ public enum ShuXing
 
 public enum MiniJingjieLevel
 {
-    前期,中期,后期,巅峰,大圆满
+    前期, 中期, 后期, 巅峰, 大圆满
 }
 public enum JingjieLevel
 {
-    凡人,炼气,筑基,结丹,元婴,化神
+    凡人, 炼气, 筑基, 结丹, 元婴, 化神
 }
 
 public enum MiniRarity
@@ -50,7 +50,7 @@ public enum GongFaType//功法类型：元婴前仅能有一个主功法，元�
 
 public enum FaShuType//法术类型，如常规法术、凡人武功或体质类法术、神识法术等
 {
-    FaShu, WuGong, ShenShi
+    FaShu, WuGong, ShenShi, FaBao
 }
 public enum FaShuTarget//法术释放目标
 {
@@ -115,7 +115,7 @@ public enum ConsumeItemType
 {
     丹药,符箓,丹方,炼器图纸,制符图纸,阵法图纸
 }
-public enum TaskItemType
+public enum QuestItemType
 {
     
 }

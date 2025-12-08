@@ -57,7 +57,7 @@ namespace TXDCL.Combat
             DaoCangPanelUI.Instance.InitializeDaoCangPanel(character);
         }
 
-        public void UpdateCharactersTurnProgressUI(CharacterBase character, int value)
+        public void UpdateCharactersTurnProgressUI(CharacterBase character, float value)
         {
             if(!activeCharacters.TryGetValue(character, out var activeCharacter)) return;
             activeCharacter.transform.localPosition = new Vector3(value < 0 ? Mathf.Max(-1000, -400 + value * 0.4f) : Mathf.Min(1000, -400 + value * 0.4f), 10, 0);

@@ -10,7 +10,7 @@ namespace TXDCL.Combat
     public class CombatManager : Singleton<CombatManager>
     {
         public bool isCombating;
-        public readonly Dictionary<CharacterBase, int> CharacterTurnProgressDict = new();
+        public readonly Dictionary<CharacterBase, float> CharacterTurnProgressDict = new();
         public bool isCharacterTurnActive;
         public List<CharacterBase> CharactersInCombat = new();
         public List<CharacterBase> PlayerSides;
@@ -52,18 +52,19 @@ namespace TXDCL.Combat
             foreach (var character in CharactersInCombat)
             {
                 var value = CharacterTurnProgressDict[character];
-                value += (int)(character.CharacterData.Reaction * Settings.TurnProgressBooster * turnProgressModifier *
-                               UnityEngine.Time.fixedDeltaTime);
+                value += character.CharacterData.Reaction * Settings.TurnProgressBooster * turnProgressModifier *
+                               UnityEngine.Time.fixedDeltaTime;
                 CharacterTurnProgressDict[character] = value;
                 //更新UI
                 CombatUI.Instance.UpdateCharactersTurnProgressUI(character, CharacterTurnProgressDict[character]);
-                if (CharacterTurnProgressDict[character] < Settings.TurnThreshold) continue;
-                //Debug.Log(character.CharacterData.characterName);
-                CharacterTurnProgressDict[character] -= Settings.TurnThreshold;
-                CombatUI.Instance.UpdateCharactersTurnProgressUI(character, CharacterTurnProgressDict[character]);
+            }
+            foreach (var character in CharacterTurnProgressDict.Where(character => character.Value >= Settings.TurnThreshold).Where(character => character.Value == CharacterTurnProgressDict.Values.Max()))
+            {
+                CharacterTurnProgressDict[character.Key] -= Settings.TurnThreshold;
+                CombatUI.Instance.UpdateCharactersTurnProgressUI(character.Key, CharacterTurnProgressDict[character.Key]);
                 isCharacterTurnActive = true;
                 CursorManager.Instance.isSelecting = false;
-                EventHandler.CallCharacterTurnBeginEvent(character);
+                EventHandler.CallCharacterTurnBeginEvent(character.Key);
                 return;
             }
         }

@@ -16,7 +16,7 @@ public class NPCController : CharacterBase
     private Vector2Int currentPosition;
     private Vector2Int targetPosition;
     private Stack<MovementStep> movementSteps = new();
-
+    private bool isFirstSelecting;//判断是否为首次选取法术，如首次未有可释放的法术则仅往目标位置移动，否则不移动
     private void OnEnable()
     {
         EventHandler.BeforeCombatBeginEvent += OnBeforeCombatBeginEvent;
@@ -49,12 +49,14 @@ public class NPCController : CharacterBase
         base.OnCharacterTurnBeginEvent(character);
         if(character!= this) return;
         availableFaShu.Clear();
+        isFirstSelecting = true;
         SelectEnemy();
         SelectPotentialFaShu();
     }
     private void OnAfterFaShuReleasedEvent(FaShuData fashuData)
     {
         if(availableFaShu.Count == 0) return;
+        isFirstSelecting = false;
         SelectEnemy();
         SelectPotentialFaShu();
     }
@@ -88,13 +90,38 @@ public class NPCController : CharacterBase
             }
         }
         //释放法术
-        if (availableFaShu.Count == 0)
+        if (availableFaShu.Count != 0)
+        {
+            StartCoroutine(ReleaseFaShu(availableFaShu[Random.Range(0, availableFaShu.Count - 1)]));
+            return;
+        }
+        
+        if (CharacterData.currentMovement > 0 && isFirstSelecting)
+        {
+            StartCoroutine(Movement());
+        }
+        else
         {
             EventHandler.CallCharacterTurnEndEvent(this);
             CombatManager.Instance.isCharacterTurnActive = false;
-            return;
         }
-        StartCoroutine(ReleaseFaShu(availableFaShu[Random.Range(0, availableFaShu.Count - 1)]));
+        
+    }
+
+    private IEnumerator Movement()
+    {
+        //执行移动
+        movementSteps.Clear();
+        var startPos = new Vector2Int((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+        var endPos = new Vector2Int((int)(currentEnemy.transform.position.x - 0.5f), (int)(currentEnemy.transform.position.y - 0.5f));
+        CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy],false);
+        AStar.Instance.BuildPath(SceneManager.GetActiveScene().name, startPos, endPos, movementSteps);
+        CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy],true);
+        SetCharacterFacingDirection(currentEnemy.transform.position.x - transform.position.x);
+        combatMovement.BuildPath(movementSteps, false, 1);
+        yield return new WaitUntil(() => combatMovement.arriveTargetPosition);
+        EventHandler.CallCharacterTurnEndEvent(this);
+        CombatManager.Instance.isCharacterTurnActive = false;
     }
     
     /// <summary>

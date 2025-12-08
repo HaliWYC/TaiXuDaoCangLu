@@ -74,7 +74,7 @@ namespace TXDCL.XiuLian.GongFa
                 characterData.currentExp = characterData.nextExp;
                 return;
             }
-            if(characterData.currentExp >= characterData.nextExp)
+            if (characterData.currentExp >= characterData.nextExp && characterData.nextExp != 0)
                 GetComponent<CharacterBase>().CheckUpGrade();
         }
 

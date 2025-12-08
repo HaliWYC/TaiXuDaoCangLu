@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: 3d2b07f51e28141a8921ac289cffd70d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7122950316656333938
+    second: 4HnUeiocvt3LdHh_Lzqvz_0
+  - first:
+      213: -1898580781728218212
+    second: 4HnUeiocvt3LdHh_Lzqvz_1
+  - first:
+      213: -5863250838474285323
+    second: 4HnUeiocvt3LdHh_Lzqvz_2
+  - first:
+      213: -5984486663346739108
+    second: 4HnUeiocvt3LdHh_Lzqvz_3
+  - first:
+      213: -3979089279096902524
+    second: 4HnUeiocvt3LdHh_Lzqvz_4
+  - first:
+      213: 3101127250287147399
+    second: 4HnUeiocvt3LdHh_Lzqvz_5
+  - first:
+      213: -5028488514647315299
+    second: 4HnUeiocvt3LdHh_Lzqvz_6
+  - first:
+      213: 3103932210923968774
+    second: 4HnUeiocvt3LdHh_Lzqvz_7
+  - first:
+      213: -1521359663304304731
+    second: 4HnUeiocvt3LdHh_Lzqvz_8
+  - first:
+      213: 7753223234917568115
+    second: 4HnUeiocvt3LdHh_Lzqvz_9
+  - first:
+      213: -4257623282820369012
+    second: 4HnUeiocvt3LdHh_Lzqvz_10
+  - first:
+      213: -348685796947804018
+    second: 4HnUeiocvt3LdHh_Lzqvz_11
+  - first:
+      213: 7609594595702235805
+    second: 4HnUeiocvt3LdHh_Lzqvz_12
+  - first:
+      213: -845359308316309550
+    second: 4HnUeiocvt3LdHh_Lzqvz_13
+  - first:
+      213: 4614760378816444775
+    second: 4HnUeiocvt3LdHh_Lzqvz_14
+  - first:
+      213: 7169868959113962799
+    second: 4HnUeiocvt3LdHh_Lzqvz_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ShinyStoneSlot_0
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 90, y: 108, z: 105, w: 101}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91cd1991a68424b1584f5261f89048a4
+      internalID: 540048417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b9708665cd7ff4e50a8febbfe58787d6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1344.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ShinyStoneSlot_0: 540048417
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

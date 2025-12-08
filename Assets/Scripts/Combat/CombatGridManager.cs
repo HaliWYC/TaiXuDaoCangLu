@@ -258,12 +258,13 @@ namespace TXDCL.Combat
             lastTargetPos = Vector2Int.zero;
             //可以显示角色面板信息
             canDisplayCharacterStats = true;
+            //完全显示战斗UI面版
+            if(currentCharacter == GameManager.Instance.Player)
+                CombatUI.Instance.IgnoreCombatPanel(false);
             if (range <= 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             //找到并显示路径
             potentialSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], range, false);
             DisplayPath(potentialSelectingPath, PotentialPathTile);
-            //完全显示战斗UI面版
-            CombatUI.Instance.IgnoreCombatPanel(false);
             CursorManager.Instance.isSelecting = true;
             canCurrentCharacterCastFaShu = true;
         }
@@ -365,6 +366,7 @@ namespace TXDCL.Combat
         {
             gridNodes.GetGridNode(position.x, position.y).isObstacle = isObstacle;
         }
+        
         /// <summary>
         /// 设置角色在目标网格位置
         /// </summary>

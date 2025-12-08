@@ -56,11 +56,10 @@ namespace TXDCL.Combat
         }
         private void Movement(Stack<MovementStep> movementSteps, bool isPlayer)
         {
-            if (movementSteps.Count <= 0)
+            if (movementSteps.Count <= 0 || character.CharacterData.currentMovement <= 0)
             {
                 character.isMoving = false;
-                CombatGridManager.Instance.SetGridObstacle(
-                    CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
+                CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
                 arriveTargetPosition = true;
                 if (!isPlayer) return;
                 CombatGridManager.Instance.DisplayCharactersMovementPath();
@@ -105,7 +104,7 @@ namespace TXDCL.Combat
         }
         private void Movement(Stack<MovementStep> movementSteps, bool isPlayer, int minimumRange)
         {
-            if (movementSteps.Count <= 0 || movementSteps.Count <= minimumRange)
+            if (movementSteps.Count <= 0 || movementSteps.Count <= minimumRange || character.CharacterData.currentMovement <= 0)
             {
                 CombatGridManager.Instance.SetGridObstacle(CombatGridManager.Instance.CharacterPositionsInCombatDict[character], true);
                 character.isMoving = false;

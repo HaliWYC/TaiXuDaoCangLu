@@ -8,9 +8,8 @@ namespace TXDCL.Character
     [DefaultExecutionOrder(-1)]
     public class CharacterManager : Singleton<CharacterManager>
     {
-        private Dictionary<string, Jingjie> JingjieDataList = new();
+        public Dictionary<string, Jingjie> JingjieDataList = new();
         [SerializeField] private TextAsset JingjieTextAsset;
-        
         protected override void Awake()
         {
             base.Awake();
@@ -29,7 +28,7 @@ namespace TXDCL.Character
                 var value = data[i].Split(',', StringSplitOptions.RemoveEmptyEntries);
                 Enum.TryParse(value[0], out JingjieLevel jingjieLevel);
                 Enum.TryParse(value[1], out MiniJingjieLevel miniJingjieLevel);
-                var key = miniJingjieLevel + jingjieLevel.ToString();
+                var key = jingjieLevel.ToString() + miniJingjieLevel;
                 var jingjieData = JingjieDataList.TryGetValue(key, out var JingJie)
                     ? JingJie.JingjieData
                     : ScriptableObject.CreateInstance<JingjieData>();
