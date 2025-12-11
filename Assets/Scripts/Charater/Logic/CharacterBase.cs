@@ -6,6 +6,7 @@ using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using TXDCL.XiuLian.GongFa;
 using TXDCL.Effect;
+using TXDCL.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -22,6 +23,7 @@ namespace TXDCL.Character
         [SerializeField] private CharacterData templateData;
         public CharacterData CharacterData;
         public CharacterEquipmentData EquipmentData;//装备属性
+        public InventoryBag InventoryBag;
 
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.JingjieLevel.ToString() + CharacterData.Jingjie.miniJingjieLevel : null;
@@ -31,15 +33,19 @@ namespace TXDCL.Character
         public readonly List<FaShuData> currentFaShuList = new();//不可编辑的装备上的法术列表，只用于法术的调用
         [SerializeField] private List<FaShuData> tempFaShuList = new();//可编辑的装备上的法术列表，用于初始化角色法术列表
         public List<FaShuData> PotentialFaShuList = new();//习得的所有法术
+        
         [Header("Components")]
         public Animator animator;
         public BoxCollider2D Collider;
         private float faceDirection;
+        private int previousYear = 1;
+        
         [Header("Animation")]
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int IsHurt = Animator.StringToHash("isHurt");
         private static readonly int IsDead = Animator.StringToHash("isDead");
         protected Rigidbody2D rigidBody2D => GetComponent<Rigidbody2D>();
+        
         [Header("Bools")] 
         public bool isIconFacingLeft;//角色素材朝向是否为左
         public bool isMoving;//是否正在移动
@@ -49,11 +55,12 @@ namespace TXDCL.Character
         public bool isShenShiHuanSan;//是否神识涣散,神识涣散状态将减少40%命中率
         public bool isJingjieUnstable;//境界是否稳固,未稳固将减少40%命中率
         public bool isShenShiPenetrated;//是否被神识洞穿,被洞穿的目标可以实时查看基础属性
+        
         [Header("Combat")] 
         public List<CharacterBase> Allies = new();
         public List<CharacterBase> Enemies = new();
         protected CombatMovement combatMovement => GetComponent<CombatMovement>();
-        private int previousYear = 1;
+        
         protected virtual void Awake()
         {
             if (templateData == null) return;

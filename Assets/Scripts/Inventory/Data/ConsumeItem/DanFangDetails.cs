@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TXDCL.Inventory
 {
     [CreateAssetMenu(fileName = "DanFangDetails", menuName = "Inventory/ConsumeItem/DanFang")]
-    public class DanFangDetails : ConsumeItemDetails
+    public class DanFangDetails : ConsumablesDetails
     {
         /// <summary>
         /// 丹方信息

@@ -21,12 +21,12 @@ public enum JingjieLevel
 
 public enum MiniRarity
 {
-    初级,中级,高级,终极
+    初级, 中级, 高级, 终极
 }
 
 public enum Rarity
 {
-    残,凡,人,地,天
+    残缺, 凡级, 人级, 地级, 天级, 特殊
 }
 
 public enum ItemRarity
@@ -50,7 +50,7 @@ public enum GongFaType//功法类型：元婴前仅能有一个主功法，元�
 
 public enum FaShuType//法术类型，如常规法术、凡人武功或体质类法术、神识法术等
 {
-    FaShu, WuGong, ShenShi, FaBao
+    法术, 武功, 神识, 法宝
 }
 public enum FaShuTarget//法术释放目标
 {
@@ -104,14 +104,14 @@ public enum PropertyType
 
 public enum ItemType
 {
-    法宝,消耗品,任务物品,其他物品
+    法宝,消耗品,任务物品,其他物品,储物袋
 }
 
 public enum FaBaoType
 {
-    主武器,副武器,防具,饰品,挂件,坐骑
+    武器,防具,饰品,挂件,坐骑
 }
-public enum ConsumeItemType
+public enum ConsumablesType
 {
     丹药,符箓,丹方,炼器图纸,制符图纸,阵法图纸
 }
@@ -122,6 +122,11 @@ public enum QuestItemType
 public enum OtherItemType
 {
     草药,炼器材料,制符材料,常规材料
+}
+
+public enum StorageBagType
+{
+    法宝,消耗品,任务物品,其他物品,万能
 }
 
 public enum CaoYaoStateType

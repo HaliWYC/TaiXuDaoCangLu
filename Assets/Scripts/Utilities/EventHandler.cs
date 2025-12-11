@@ -108,4 +108,15 @@ public static class  EventHandler
     }
 
     #endregion
+
+    #region Inventory
+
+    public static Action<CharacterBase> UpdateInventoryUIEvent;
+
+    public static void CallUpdateInventoryUIEvent(CharacterBase character)
+    {
+        UpdateInventoryUIEvent?.Invoke(character);
+    }
+    
+    #endregion
 }

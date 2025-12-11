@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TXDCL.Inventory
 {
     [CreateAssetMenu(fileName = "DanYaoDetails", menuName = "Inventory/ConsumeItem/DanYao")]
-    public class DanYaoDetails : ConsumeItemDetails
+    public class DanYaoDetails : ConsumablesDetails
     {
         public int DanDu;//丹毒
         public List<Property> Properties;

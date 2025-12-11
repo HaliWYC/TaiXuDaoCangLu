@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f758a8d02a52d48d5967df0cd77514ae, type: 3}
+  m_Name: PlayerBag
+  m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Inventory.InventoryBag
+  LingShiAmount: 0
+  basicFaBaoCapacity: 0
+  basicFaBaoList: []
+  FaBaoStorageBag: {fileID: 0}
+  basicConsumablesCapacity: 0
+  basicConsumablesList: []
+  ConsumablesStorageBag: {fileID: 0}
+  basicQuestItemCapacity: 0
+  basicQuestItemList: []
+  QuestItemStorageBag: {fileID: 0}
+  basicOtherItemCapacity: 0
+  basicOtherItemList: []
+  OtherItemStorageBag: {fileID: 0}
+  storageBags: []
+  wearingFaBaoList: []
+  carryOnItems: []

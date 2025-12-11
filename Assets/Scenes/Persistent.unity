@@ -813,6 +813,7 @@ MonoBehaviour:
     FirstAccessory: {fileID: 0}
     SecondAccessory: {fileID: 0}
     Mount: {fileID: 0}
+  InventoryBag: {fileID: 11400000, guid: 64029f225d25442c59d014c2c4fbbbea, type: 2}
   tempFaShuList:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
   PotentialFaShuList: []

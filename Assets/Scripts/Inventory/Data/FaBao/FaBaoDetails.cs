@@ -7,6 +7,7 @@ namespace TXDCL.Inventory
     [CreateAssetMenu(fileName = "FaBaoDetails", menuName = "Inventory/FaBaoDetails")]
     public class FaBaoDetails : ItemDetails
     {
+        [Header("Basic Details")]
         public FaBaoType faBaoType;//法宝类型，如武器、服饰、挂件、坐骑等
         public float currentEndurance;//当前耐久
         public float currentMaxEndurance;//当前最大耐久，即修理后可达到的最大耐久
