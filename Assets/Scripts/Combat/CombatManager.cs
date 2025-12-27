@@ -12,6 +12,7 @@ namespace TXDCL.Combat
         public bool isCombating;
         public readonly Dictionary<CharacterBase, float> CharacterTurnProgressDict = new();
         public bool isCharacterTurnActive;
+        public CharacterBase currentCharacter;
         public List<CharacterBase> CharactersInCombat = new();
         public List<CharacterBase> PlayerSides;
         public List<CharacterBase> EnemySides;
@@ -64,6 +65,7 @@ namespace TXDCL.Combat
                 CombatUI.Instance.UpdateCharactersTurnProgressUI(character.Key, CharacterTurnProgressDict[character.Key]);
                 isCharacterTurnActive = true;
                 CursorManager.Instance.isSelecting = false;
+                currentCharacter = character.Key;
                 EventHandler.CallCharacterTurnBeginEvent(character.Key);
                 return;
             }

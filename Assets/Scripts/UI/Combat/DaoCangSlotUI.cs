@@ -53,8 +53,7 @@ public class DaoCangSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDr
     public void OnEndDrag(PointerEventData eventData)
     {
         DaoCangPanelUI.Instance.SwapDaoCangIcon.gameObject.SetActive(false);
-        if (eventData.pointerCurrentRaycast.gameObject == null) return;
-        if (eventData.pointerCurrentRaycast.gameObject.GetComponent<DaoCangSlotUI>() == null) return;
+        if (eventData.pointerCurrentRaycast.gameObject == null || eventData.pointerCurrentRaycast.gameObject.GetComponent<DaoCangSlotUI>() == null) return;
         var targetSlot = eventData.pointerCurrentRaycast.gameObject.GetComponent<DaoCangSlotUI>();
         if (!targetSlot.isSelectingSlot) return;
         DaoCangPanelUI.Instance.SwapSelectingDaoCangSlot(this, targetSlot);

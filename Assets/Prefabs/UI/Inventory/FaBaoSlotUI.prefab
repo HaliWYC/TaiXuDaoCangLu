@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.5019608}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -458,12 +458,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c341d133b67304639a17cf6a9814ef88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemDetails: {fileID: 0}
+  itemAmount: 0
   availableItemType: 0
   itemImage: {fileID: 7778710285226757222}
   itemName: {fileID: 4970298866343034930}
-  itemAmount: {fileID: 2192517478970418156}
-  isFaBao: 0
-  isCarriedOn: 0
+  itemStatsIcon: {fileID: 1536749894542381989}
+  itemStats: {fileID: 234731114943539417}
+  itemAmountText: {fileID: 2192517478970418156}
+  isWearingFaBaoSlot: 0
+  isCarriedOnItemSlot: 0
+  isItemWorn: 0
+  isItemCarried: 0
 --- !u!1 &7280090707740741429
 GameObject:
   m_ObjectHideFlags: 0

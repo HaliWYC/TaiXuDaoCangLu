@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TXDCL.Inventory
@@ -7,7 +8,7 @@ namespace TXDCL.Inventory
         public int ID;//ID
         public string Name;//物品名称
         public Sprite Icon;//物品图片
-        public Rarity MiniRarity;//如残缺、凡级、人级...
+        public Rarity Rarity;//如残缺、凡级、人级...
         public ItemRarity ItemRarity;//物品品质，如一品、两品...
         public ItemType itemType;//物品类型，如法宝、消耗品...
         public int Price;//物品价格

@@ -8,14 +8,15 @@ namespace TXDCL.Inventory
     {
         public StorageBagType storageBagType;
         public int maxCapacity;
-        public List<Item> items;
+        public List<InventoryItem> items;
         public List<Property> properties;
-    }
 
-    [System.Serializable]
-    public class Item
-    {
-        public ItemDetails itemDetails;
-        public int amount;
+        public void Initialize()
+        {
+            if (items.Count >= maxCapacity) return;
+            var count = items.Count;
+            for(var i = 0; i< maxCapacity - count; i++)
+                items.Add(new InventoryItem());
+        }
     }
 }

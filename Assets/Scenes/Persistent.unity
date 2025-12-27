@@ -1249,6 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCombating: 0
   isCharacterTurnActive: 0
+  currentCharacter: {fileID: 0}
   CharactersInCombat: []
   PlayerSides: []
   EnemySides: []
@@ -1479,6 +1480,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d783ddc1991421886315996beed713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Inventory.InventoryManager
+  itemDetailList: {fileID: 11400000, guid: 36b7dc95f27e14c27bbac7cc86fd7f24, type: 2}
+  SpecialRarityColor: {r: 1, g: 0.9019608, b: 0, a: 1}
+  TianRarityColor: {r: 1, g: 0, b: 0, a: 1}
+  DiRariryColor: {r: 0.7058824, g: 0, b: 0.9411765, a: 1}
+  RenRarityColor: {r: 0, g: 1, b: 0, a: 1}
+  FanRarityColor: {r: 1, g: 1, b: 1, a: 1}
+  fragmentaryRarityColor: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class CharacterStatsPanel : Singleton<CharacterStatsPanel>
 {
     public GameObject CharaterStats;
-    
     public Image CharacterImage;
     public Image HealthBar;
     public TextMeshProUGUI HealthText;

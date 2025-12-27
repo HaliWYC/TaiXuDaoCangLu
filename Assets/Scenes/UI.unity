@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 62464020}
   - component: {fileID: 62464019}
   m_Layer: 5
-  m_Name: MenuPanelUI
+  m_Name: MenuPanels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -697,12 +697,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1440832944}
-  - {fileID: 427200238}
-  - {fileID: 430685710}
-  - {fileID: 1769299605}
-  - {fileID: 744186435}
-  - {fileID: 178073049}
+  - {fileID: 1956648085}
   - {fileID: 979001326}
   m_Father: {fileID: 1009086126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -943,7 +938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (7)
+      value: CarryOnFaBaoSlotUI2
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -959,6 +954,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1638,6 +1637,14 @@ PrefabInstance:
       propertyPath: isFaBao
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1648,6 +1655,89 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5106820335907095198, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
   m_PrefabInstance: {fileID: 156298372}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &156836043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156836044}
+  - component: {fileID: 156836045}
+  m_Layer: 5
+  m_Name: InventoryUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &156836044
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156836043}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1822278173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &156836045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156836043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4add179ec18b34d78bcea5bd3a1b52ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
+  itemSlotUIPrefab: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+  draggedItemIcon: {fileID: 724658883}
+  LingShiAmount: {fileID: 350122160}
+  storageBags:
+  - {fileID: 960937893}
+  - {fileID: 1725207134}
+  - {fileID: 732790689}
+  - {fileID: 1926260507}
+  - {fileID: 1602151395}
+  - {fileID: 990905000}
+  - {fileID: 675967623}
+  - {fileID: 1659055599}
+  - {fileID: 1867269417}
+  - {fileID: 539178169}
+  itemSlotContainer: {fileID: 1955569932}
+  storageBagDropdown: {fileID: 1990400249}
+  currentStorageBagUI: {fileID: 1962480602}
+  characterIcon: {fileID: 33223983}
+  characterName: {fileID: 2083689759}
+  WearingFaBaoList:
+  - {fileID: 1278886909}
+  - {fileID: 1897455866}
+  - {fileID: 1700321373}
+  - {fileID: 1801596289}
+  - {fileID: 1499850778}
+  - {fileID: 1357958093}
+  - {fileID: 762639913}
+  - {fileID: 1497581895}
+  CarryOnItemsList:
+  - {fileID: 1848407501}
+  - {fileID: 2032166964}
+  - {fileID: 1970842888}
+  - {fileID: 669008581}
+  - {fileID: 974976807}
+  - {fileID: 2137128131}
 --- !u!1 &156876347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,7 +2225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &178073049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2143,14 +2233,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178073048}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 387369488}
   - {fileID: 457880876}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4316,7 +4406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (10)
+      value: CarryOnFaBaoSlotUI5
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -4332,6 +4422,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5187,7 +5281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &427200238
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5195,14 +5289,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427200237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 224046567}
   - {fileID: 1558284955}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5309,7 +5403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &430685710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5317,14 +5411,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430685709}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1516886571}
   - {fileID: 182150711}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -6514,7 +6608,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &552964415
 GameObject:
   m_ObjectHideFlags: 0
@@ -7657,7 +7751,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 653159269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3071cb5dc9cb4dcab6998b20bf3bbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 72de5a6a83b1d485a90ca93c52753925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CharaterStats: {fileID: 336450157}
@@ -7896,7 +7990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (9)
+      value: CarryOnFaBaoSlotUI4
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -7912,6 +8006,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8251,6 +8349,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682310352}
   m_CullTransparentMesh: 1
+--- !u!1 &694099796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694099797}
+  m_Layer: 5
+  m_Name: CharacterUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &694099797
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694099796}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1822278173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &697061821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8471,6 +8604,14 @@ PrefabInstance:
       propertyPath: isFaBao
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8481,6 +8622,81 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5106820335907095198, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
   m_PrefabInstance: {fileID: 707859754}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &724658881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724658882}
+  - component: {fileID: 724658884}
+  - component: {fileID: 724658883}
+  m_Layer: 5
+  m_Name: DragIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &724658882
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724658881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780289647}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 270, y: 270}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &724658883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724658881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &724658884
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724658881}
+  m_CullTransparentMesh: 1
 --- !u!1 &729984781
 GameObject:
   m_ObjectHideFlags: 0
@@ -8715,7 +8931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &744186435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8723,14 +8939,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744186434}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 230459209}
   - {fileID: 1125224941}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -9549,6 +9765,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isFaBao
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10847,7 +11071,19 @@ MonoBehaviour:
   m_Group: {fileID: 242382280}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 694099796}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &923996932
 GameObject:
@@ -11502,7 +11738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &979001326
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12276,7 +12512,7 @@ GameObject:
   - component: {fileID: 1009086126}
   - component: {fileID: 1009086127}
   m_Layer: 5
-  m_Name: MenuPanel
+  m_Name: MenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12294,6 +12530,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1822278173}
   - {fileID: 62464018}
   m_Father: {fileID: 68952075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12314,6 +12551,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391c75633d1cc4af2a474994a0f14d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuPanel: {fileID: 62464017}
+  FunctionsContainer: {fileID: 1956648084}
+  FunctionsPanel: {fileID: 979001325}
+  CharacterPanelButton: {fileID: 1440832945}
+  InventoryPanelButton: {fileID: 427200239}
+  GongFa_FaShuPanelButton: {fileID: 430685711}
+  TalentPanelButton: {fileID: 1769299606}
+  QuestPanelButton: {fileID: 744186436}
+  MapPanelButton: {fileID: 178073050}
+  FunctionToggles:
+  - {fileID: 917134450}
+  - {fileID: 547733845}
+  - {fileID: 1213343281}
+  - {fileID: 494118008}
+  - {fileID: 986886493}
+  - {fileID: 104744766}
 --- !u!1 &1030869628
 GameObject:
   m_ObjectHideFlags: 0
@@ -12759,7 +13012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (6)
+      value: CarryOnFaBaoSlotUI1
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -12775,6 +13028,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15750,6 +16007,14 @@ PrefabInstance:
       propertyPath: isFaBao
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15972,6 +16237,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 156836045}
+        m_TargetAssemblyTypeName: TXDCL.Inventory.InventoryUI, Assembly-CSharp
+        m_MethodName: SetUpCarryOnItemsList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1399865443
 GameObject:
@@ -16090,7 +16367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1440832944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16098,14 +16375,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440832943}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 227341414}
   - {fileID: 1575551001}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -16575,6 +16852,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isFaBao
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17514,6 +17799,14 @@ PrefabInstance:
       propertyPath: isFaBao
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18256,6 +18549,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 156836045}
+        m_TargetAssemblyTypeName: TXDCL.Inventory.InventoryUI, Assembly-CSharp
+        m_MethodName: SetUpWearingFaBaoList
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19451,6 +19756,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isFaBao
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -20809,7 +21122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1769299605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20817,14 +21130,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769299604}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 10096393}
   - {fileID: 1330346493}
-  m_Father: {fileID: 62464018}
+  m_Father: {fileID: 1956648085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -21001,14 +21314,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1780289647}
   - component: {fileID: 1780289648}
-  - component: {fileID: 1780289649}
   m_Layer: 5
-  m_Name: InventoryUI
+  m_Name: InventoryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1780289647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21016,7 +21328,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780289646}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21024,6 +21336,7 @@ RectTransform:
   - {fileID: 1066957287}
   - {fileID: 388117293}
   - {fileID: 1031575416}
+  - {fileID: 724658882}
   m_Father: {fileID: 979001326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -21039,50 +21352,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780289646}
   m_CullTransparentMesh: 1
---- !u!114 &1780289649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780289646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4add179ec18b34d78bcea5bd3a1b52ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
-  itemSlotUIPrefab: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
-  storageBags:
-  - {fileID: 960937893}
-  - {fileID: 1725207134}
-  - {fileID: 732790689}
-  - {fileID: 1926260507}
-  - {fileID: 1602151395}
-  - {fileID: 990905000}
-  - {fileID: 675967623}
-  - {fileID: 1659055599}
-  - {fileID: 1867269417}
-  - {fileID: 539178169}
-  itemSlotContainer: {fileID: 1955569932}
-  storageBagDropdown: {fileID: 1990400249}
-  characterIcon: {fileID: 33223983}
-  characterName: {fileID: 2083689759}
-  FaBaoList:
-  - {fileID: 1278886909}
-  - {fileID: 1897455866}
-  - {fileID: 1700321373}
-  - {fileID: 1801596289}
-  - {fileID: 1499850778}
-  - {fileID: 1357958093}
-  - {fileID: 762639913}
-  - {fileID: 1497581895}
-  CarryOnItemList:
-  - {fileID: 1848407501}
-  - {fileID: 2032166964}
-  - {fileID: 1970842888}
-  - {fileID: 669008581}
-  - {fileID: 974976807}
-  - {fileID: 2137128131}
 --- !u!1001 &1801596287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21181,6 +21450,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isFaBao
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isFaBaoSlot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isWearingFaBaoSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -21325,6 +21602,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807284315}
   m_CullTransparentMesh: 1
+--- !u!1 &1822278172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822278173}
+  m_Layer: 5
+  m_Name: FunctionUIs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1822278173
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822278172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 694099797}
+  - {fileID: 156836044}
+  m_Father: {fileID: 1009086126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1833151109
 GameObject:
   m_ObjectHideFlags: 0
@@ -22362,6 +22676,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!1 &1956648084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1956648085}
+  m_Layer: 5
+  m_Name: FunctionsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1956648085
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956648084}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1440832944}
+  - {fileID: 427200238}
+  - {fileID: 430685710}
+  - {fileID: 1769299605}
+  - {fileID: 744186435}
+  - {fileID: 178073049}
+  m_Father: {fileID: 62464018}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1961507304
 GameObject:
   m_ObjectHideFlags: 0
@@ -22493,7 +22848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: availableItemType
@@ -22509,6 +22864,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5106820335907095198, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
   m_PrefabInstance: {fileID: 1962480600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1962480602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+  m_PrefabInstance: {fileID: 1962480600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c341d133b67304639a17cf6a9814ef88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
 --- !u!1001 &1970842886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22599,7 +22965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (8)
+      value: CarryOnFaBaoSlotUI3
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -22615,6 +22981,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -22972,7 +23342,19 @@ MonoBehaviour:
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 156836045}
+        m_TargetAssemblyTypeName: TXDCL.Inventory.InventoryUI, Assembly-CSharp
+        m_MethodName: SetUpItemBag
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1990400250
 MonoBehaviour:
@@ -25345,7 +25727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_Name
-      value: CarryOnFaBaoSlotUI (11)
+      value: CarryOnFaBaoSlotUI6
       objectReference: {fileID: 0}
     - target: {fileID: 6566955515909691209, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: m_IsActive
@@ -25361,6 +25743,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

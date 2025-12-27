@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 109a784affff449b0a3d9e34395c6eaa, type: 3}
-  m_Name: "\u94C1\u5251"
-  m_EditorClassIdentifier: 
-  ID: 0
-  Name: "\u94C1\u5251"
-  Icon: {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1, type: 3}
+  m_Name: "\u5E03\u8863"
+  m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Inventory.FaBaoDetails
+  ID: 2
+  Name: "\u5E03\u8863"
+  Icon: {fileID: 21300000, guid: 5105fe1d825990746b9a92407ea447ca, type: 3}
   Rarity: 1
   ItemRarity: 0
   itemType: 0
   Price: 5
-  Description: "\u4E00\u628A\u51E1\u7EA7\u94C1\u5251"
+  Description: "\u4E00\u4EF6\u666E\u901A\u7684\u8863\u670D"
   canStack: 0
   stackSize: 1
-  canTrade: 1
+  canTrade: 0
   canCarryOn: 1
   TradeProportion: 0.05
-  faBaoType: 0
+  faBaoType: 1
   currentEndurance: 0
   currentMaxEndurance: 0
   maxEndurance: 10
   minEnduranceDepreciation: 5
   ConstantEndurance: 0
   properties:
-  - propertyType: 3
-    value: 2
+  - propertyType: 1
+    value: 5
   FaShuDatas: []

@@ -12,19 +12,170 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f758a8d02a52d48d5967df0cd77514ae, type: 3}
   m_Name: PlayerBag
   m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Inventory.InventoryBag
-  LingShiAmount: 0
-  basicFaBaoCapacity: 0
-  basicFaBaoList: []
-  FaBaoStorageBag: {fileID: 0}
-  basicConsumablesCapacity: 0
-  basicConsumablesList: []
+  LingShiAmount: 100
+  storageBagsCapacity: 10
+  storageBags:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  basicFaBaoCapacity: 12
+  basicFaBaoList:
+  - itemID: 1
+    amount: 1
+  - itemID: 3
+    amount: 1
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 1
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  FaBaoStorageBag: {fileID: 11400000, guid: aa7d5bdff5cda447a9acf38c2528c331, type: 2}
+  basicConsumablesCapacity: 12
+  basicConsumablesList:
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
   ConsumablesStorageBag: {fileID: 0}
-  basicQuestItemCapacity: 0
-  basicQuestItemList: []
+  basicQuestItemCapacity: 12
+  basicQuestItemList:
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
   QuestItemStorageBag: {fileID: 0}
-  basicOtherItemCapacity: 0
-  basicOtherItemList: []
+  basicOtherItemCapacity: 24
+  basicOtherItemList:
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
   OtherItemStorageBag: {fileID: 0}
-  storageBags: []
-  wearingFaBaoList: []
-  carryOnItems: []
+  wearingFaBaoList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  carryOnItems:
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
+  - itemID: 0
+    amount: 0
