@@ -54,9 +54,9 @@ namespace TXDCL.Character
         public int ShenShiStrength;//神识强度：最大神识
         public int JingShenLi;//释放神识行动所消耗资源
         
+        [Header("Effects")]
         public List<EffectData> TemporaryEffects;//暂时性效果如战斗中即战斗后持续状态
         public List<EffectData> PermanentEffects;//永久性效果如天赋、能力等
-
         public void AddProperty(Property property)
         {
             switch (property.propertyType)

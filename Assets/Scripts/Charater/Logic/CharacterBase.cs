@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using TXDCL.XiuLian.GongFa;
-using TXDCL.Effect;
 using TXDCL.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,8 +21,6 @@ namespace TXDCL.Character
         [SerializeField] private CharacterData templateData;
         public CharacterData CharacterData;
         public CharacterEquipmentData EquipmentData;//装备属性
-        public InventoryBag InventoryBag;
-
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.JingjieLevel.ToString() + CharacterData.Jingjie.miniJingjieLevel : null;
 
@@ -61,6 +57,10 @@ namespace TXDCL.Character
         public List<CharacterBase> Enemies = new();
         protected CombatMovement combatMovement => GetComponent<CombatMovement>();
         
+        [Header("Inventory")]
+        [SerializeField]private InventoryBag templateInventoryBag;
+        public InventoryBag InventoryBag;
+        
         protected virtual void Awake()
         {
             if (templateData == null) return;
@@ -69,6 +69,11 @@ namespace TXDCL.Character
             currentFaShuList.Clear();
             animator = GetComponent<Animator>();
             Collider = Collider == null ? GetComponent<BoxCollider2D>() : Collider;
+            if (templateInventoryBag != null)
+            {
+                InventoryBag = Instantiate(templateInventoryBag);
+                InventoryBag.InitializeData();
+            }
             foreach (var FaShu in tempFaShuList)
             {
                 currentFaShuList.Add(Instantiate(FaShu));

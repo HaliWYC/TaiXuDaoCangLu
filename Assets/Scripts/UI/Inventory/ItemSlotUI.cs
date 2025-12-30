@@ -7,9 +7,9 @@ namespace TXDCL.Inventory
 {
     public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler
     {
-        private ItemDetails itemDetails;
+        public ItemDetails itemDetails;
         public int SlotIndex;
-        public int itemID;
+        //public int itemID;
         public int itemAmount;
         public ItemType availableItemType;//当前格子可放置的物品类型
         public Image itemImage;//物品图片
@@ -31,54 +31,53 @@ namespace TXDCL.Inventory
             itemStatsIcon.gameObject.SetActive(false);
             itemStats.gameObject.SetActive(false);
             itemAmountText.gameObject.SetActive(false);
-            if (item.itemID == 0 || item.amount == 0)
+            if (item.itemDetails == null || item.amount == 0)
             {
                 SetUpEmptySlotUI();
                 return;
             }
-
-            var Item = InventoryManager.Instance.GetItemDetail(item.itemID);
-            if(availableItemType != Item.itemType) return;
-            itemDetails = Item.itemType switch
+            
+            if(availableItemType != item.itemDetails.itemType) return;
+            itemDetails = item.itemDetails.itemType switch
             {
-                ItemType.法宝 => Item as FaBaoDetails,
-                ItemType.消耗品 => Item as ConsumablesDetails,
-                ItemType.任务物品 => Item as QuestItemDetails,
-                ItemType.其他物品 => Item as OtherItemDetails,
-                ItemType.储物袋 => Item as StorageBagDetails,
-                _ => Item
+                ItemType.法宝 => item.itemDetails as FaBaoDetails,
+                ItemType.消耗品 => item.itemDetails as ConsumablesDetails,
+                ItemType.任务物品 => item.itemDetails as QuestItemDetails,
+                ItemType.其他物品 => item.itemDetails as OtherItemDetails,
+                ItemType.储物袋 => item.itemDetails as StorageBagDetails,
+                _ => item.itemDetails
             };
-            itemID = item.itemID;
+            //itemID = item.itemDetails.ID;
             itemAmount = item.amount;
             SetUpSlotText();
         }
 
-        public void SetUpItemSlot(ItemDetails ItemDetails, int ItemAmount)
-        {
-            itemImage.gameObject.SetActive(false);
-            itemName.gameObject.SetActive(false);
-            itemStatsIcon.gameObject.SetActive(false);
-            itemStats.gameObject.SetActive(false);
-            itemAmountText.gameObject.SetActive(false);
-            if (ItemDetails == null || ItemAmount == 0)
-            {
-                SetUpEmptySlotUI();
-                return;
-            }
-            if(availableItemType != ItemDetails.itemType) return;
-            itemDetails = ItemDetails.itemType switch
-            {
-                ItemType.法宝 => ItemDetails as FaBaoDetails,
-                ItemType.消耗品 => ItemDetails as ConsumablesDetails,
-                ItemType.任务物品 => ItemDetails as QuestItemDetails,
-                ItemType.其他物品 => ItemDetails as OtherItemDetails,
-                ItemType.储物袋 => ItemDetails as StorageBagDetails,
-                _ => ItemDetails
-            };
-            itemID = ItemDetails.ID;
-            itemAmount = ItemAmount;
-            SetUpSlotText();
-        }
+        // public void SetUpItemSlot(ItemDetails ItemDetails, int ItemAmount)
+        // {
+        //     itemImage.gameObject.SetActive(false);
+        //     itemName.gameObject.SetActive(false);
+        //     itemStatsIcon.gameObject.SetActive(false);
+        //     itemStats.gameObject.SetActive(false);
+        //     itemAmountText.gameObject.SetActive(false);
+        //     if (ItemDetails == null || ItemAmount == 0)
+        //     {
+        //         SetUpEmptySlotUI();
+        //         return;
+        //     }
+        //     if(availableItemType != ItemDetails.itemType) return;
+        //     itemDetails = ItemDetails.itemType switch
+        //     {
+        //         ItemType.法宝 => ItemDetails as FaBaoDetails,
+        //         ItemType.消耗品 => ItemDetails as ConsumablesDetails,
+        //         ItemType.任务物品 => ItemDetails as QuestItemDetails,
+        //         ItemType.其他物品 => ItemDetails as OtherItemDetails,
+        //         ItemType.储物袋 => ItemDetails as StorageBagDetails,
+        //         _ => ItemDetails
+        //     };
+        //     //itemID = ItemDetails.ID;
+        //     itemAmount = ItemAmount;
+        //     SetUpSlotText();
+        // }
         
         public void SetupItemSlot(ItemDetails ItemDetails)
         {
@@ -92,7 +91,7 @@ namespace TXDCL.Inventory
                 SetUpEmptySlotUI();
                 return;
             }
-            itemID = ItemDetails.ID;
+            //itemID = ItemDetails.ID;
             if(availableItemType != ItemDetails.itemType) return;
             itemDetails = ItemDetails.itemType switch
             {
@@ -109,7 +108,7 @@ namespace TXDCL.Inventory
         private void SetUpEmptySlotUI()
         {
             itemDetails = null;
-            itemID = 0;
+            //itemID = 0;
             itemAmount = 0;
             itemImage.sprite = null;
             itemName.text = string.Empty;

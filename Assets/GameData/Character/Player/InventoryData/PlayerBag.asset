@@ -27,155 +27,163 @@ MonoBehaviour:
   - {fileID: 0}
   basicFaBaoCapacity: 12
   basicFaBaoList:
-  - itemID: 1
+  - itemDetails: {fileID: 11400000, guid: 5665e8291389d4fee8b61c6f637df73e, type: 2}
     amount: 1
-  - itemID: 3
+  - itemDetails: {fileID: 11400000, guid: 3dfaf52108b824ae5944ee8e4606de24, type: 2}
     amount: 1
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 1
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
   FaBaoStorageBag: {fileID: 11400000, guid: aa7d5bdff5cda447a9acf38c2528c331, type: 2}
   basicConsumablesCapacity: 12
   basicConsumablesList:
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
   ConsumablesStorageBag: {fileID: 0}
   basicQuestItemCapacity: 12
   basicQuestItemList:
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
   QuestItemStorageBag: {fileID: 0}
   basicOtherItemCapacity: 24
   basicOtherItemList:
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
   OtherItemStorageBag: {fileID: 0}
   wearingFaBaoList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
+  - itemDetails: {fileID: 0}
+    amount: 0
   carryOnItems:
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0
-  - itemID: 0
+  - itemDetails: {fileID: 0}
     amount: 0

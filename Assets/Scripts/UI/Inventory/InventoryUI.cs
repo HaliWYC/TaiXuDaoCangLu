@@ -38,8 +38,6 @@ namespace TXDCL.Inventory
         {
             currentCharacter = character;
             inventoryBag = currentCharacter.InventoryBag;
-            inventoryBag.InitializeData();
-            //SetUpSlotIndexes();
             SetUpStorageBags();
             SetUpFaBaoBag();
             SetUpItemBag();
@@ -108,7 +106,8 @@ namespace TXDCL.Inventory
                         item.availableItemType = ItemType.法宝;
                         item.SetupItemSlot(inventoryBag.basicFaBaoList[i]);
                     }
-                    var FaBaoCount = inventoryBag.FaBaoStorageBag!=null? inventoryBag.FaBaoStorageBag.maxCapacity : 0;
+
+                    var FaBaoCount = inventoryBag.FaBaoStorageBag != null ? inventoryBag.FaBaoStorageBag.items.Count : 0;
                     for (var i = 0; i < FaBaoCount; i++)
                     {
                         var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
@@ -124,7 +123,8 @@ namespace TXDCL.Inventory
                         item.availableItemType = ItemType.消耗品;
                         item.SetupItemSlot(inventoryBag.basicConsumablesList[i]);
                     }
-                    var ConsumablesCount = inventoryBag.ConsumablesStorageBag!=null? inventoryBag.ConsumablesStorageBag.maxCapacity : 0;
+
+                    var ConsumablesCount = inventoryBag.ConsumablesStorageBag != null ? inventoryBag.ConsumablesStorageBag.items.Count : 0;
                     for (var i = 0; i < ConsumablesCount; i++)
                     {
                         var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
@@ -140,7 +140,8 @@ namespace TXDCL.Inventory
                         item.availableItemType = ItemType.任务物品;
                         item.SetupItemSlot(inventoryBag.basicQuestItemList[i]);
                     }
-                    var QuestItemCount = inventoryBag.QuestItemStorageBag!=null? inventoryBag.QuestItemStorageBag.maxCapacity : 0;
+
+                    var QuestItemCount = inventoryBag.QuestItemStorageBag != null ? inventoryBag.QuestItemStorageBag.items.Count : 0;
                     for (var i = 0; i < QuestItemCount; i++)
                     {
                         var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
@@ -156,7 +157,8 @@ namespace TXDCL.Inventory
                         item.availableItemType = ItemType.其他物品;
                         item.SetupItemSlot(inventoryBag.basicOtherItemList[i]);
                     }
-                    var OtherItemCount = inventoryBag.OtherItemStorageBag!=null? inventoryBag.OtherItemStorageBag.maxCapacity : 0;
+
+                    var OtherItemCount = inventoryBag.OtherItemStorageBag != null ? inventoryBag.OtherItemStorageBag.items.Count : 0;
                     for (var i = 0; i < OtherItemCount; i++)
                     {
                         var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();

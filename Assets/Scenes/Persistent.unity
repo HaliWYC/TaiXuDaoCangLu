@@ -813,7 +813,6 @@ MonoBehaviour:
     FirstAccessory: {fileID: 0}
     SecondAccessory: {fileID: 0}
     Mount: {fileID: 0}
-  InventoryBag: {fileID: 11400000, guid: 64029f225d25442c59d014c2c4fbbbea, type: 2}
   tempFaShuList:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
   PotentialFaShuList: []
@@ -827,8 +826,17 @@ MonoBehaviour:
   isShenShiHuanSan: 0
   isJingjieUnstable: 0
   isShenShiPenetrated: 1
+  TemporaryEffects: []
+  PermanentEffects: []
   Allies: []
   Enemies: []
+  templateInventoryBag: {fileID: 11400000, guid: 64029f225d25442c59d014c2c4fbbbea, type: 2}
+  InventoryBag: {fileID: 0}
+  StorageBags: []
+  CurrentFaBaoBag: {fileID: 0}
+  CurrentConsumablesBag: {fileID: 0}
+  CurrentQuestItemBag: {fileID: 0}
+  CurrentOtherItemBag: {fileID: 0}
 --- !u!212 &725224790
 SpriteRenderer:
   m_ObjectHideFlags: 0

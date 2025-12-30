@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 namespace TXDCL.Inventory
@@ -14,13 +13,16 @@ namespace TXDCL.Inventory
         public Color RenRarityColor;
         public Color FanRarityColor;
         public Color fragmentaryRarityColor;
-
+        
         protected override void Awake()
         {
             base.Awake();
             InitializedItemDetailList();
         }
 
+        /// <summary>
+        /// 初始化物品信息列表
+        /// </summary>
         private void InitializedItemDetailList()
         {
             for (var i = 1; i < itemDetailList.ItemList.Count + 1; i++)
@@ -46,12 +48,15 @@ namespace TXDCL.Inventory
                 _ => Color.white
             };
         }
-
+        /// <summary>
+        /// 获得物品的克隆体
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
         public ItemDetails GetItemDetail(int itemID)
         {
-            return itemDetailList.ItemList[itemID - 1];
+            return itemID != 0 ? Instantiate(itemDetailList.ItemList[itemID - 1]) : null;
         }
-        
         /// <summary>
         /// 交换两个格子中的物品
         /// </summary>
@@ -63,17 +68,17 @@ namespace TXDCL.Inventory
             if(currentSlot == null || currentSlot == targetSlot) return;
             if (currentSlot.availableItemType == targetSlot.availableItemType)
             {
-                var firstItemID = currentSlot.itemID;
+                var firstItem = currentSlot.itemDetails;
                 var firstAmount = currentSlot.itemAmount;
-                var secondItemID = targetSlot.itemID;
+                var secondItem = targetSlot.itemDetails;
                 var secondAmount = targetSlot.itemAmount;
-                SetItemAtIndexInBag(targetSlot.SlotIndex, firstItemID, firstAmount, currentSlot.availableItemType);
-                SetItemAtIndexInBag(currentSlot.SlotIndex, secondItemID, secondAmount, targetSlot.availableItemType);
+                SetItemAtIndexInBag(targetSlot.SlotIndex, firstItem, firstAmount, currentSlot.availableItemType);
+                SetItemAtIndexInBag(currentSlot.SlotIndex, secondItem, secondAmount, targetSlot.availableItemType);
                 EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
             }
         }
 
-        private void SetItemAtIndexInBag(int index, int itemID, int itemAmount, ItemType itemType)
+        private void SetItemAtIndexInBag(int index, ItemDetails itemDetails, int itemAmount, ItemType itemType)
         {
             var currentIndex = 0;
             if (index == currentIndex)
@@ -81,16 +86,16 @@ namespace TXDCL.Inventory
                 switch (InventoryUI.Instance.storageBagDropdown.value)
                 {
                     case 0:
-                        InventoryUI.Instance.inventoryBag.FaBaoStorageBag = itemID != 0 ? GetItemDetail(itemID) as StorageBagDetails : null;
+                        InventoryUI.Instance.inventoryBag.FaBaoStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
                         break;
                     case 1:
-                        InventoryUI.Instance.inventoryBag.ConsumablesStorageBag = itemID != 0 ? GetItemDetail(itemID) as StorageBagDetails : null;
+                        InventoryUI.Instance.inventoryBag.ConsumablesStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
                         break;
                     case 2:
-                        InventoryUI.Instance.inventoryBag.QuestItemStorageBag = itemID != 0 ? GetItemDetail(itemID) as StorageBagDetails : null;
+                        InventoryUI.Instance.inventoryBag.QuestItemStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
                         break;
                     case 3:
-                        InventoryUI.Instance.inventoryBag.OtherItemStorageBag = itemID != 0 ? GetItemDetail(itemID) as StorageBagDetails : null;
+                        InventoryUI.Instance.inventoryBag.OtherItemStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -102,7 +107,7 @@ namespace TXDCL.Inventory
             {
                 if (index == currentIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.storageBags[i] = itemID != 0 ? GetItemDetail(itemID) as StorageBagDetails : null;
+                    InventoryUI.Instance.inventoryBag.storageBags[i] = itemDetails != null ? itemDetails as StorageBagDetails : null;
                     return;
                 }
                 currentIndex++;
@@ -112,7 +117,7 @@ namespace TXDCL.Inventory
             {
                 if (index == currentIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.wearingFaBaoList[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                    InventoryUI.Instance.inventoryBag.wearingFaBaoList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                     return;
                 }
                 currentIndex++;
@@ -121,7 +126,7 @@ namespace TXDCL.Inventory
             {
                 if (index == currentIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.carryOnItems[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                    InventoryUI.Instance.inventoryBag.carryOnItems[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                     return;
                 }
                 currentIndex++;
@@ -133,7 +138,7 @@ namespace TXDCL.Inventory
                     {
                         if (index == currentIndex)
                         {
-                            InventoryUI.Instance.inventoryBag.basicFaBaoList[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                            InventoryUI.Instance.inventoryBag.basicFaBaoList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                             return;
                         }
                         currentIndex++;
@@ -145,7 +150,7 @@ namespace TXDCL.Inventory
                         {
                             if (index == currentIndex)
                             {
-                                InventoryUI.Instance.inventoryBag.FaBaoStorageBag.items[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                                InventoryUI.Instance.inventoryBag.FaBaoStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                                 return;
                             }
                             currentIndex++;
@@ -157,7 +162,7 @@ namespace TXDCL.Inventory
                     {
                         if (index == currentIndex)
                         { 
-                            InventoryUI.Instance.inventoryBag.basicConsumablesList[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                            InventoryUI.Instance.inventoryBag.basicConsumablesList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                             return;
                         }
                         currentIndex++;
@@ -169,7 +174,7 @@ namespace TXDCL.Inventory
                         {
                             if (index == currentIndex)
                             {
-                                InventoryUI.Instance.inventoryBag.ConsumablesStorageBag.items[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                                InventoryUI.Instance.inventoryBag.ConsumablesStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                                 return;
                             }
                             currentIndex++;
@@ -181,7 +186,7 @@ namespace TXDCL.Inventory
                     {
                         if (index == currentIndex)
                         { 
-                            InventoryUI.Instance.inventoryBag.basicQuestItemList[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                            InventoryUI.Instance.inventoryBag.basicQuestItemList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                             return;
                         }
                         currentIndex++;
@@ -193,7 +198,7 @@ namespace TXDCL.Inventory
                         {
                             if (index == currentIndex)
                             {
-                                InventoryUI.Instance.inventoryBag.QuestItemStorageBag.items[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                                InventoryUI.Instance.inventoryBag.QuestItemStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                                 return;
                             }
                             currentIndex++;
@@ -205,7 +210,7 @@ namespace TXDCL.Inventory
                     {
                         if (index == currentIndex)
                         { 
-                            InventoryUI.Instance.inventoryBag.basicOtherItemList[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                            InventoryUI.Instance.inventoryBag.basicOtherItemList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                             return;
                         }
                         currentIndex++;
@@ -217,7 +222,7 @@ namespace TXDCL.Inventory
                         {
                             if (index == currentIndex)
                             {
-                                InventoryUI.Instance.inventoryBag.OtherItemStorageBag.items[i] = new InventoryItem { itemID = itemID, amount = itemAmount };
+                                InventoryUI.Instance.inventoryBag.OtherItemStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
                                 return;
                             }
                             currentIndex++;
@@ -234,8 +239,8 @@ namespace TXDCL.Inventory
     }
     [Serializable]
     public struct InventoryItem
-    {
-        public int itemID;
+    { 
+        public ItemDetails itemDetails;
         public int amount;
     }
 }

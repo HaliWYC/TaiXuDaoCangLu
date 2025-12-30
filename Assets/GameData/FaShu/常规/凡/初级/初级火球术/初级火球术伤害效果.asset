@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: "\u521D\u7EA7\u706B\u7403\u672F\u4F24\u5BB3\u6548\u679C"
   m_EditorClassIdentifier: 
   effectIcon: {fileID: 0}
+  Index: 0
   value: 2
   round: 0
   description: "\u9020\u62102\u70B9\u4F24\u5BB3"
   effectDuration: 0
   effectTarget: 1
+  DamageModifier: 0
