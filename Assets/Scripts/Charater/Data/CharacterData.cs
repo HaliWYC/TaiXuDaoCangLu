@@ -22,14 +22,17 @@ namespace TXDCL.Character
         public int maxDanDu;//最大丹毒
         public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff，短时间内大量杀死生灵或其他特殊情况将积累煞气
         public int maxShaQi;//最大煞气
-
+        public int MainGongFaBasicSpeed;
+        public int SubGongFaBasicSpeed;
+        public float MainGongFaAdditionalSpeed;
+        
         [Header("Basic Combat")] 
         public int currentHealth; //当前气血
         public int maxHealth; //最大气血
-        public int currentStamina;//当前体力，体力用于释放近战法术
-        public int maxStamina;//最大体力
         public int currentMana;//当前发力释放法术所消耗资源
         public int maxMana;//最大法力
+        public int currentStamina;//当前体力，体力用于释放近战法术
+        public int maxStamina;//最大体力
         public int Attack; //攻击
         public int Reaction;//反应
         public int Speed;//速度
@@ -57,6 +60,31 @@ namespace TXDCL.Character
         [Header("Effects")]
         public List<EffectData> TemporaryEffects;//暂时性效果如战斗中即战斗后持续状态
         public List<EffectData> PermanentEffects;//永久性效果如天赋、能力等
+        
+        public void ResetProperty()
+        {
+            maxAge = 0;
+            maxVigor = 0;
+            maxDanDu = 0;
+            maxShaQi = 0;
+            MainGongFaBasicSpeed = 0;
+            SubGongFaBasicSpeed = 0;
+            MainGongFaAdditionalSpeed = 0;
+            maxHealth = 0;
+            maxMana = 0;
+            maxStamina = 0;
+            Attack = 0;
+            Reaction = 0;
+            Speed = 0;
+            maxMovementPerTurn = 0;
+            maxDaocangPerTurn = 0;
+            MetalLingGen = 0;
+            WoodLingGen = 0;
+            WaterLingGen = 0;
+            FireLingGen = 0;
+            EarthLingGen = 0;
+            ShenShiStrength = 0;
+        }
         public void AddProperty(Property property)
         {
             switch (property.propertyType)
@@ -103,8 +131,16 @@ namespace TXDCL.Character
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength += (int)property.value;
                     break;
+                case PropertyType.MainGongFaBasicSpeed:
+                    MainGongFaBasicSpeed += (int)property.value;
+                    break;
+                case PropertyType.SubGongFaBasicSpeed:
+                    SubGongFaBasicSpeed += (int)property.value;
+                    break;
+                case PropertyType.MainGongFaAdditionalSpeed:
+                    MainGongFaAdditionalSpeed += property.value;
+                    break;
             }
-
         }
 
         public void SubtractProperty(Property property)
@@ -152,6 +188,15 @@ namespace TXDCL.Character
                     break;
                 case PropertyType.ShenShiStrength:
                     ShenShiStrength -= (int)property.value;
+                    break;
+                case PropertyType.MainGongFaBasicSpeed:
+                    MainGongFaBasicSpeed -= (int)property.value;
+                    break;
+                case PropertyType.SubGongFaBasicSpeed:
+                    SubGongFaBasicSpeed -= (int)property.value;
+                    break;
+                case PropertyType.MainGongFaAdditionalSpeed:
+                    MainGongFaAdditionalSpeed -= property.value;
                     break;
             }
         }

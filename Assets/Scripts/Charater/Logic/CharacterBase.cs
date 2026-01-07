@@ -20,7 +20,9 @@ namespace TXDCL.Character
         [Header("CharacterData")]
         [SerializeField] private CharacterData templateData;
         public CharacterData CharacterData;
-        public CharacterEquipmentData EquipmentData;//装备属性
+        public CharacterData CharacterJingjieData;
+        public CharacterData CharacterEquipmentData;
+        public CharacterData CharacterGongFaData;
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.JingjieLevel.ToString() + CharacterData.Jingjie.miniJingjieLevel : null;
 
@@ -63,10 +65,14 @@ namespace TXDCL.Character
         
         protected virtual void Awake()
         {
-            if (templateData == null) return;
-            CharacterData = Instantiate(templateData);
-            gongFaProcessor.characterData = CharacterData;
-            currentFaShuList.Clear();
+            if (templateData != null)
+            {
+                CharacterData = Instantiate(templateData);
+                CharacterJingjieData = Instantiate(templateData);
+                CharacterEquipmentData = Instantiate(templateData);
+                CharacterGongFaData = Instantiate(templateData);
+            }
+            gongFaProcessor.InitializeGongFa(CharacterData, CharacterGongFaData);
             animator = GetComponent<Animator>();
             Collider = Collider == null ? GetComponent<BoxCollider2D>() : Collider;
             if (templateInventoryBag != null)
@@ -74,6 +80,7 @@ namespace TXDCL.Character
                 InventoryBag = Instantiate(templateInventoryBag);
                 InventoryBag.InitializeData();
             }
+            currentFaShuList.Clear();
             foreach (var FaShu in tempFaShuList)
             {
                 currentFaShuList.Add(Instantiate(FaShu));
@@ -122,8 +129,8 @@ namespace TXDCL.Character
 
         private void Start()
         {
-            UpdateLevel();
-            ResetValue();
+            UpdateData();
+            ResetCharacterData();
         }
         protected virtual void Update()
         {
@@ -190,61 +197,6 @@ namespace TXDCL.Character
             //随机值需大于精准率才触发闪避
             return Random.Range(0f, 1f) > accurateRate;
         }
-        #endregion
-
-        
-
-        #region XiuLian
-
-        public void UpdateLevel()
-        {
-            var jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
-            if (jingjie == null) return;
-            var data = jingjie.JingjieData;
-            CharacterData.nextExp = data.NextEXP;
-            CharacterData.maxAge = data.MaxAge;
-            CharacterData.maxHealth = data.MaxHealth;
-            CharacterData.maxStamina = data.MaxStamina;
-            CharacterData.maxMana = data.MaxMana;
-            CharacterData.Attack = data.Attack;
-            CharacterData.Reaction = data.Reaction;
-            CharacterData.maxMovementPerTurn = data.MaxMovementPerTurn;
-            CharacterData.ShenShiStrength = data.ShenShiStrength;
-            CharacterData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
-            gongFaProcessor.InitializeGongFa();
-        }
-
-        public void CheckUpGrade()
-        {
-            while (CharacterData.currentExp >= CharacterData.nextExp && CharacterData.nextExp != 0)
-            {
-                CharacterData.currentExp -= CharacterData.nextExp;
-                if (CharacterData.Jingjie.miniJingjieLevel + 1 > MiniJingjieLevel.大圆满)
-                {
-                    CharacterData.Jingjie.miniJingjieLevel = 0;
-                    CharacterData.Jingjie.JingjieLevel++;
-                }
-                else
-                {
-                    CharacterData.Jingjie.miniJingjieLevel += 1;
-                }
-
-                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
-            }
-            UpdateLevel();
-        }
-
-        public void ResetValue()
-        {
-            if (CharacterData == null) return;
-            CharacterData.currentHealth = CharacterData.maxHealth;
-            CharacterData.currentMana = CharacterData.maxMana;
-            CharacterData.currentStamina = CharacterData.maxStamina;
-            CharacterData.ShenShi = CharacterData.ShenShiStrength;
-        }
-
-        #endregion
-        
         public void SetCharacterFacingDirection(float direction)
         {
             direction = isIconFacingLeft ? -direction : direction;
@@ -323,11 +275,94 @@ namespace TXDCL.Character
                 fashu.currentPrepareTurns = 0;
             }
         }
+        #endregion
 
+        
+
+        #region XiuLian
+
+        public void UpdateLevel()
+        {
+            var jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
+            if (jingjie == null) return;
+            var data = jingjie.JingjieData;
+            CharacterData.nextExp = data.NextEXP;
+            CharacterJingjieData.maxAge = data.MaxAge;
+            CharacterJingjieData.maxHealth = data.MaxHealth;
+            CharacterJingjieData.maxStamina = data.MaxStamina;
+            CharacterJingjieData.maxMana = data.MaxMana;
+            CharacterJingjieData.Attack = data.Attack;
+            CharacterJingjieData.Reaction = data.Reaction;
+            CharacterJingjieData.maxMovementPerTurn = data.MaxMovementPerTurn;
+            CharacterJingjieData.ShenShiStrength = data.ShenShiStrength;
+            CharacterJingjieData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
+        }
+
+        public void CheckLevelUp()
+        {
+            while (CharacterData.currentExp >= CharacterData.nextExp && CharacterData.nextExp != 0)
+            {
+                CharacterData.currentExp -= CharacterData.nextExp;
+                if (CharacterData.Jingjie.miniJingjieLevel + 1 > MiniJingjieLevel.大圆满)
+                {
+                    CharacterData.Jingjie.miniJingjieLevel = 0;
+                    CharacterData.Jingjie.JingjieLevel++;
+                }
+                else
+                {
+                    CharacterData.Jingjie.miniJingjieLevel += 1;
+                }
+
+                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
+            }
+            UpdateLevel();
+        }
+
+        public void ResetCharacterData()
+        {
+            if (CharacterData == null) return;
+            CharacterData.currentHealth = CharacterData.maxHealth;
+            CharacterData.currentMana = CharacterData.maxMana;
+            CharacterData.currentStamina = CharacterData.maxStamina;
+            CharacterData.ShenShi = CharacterData.ShenShiStrength;
+        }
+
+        public void UpdateData()
+        {
+            UpdateLevel();
+            if (InventoryBag != null)
+                InventoryBag.UpdateProperty(CharacterEquipmentData);
+            gongFaProcessor.UpdateProperty();
+            CharacterData.maxAge = CharacterJingjieData.maxAge + CharacterEquipmentData.maxAge + CharacterGongFaData.maxAge;
+            CharacterData.maxVigor = CharacterJingjieData.maxVigor + CharacterEquipmentData.maxVigor + CharacterGongFaData.maxVigor;
+            CharacterData.maxDanDu = CharacterJingjieData.maxDanDu + CharacterEquipmentData.maxDanDu + CharacterGongFaData.maxDanDu;
+            CharacterData.maxShaQi = CharacterJingjieData.maxShaQi + CharacterEquipmentData.maxShaQi + CharacterGongFaData.maxShaQi;
+            CharacterData.maxHealth = CharacterJingjieData.maxHealth + CharacterEquipmentData.maxHealth + CharacterGongFaData.maxHealth;
+            CharacterData.maxMana = CharacterJingjieData.maxMana + CharacterEquipmentData.maxMana + CharacterGongFaData.maxMana;
+            CharacterData.maxStamina = CharacterJingjieData.maxStamina + CharacterEquipmentData.maxStamina + CharacterGongFaData.maxStamina;
+            CharacterData.Attack = CharacterJingjieData.Attack + CharacterEquipmentData.Attack + CharacterGongFaData.Attack;
+            CharacterData.Reaction = CharacterJingjieData.Reaction + CharacterEquipmentData.Reaction + CharacterGongFaData.Reaction;
+            CharacterData.Speed = CharacterJingjieData.Speed + CharacterEquipmentData.Speed  + CharacterGongFaData.Speed;
+            CharacterData.maxMovementPerTurn = CharacterJingjieData.maxMovementPerTurn + CharacterEquipmentData.maxMovementPerTurn + CharacterGongFaData.maxMovementPerTurn;
+            CharacterData.maxDaocangPerTurn = CharacterJingjieData.maxDaocangPerTurn + CharacterEquipmentData.maxDaocangPerTurn + CharacterGongFaData.maxDaocangPerTurn;
+            CheckCharacterDataOverflow();
+            gongFaProcessor.XiuLianSpeed = (int)((CharacterData.MainGongFaBasicSpeed + CharacterData.SubGongFaBasicSpeed) * (1 + CharacterData.MainGongFaAdditionalSpeed));
+        }
+
+        public void CheckCharacterDataOverflow()
+        {
+            CharacterData.currentAge = CharacterData.currentAge < CharacterData.maxAge ? CharacterData.currentAge : CharacterData.maxAge;
+            CharacterData.currentVigor = CharacterData.currentVigor < CharacterData.maxVigor ? CharacterData.currentVigor : CharacterData.maxVigor;
+            CharacterData.currentDanDu = CharacterData.currentDanDu < CharacterData.maxDanDu ? CharacterData.currentDanDu : CharacterData.maxDanDu;
+            CharacterData.currentShaQi = CharacterData.currentShaQi < CharacterData.maxShaQi ? CharacterData.currentShaQi : CharacterData.maxShaQi;
+            CharacterData.currentHealth = CharacterData.currentHealth < CharacterData.maxHealth ? CharacterData.currentHealth : CharacterData.maxHealth;
+            CharacterData.currentMana = CharacterData.currentMana < CharacterData.maxMana ? CharacterData.currentMana : CharacterData.maxMana;
+            CharacterData.currentStamina = CharacterData.currentStamina < CharacterData.maxStamina ? CharacterData.currentStamina : CharacterData.maxStamina;
+        }
+        #endregion
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!CombatManager.Instance.isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
-            //CharacterStatsPanel.Instance.UpdateCharacterStats(eventData.pointerEnter.GetComponent<CharacterBase>());
             StartCoroutine(ShowCharacterStats());
         }
 
@@ -335,17 +370,14 @@ namespace TXDCL.Character
         {
             if (!CombatManager.Instance.isCombating || !CharacterStatsPanel.Instance.CharaterStats.activeInHierarchy || !isShenShiPenetrated || !CombatGridManager.Instance.canDisplayCharacterStats) return;
             StopAllCoroutines();
-            //StopCoroutine(ShowCharacterStats());
         }
 
         private IEnumerator ShowCharacterStats()
         {
-            //Debug.Log(CharacterData.characterName);
             yield return new WaitForSeconds(2);
             StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(this));
         }
     }
-    
 }
 
     

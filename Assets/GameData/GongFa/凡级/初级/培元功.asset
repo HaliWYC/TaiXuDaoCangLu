@@ -26,5 +26,6 @@ MonoBehaviour:
   PropertyList:
   - propertyType: 3
     value: 1
+  EffectList: []
   LowerGongFaData: {fileID: 0}
   UpperGongFaData: {fileID: 0}

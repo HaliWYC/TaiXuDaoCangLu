@@ -129,6 +129,11 @@ public enum StorageBagType
     法宝,消耗品,任务物品,其他物品,万能
 }
 
+public enum ItemSlotAvailableType
+{
+    法宝,消耗品,任务物品,其他物品,储物袋,万能
+}
+
 public enum CaoYaoStateType
 {
     未处理,块状,粉状,液状

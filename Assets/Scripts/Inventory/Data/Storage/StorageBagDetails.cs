@@ -21,7 +21,7 @@ namespace TXDCL.Inventory
             {
                 if (items[i].itemDetails != null)
                 {
-                    items[i] = new InventoryItem { itemDetails = Instantiate(items[i].itemDetails), amount = items[i].amount };
+                    items[i] = new InventoryItem { itemDetails = Instantiate(items[i].itemDetails), itemAmount = items[i].itemAmount };
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TXDCL.Character;
 using UnityEngine;
 
 namespace TXDCL.Inventory
@@ -50,7 +51,7 @@ namespace TXDCL.Inventory
                     basicFaBaoList[i] = new InventoryItem 
                     { 
                         itemDetails = Instantiate(basicFaBaoList[i].itemDetails), 
-                        amount = basicFaBaoList[i].amount 
+                        itemAmount = basicFaBaoList[i].itemAmount 
                     };
                 }
             }
@@ -67,7 +68,7 @@ namespace TXDCL.Inventory
                     basicConsumablesList[i] = new InventoryItem
                     {
                         itemDetails = Instantiate(basicConsumablesList[i].itemDetails),
-                        amount = basicConsumablesList[i].amount
+                        itemAmount = basicConsumablesList[i].itemAmount
                     };
                 }
             }
@@ -84,7 +85,7 @@ namespace TXDCL.Inventory
                     basicQuestItemList[i] = new InventoryItem
                     {
                         itemDetails = Instantiate(basicQuestItemList[i].itemDetails),
-                        amount = basicQuestItemList[i].amount
+                        itemAmount = basicQuestItemList[i].itemAmount
                     };
                 }
             }
@@ -102,7 +103,7 @@ namespace TXDCL.Inventory
                     basicOtherItemList[i] = new InventoryItem
                     {
                         itemDetails = Instantiate(basicOtherItemList[i].itemDetails),
-                        amount = basicOtherItemList[i].amount
+                        itemAmount = basicOtherItemList[i].itemAmount
                     };
                 }
             }
@@ -132,7 +133,7 @@ namespace TXDCL.Inventory
                 {
                     wearingFaBaoList[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(wearingFaBaoList[i].itemDetails), amount = wearingFaBaoList[i].amount
+                        itemDetails = Instantiate(wearingFaBaoList[i].itemDetails), itemAmount = wearingFaBaoList[i].itemAmount
                     };
                 }
             }
@@ -150,7 +151,7 @@ namespace TXDCL.Inventory
                 {
                     carryOnItems[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(carryOnItems[i].itemDetails), amount = carryOnItems[i].amount
+                        itemDetails = Instantiate(carryOnItems[i].itemDetails), itemAmount = carryOnItems[i].itemAmount
                     };
                 }
             }
@@ -173,6 +174,28 @@ namespace TXDCL.Inventory
             {
                 OtherItemStorageBag = Instantiate(OtherItemStorageBag);
                 OtherItemStorageBag.Initialize();
+            }
+        }
+
+        public void UpdateProperty(CharacterData EquipmentData)
+        {
+            EquipmentData.ResetProperty();
+            for (var i = 0; i < wearingFaBaoList.Count; i++)
+            {
+                if (wearingFaBaoList[i].itemDetails == null) continue;
+                foreach (var property in (wearingFaBaoList[i].itemDetails as FaBaoDetails).properties)
+                {
+                    EquipmentData.AddProperty(property);
+                }
+            }
+            for (var i = 0; i < carryOnItems.Count; i++)
+            {
+                if (carryOnItems[i].itemDetails == null) continue;
+                if (carryOnItems[i].itemDetails.itemType != ItemType.法宝) continue;
+                foreach (var property in (carryOnItems[i].itemDetails as FaBaoDetails).properties)
+                {
+                    EquipmentData.AddProperty(property);
+                }
             }
         }
     }

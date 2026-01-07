@@ -56,18 +56,6 @@ public class JingjieData : ScriptableObject
     public int ShenShiStrength;//神识强度
     public int MaxDaocangPerTurn;//每回合总道藏获取量
 }
-
-[System.Serializable]
-public class CharacterEquipmentData
-{
-    public FaBaoDetails MainWeapon;
-    public FaBaoDetails SubWeapon;
-    public FaBaoDetails Cloth;
-    public FaBaoDetails FirstAccessory;
-    public FaBaoDetails SecondAccessory;
-    public FaBaoDetails Mount;
-}
-
 [System.Serializable]
 public class TileProperty
 {

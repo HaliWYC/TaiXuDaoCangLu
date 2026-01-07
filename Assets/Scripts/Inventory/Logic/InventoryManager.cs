@@ -65,37 +65,65 @@ namespace TXDCL.Inventory
         public void SwapItemSlots(ItemSlotUI currentSlot, ItemSlotUI targetSlot)
         {
             //判断是否为当前格子是否为空或者是否与目标格子相同
-            if(currentSlot == null || currentSlot == targetSlot) return;
+            if(currentSlot == null || currentSlot == targetSlot || targetSlot == null) return;
             if (currentSlot.availableItemType == targetSlot.availableItemType)
             {
-                var firstItem = currentSlot.itemDetails;
-                var firstAmount = currentSlot.itemAmount;
-                var secondItem = targetSlot.itemDetails;
-                var secondAmount = targetSlot.itemAmount;
-                SetItemAtIndexInBag(targetSlot.SlotIndex, firstItem, firstAmount, currentSlot.availableItemType);
-                SetItemAtIndexInBag(currentSlot.SlotIndex, secondItem, secondAmount, targetSlot.availableItemType);
-                EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
+                SetItemAtIndexInBag(currentSlot,targetSlot);
+                SetItemAtIndexInBag(targetSlot,currentSlot);
             }
+            else 
+            {
+                if (currentSlot.availableItemType == ItemSlotAvailableType.万能)
+                {
+                    if (ItemSlotTypeMatchItemType(targetSlot.availableItemType) == currentSlot.itemDetails.itemType)
+                    {
+                        SetItemAtIndexInBag(currentSlot,targetSlot);
+                        SetItemAtIndexInBag(targetSlot,currentSlot);
+                    }
+                }
+                else if (targetSlot.availableItemType == ItemSlotAvailableType.万能)
+                {
+                    if (targetSlot.itemDetails == null)
+                    {
+                        if (currentSlot.itemDetails.itemType != ItemType.储物袋)
+                        {
+                            SetItemAtIndexInBag(currentSlot,targetSlot);
+                            SetItemAtIndexInBag(targetSlot,currentSlot);
+                        }
+                    }
+                    else if (ItemSlotTypeMatchItemType(currentSlot.availableItemType) == targetSlot.itemDetails.itemType)
+                    {
+                        SetItemAtIndexInBag(currentSlot,targetSlot);
+                        SetItemAtIndexInBag(targetSlot,currentSlot);
+                    }
+                }
+            }
+            EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
         }
 
-        private void SetItemAtIndexInBag(int index, ItemDetails itemDetails, int itemAmount, ItemType itemType)
+        private void SetItemAtIndexInBag(ItemSlotUI currentSlot, ItemSlotUI targetSlot)
         {
+            var inventoryBag = InventoryUI.Instance.inventoryBag;
             var currentIndex = 0;
-            if (index == currentIndex)
+            if (currentIndex == targetSlot.SlotIndex)
             {
                 switch (InventoryUI.Instance.storageBagDropdown.value)
                 {
                     case 0:
-                        InventoryUI.Instance.inventoryBag.FaBaoStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
+                        if (currentSlot.itemDetails != null && (currentSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.法宝) return;
+                        inventoryBag.FaBaoStorageBag = currentSlot.itemDetails != null ? currentSlot.itemDetails as StorageBagDetails : null;
                         break;
                     case 1:
-                        InventoryUI.Instance.inventoryBag.ConsumablesStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
+                        if (currentSlot.itemDetails != null && (currentSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.消耗品) return;
+                        inventoryBag.ConsumablesStorageBag = currentSlot.itemDetails != null ? currentSlot.itemDetails as StorageBagDetails : null;
                         break;
                     case 2:
-                        InventoryUI.Instance.inventoryBag.QuestItemStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
+                        if (currentSlot.itemDetails != null && (currentSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.任务物品) return;
+                        inventoryBag.QuestItemStorageBag = currentSlot.itemDetails != null ? currentSlot.itemDetails as StorageBagDetails : null;
                         break;
                     case 3:
-                        InventoryUI.Instance.inventoryBag.OtherItemStorageBag = itemDetails != null ? itemDetails as StorageBagDetails : null;
+                        if (currentSlot.itemDetails != null && (currentSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.其他物品) return;
+                        inventoryBag.OtherItemStorageBag = currentSlot.itemDetails != null ? currentSlot.itemDetails as StorageBagDetails : null;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -103,144 +131,169 @@ namespace TXDCL.Inventory
                 return;
             }
             currentIndex++;
-            for (var i = 0; i < InventoryUI.Instance.inventoryBag.storageBags.Count; i++)
+            for (var i = 0; i < inventoryBag.storageBags.Count; i++)
             {
-                if (index == currentIndex)
+                if (currentIndex == targetSlot.SlotIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.storageBags[i] = itemDetails != null ? itemDetails as StorageBagDetails : null;
+                    if (currentSlot == InventoryUI.Instance.currentStorageBagUI)
+                    {
+                        switch (InventoryUI.Instance.storageBagDropdown.value)
+                        {
+                            case 0:
+                                if (targetSlot.itemDetails != null && (targetSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.法宝) return;
+                                break;
+                            case 1:
+                                if (targetSlot.itemDetails != null && (targetSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.消耗品) return;
+                                break;
+                            case 2:
+                                if (targetSlot.itemDetails != null && (targetSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.任务物品) return;
+                                break;
+                            case 3:
+                                if (targetSlot.itemDetails != null && (targetSlot.itemDetails as StorageBagDetails).storageBagType != StorageBagType.其他物品) return;
+                                break;
+                        }
+                    }
+                    inventoryBag.storageBags[i] = currentSlot.itemDetails != null ? currentSlot.itemDetails as StorageBagDetails : null;
                     return;
                 }
                 currentIndex++;
             }
-            //TODO:实现装备和携带效果
-            for (var i = 0; i < InventoryUI.Instance.inventoryBag.wearingFaBaoList.Count; i++)
+            for (var i = 0; i < inventoryBag.wearingFaBaoList.Count; i++)
             {
-                if (index == currentIndex)
+                if (currentIndex == targetSlot.SlotIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.wearingFaBaoList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
+                    inventoryBag.wearingFaBaoList[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                    InventoryUI.Instance.currentCharacter.UpdateData();
                     return;
                 }
                 currentIndex++;
             }
-            for (var i = 0; i < InventoryUI.Instance.inventoryBag.carryOnItems.Count; i++)
+            for (var i = 0; i < inventoryBag.carryOnItems.Count; i++)
             {
-                if (index == currentIndex)
+                if (currentIndex == targetSlot.SlotIndex)
                 {
-                    InventoryUI.Instance.inventoryBag.carryOnItems[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
+                    inventoryBag.carryOnItems[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                    InventoryUI.Instance.currentCharacter.UpdateData();
                     return;
                 }
                 currentIndex++;
             }
-            switch (itemType)
+            switch (targetSlot.availableItemType)
             {
-                case ItemType.法宝:
-                    for (var i = 0; i < InventoryUI.Instance.inventoryBag.basicFaBaoList.Count; i++)
+                case ItemSlotAvailableType.法宝:
+                    for (var i = 0; i < inventoryBag.basicFaBaoList.Count; i++)
                     {
-                        if (index == currentIndex)
+                        if (currentIndex == targetSlot.SlotIndex)
                         {
-                            InventoryUI.Instance.inventoryBag.basicFaBaoList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
+                            inventoryBag.basicFaBaoList[i] = new InventoryItem{ itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
                             return;
                         }
                         currentIndex++;
                     }
-
-                    if (InventoryUI.Instance.inventoryBag.FaBaoStorageBag != null)
+                    if (inventoryBag.FaBaoStorageBag != null)
                     {
-                        for (var i = 0; i < InventoryUI.Instance.inventoryBag.FaBaoStorageBag.items.Count; i++)
+                        for (var i = 0; i < inventoryBag.FaBaoStorageBag.items.Count; i++)
                         {
-                            if (index == currentIndex)
+                            if (currentIndex == targetSlot.SlotIndex)
                             {
-                                InventoryUI.Instance.inventoryBag.FaBaoStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
+                                inventoryBag.FaBaoStorageBag.items[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
                                 return;
                             }
                             currentIndex++;
                         }
                     }
                     break;
-                case ItemType.消耗品:
-                    for (var i = 0; i < InventoryUI.Instance.inventoryBag.basicConsumablesList.Count; i++)
+                case ItemSlotAvailableType.消耗品:
+                    for (var i = 0; i < inventoryBag.basicConsumablesList.Count; i++)
                     {
-                        if (index == currentIndex)
+                        if (currentIndex == targetSlot.SlotIndex)
                         { 
-                            InventoryUI.Instance.inventoryBag.basicConsumablesList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
+                            inventoryBag.basicConsumablesList[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
                             return;
                         }
                         currentIndex++;
                     }
-
-                    if (InventoryUI.Instance.inventoryBag.ConsumablesStorageBag != null)
-                    {
-                        for (var i = 0; i < InventoryUI.Instance.inventoryBag.ConsumablesStorageBag.items.Count; i++)
-                        {
-                            if (index == currentIndex)
-                            {
-                                InventoryUI.Instance.inventoryBag.ConsumablesStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
-                                return;
-                            }
-                            currentIndex++;
-                        }
-                    }
-                    break;
-                case ItemType.任务物品:
-                    for (var i = 0; i < InventoryUI.Instance.inventoryBag.basicQuestItemList.Count; i++)
-                    {
-                        if (index == currentIndex)
-                        { 
-                            InventoryUI.Instance.inventoryBag.basicQuestItemList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
-                            return;
-                        }
-                        currentIndex++;
-                    }
-
-                    if (InventoryUI.Instance.inventoryBag.QuestItemStorageBag != null)
-                    {
-                        for (var i = 0; i < InventoryUI.Instance.inventoryBag.QuestItemStorageBag.items.Count; i++)
-                        {
-                            if (index == currentIndex)
-                            {
-                                InventoryUI.Instance.inventoryBag.QuestItemStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
-                                return;
-                            }
-                            currentIndex++;
-                        }
-                    }
-                    break;
-                case ItemType.其他物品:
-                    for (var i = 0; i < InventoryUI.Instance.inventoryBag.basicOtherItemList.Count; i++)
-                    {
-                        if (index == currentIndex)
-                        { 
-                            InventoryUI.Instance.inventoryBag.basicOtherItemList[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
-                            return;
-                        }
-                        currentIndex++;
-                    }
-
-                    if (InventoryUI.Instance.inventoryBag.OtherItemStorageBag != null)
-                    {
-                        for (var i = 0; i < InventoryUI.Instance.inventoryBag.OtherItemStorageBag.items.Count; i++)
-                        {
-                            if (index == currentIndex)
-                            {
-                                InventoryUI.Instance.inventoryBag.OtherItemStorageBag.items[i] = new InventoryItem { itemDetails = itemDetails, amount = itemAmount };
-                                return;
-                            }
-                            currentIndex++;
-                        }
-                    }
-                    break;
-                case ItemType.储物袋:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
             
+                    if (inventoryBag.ConsumablesStorageBag != null)
+                    {
+                        for (var i = 0; i < inventoryBag.ConsumablesStorageBag.items.Count; i++)
+                        {
+                            if (currentIndex == targetSlot.SlotIndex)
+                            {
+                                inventoryBag.ConsumablesStorageBag.items[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                                return;
+                            }
+                            currentIndex++;
+                        }
+                    }
+                    break;
+                case ItemSlotAvailableType.任务物品:
+                    for (var i = 0; i < inventoryBag.basicQuestItemList.Count; i++)
+                    {
+                        if (currentIndex == targetSlot.SlotIndex)
+                        { 
+                            inventoryBag.basicQuestItemList[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                            return;
+                        }
+                        currentIndex++;
+                    }
+            
+                    if (inventoryBag.QuestItemStorageBag != null)
+                    {
+                        for (var i = 0; i < inventoryBag.QuestItemStorageBag.items.Count; i++)
+                        {
+                            if (currentIndex == targetSlot.SlotIndex)
+                            {
+                                inventoryBag.QuestItemStorageBag.items[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                                return;
+                            }
+                            currentIndex++;
+                        }
+                    }
+                    break;
+                case ItemSlotAvailableType.其他物品:
+                    for (var i = 0; i < inventoryBag.basicOtherItemList.Count; i++)
+                    {
+                        if (currentIndex == targetSlot.SlotIndex)
+                        { 
+                            inventoryBag.basicOtherItemList[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                            return;
+                        }
+                        currentIndex++;
+                    }
+            
+                    if (inventoryBag.OtherItemStorageBag != null)
+                    {
+                        for (var i = 0; i < inventoryBag.OtherItemStorageBag.items.Count; i++)
+                        {
+                            if (currentIndex == targetSlot.SlotIndex)
+                            {
+                                inventoryBag.OtherItemStorageBag.items[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
+                                return;
+                            }
+                            currentIndex++;
+                        }
+                    }
+                    break;
+            }
+        }
+        public ItemType ItemSlotTypeMatchItemType(ItemSlotAvailableType bagType)
+        {
+            return bagType switch
+            {
+                ItemSlotAvailableType.法宝 => ItemType.法宝,
+                ItemSlotAvailableType.消耗品 => ItemType.消耗品,
+                ItemSlotAvailableType.任务物品 => ItemType.任务物品,
+                ItemSlotAvailableType.其他物品 => ItemType.其他物品,
+                ItemSlotAvailableType.储物袋 => ItemType.储物袋,
+                _ => throw new ArgumentOutOfRangeException(nameof(bagType), bagType, null)
+            };
         }
     }
     [Serializable]
     public struct InventoryItem
     { 
         public ItemDetails itemDetails;
-        public int amount;
+        public int itemAmount;
     }
 }

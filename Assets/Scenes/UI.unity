@@ -957,6 +957,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
@@ -1704,6 +1708,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
   itemSlotUIPrefab: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+  currentCharacter: {fileID: 0}
+  inventoryBag: {fileID: 0}
   draggedItemIcon: {fileID: 724658883}
   LingShiAmount: {fileID: 350122160}
   storageBags:
@@ -4423,6 +4429,10 @@ PrefabInstance:
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot
@@ -8007,6 +8017,10 @@ PrefabInstance:
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot
@@ -13029,6 +13043,10 @@ PrefabInstance:
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot
@@ -22984,6 +23002,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot
       value: 1
       objectReference: {fileID: 0}
@@ -25744,6 +25766,10 @@ PrefabInstance:
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItem
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
+      propertyPath: availableItemType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7077295856382668953, guid: 3470c679738f14b8fb34983b53cf2e9a, type: 3}
       propertyPath: isCarriedOnItemSlot

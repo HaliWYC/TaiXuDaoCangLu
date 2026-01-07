@@ -8,15 +8,11 @@ namespace TXDCL.XiuLian.GongFa
 {
     public class GongFaProcessor : MonoBehaviour
     {
-        public CharacterData characterData;
+        private CharacterData characterData;
+        private CharacterData gongFaData;
         public List<GongFaData> MainGongFas = new();
         public List<GongFaData> SubGongFas = new();
-        private int XiuLianSpeed;
-
-        private int MainGongFaBasicSpeed;
-        private int SubGongFaBasicSpeed;
-        private float MainGongFaAdditionalSpeed;
-        
+        public int XiuLianSpeed;
         [Header("Time")] 
         private int previousMonth;
         private int previousYear;
@@ -24,29 +20,34 @@ namespace TXDCL.XiuLian.GongFa
         private bool isReachLimit;
         private void Awake()
         {
-            //Test
             //TODO:后续根据数据保存系统储存时间
             previousMonth = 1;
             previousYear = 1;
             isReachLimit = false;
         }
 
-        public void InitializeGongFa()
+        public void InitializeGongFa(CharacterData CharacterData, CharacterData GongFaData)
         {
-            MainGongFaBasicSpeed += MainGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
-            SubGongFaBasicSpeed += SubGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
-            MainGongFaAdditionalSpeed += MainGongFas.Sum(GongFa => GongFa.AdditionalXiuLianSpeed);
-            XiuLianSpeed = (int)((MainGongFaBasicSpeed + SubGongFaBasicSpeed) * (1 + MainGongFaAdditionalSpeed));
+            characterData = CharacterData;
+            gongFaData = GongFaData;
+            UpdateProperty();
+        }
+        public void UpdateProperty()
+        {
+            if(characterData == null || gongFaData == null) return;
+            gongFaData.ResetProperty();
+            gongFaData.MainGongFaBasicSpeed += MainGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
+            gongFaData.SubGongFaBasicSpeed += SubGongFas.Sum(GongFa => GongFa.BasicXiuLianSpeed);
+            gongFaData.MainGongFaAdditionalSpeed += MainGongFas.Sum(GongFa => GongFa.AdditionalXiuLianSpeed);
             foreach (var property in MainGongFas.SelectMany(MainGF => MainGF.PropertyList))
             {
-                characterData.AddProperty(property);
-                AddProperty(property);
+                gongFaData.AddProperty(property);
             }
             foreach (var property in SubGongFas.SelectMany(SubGongFa => SubGongFa.PropertyList))
             {
-                characterData.AddProperty(property);
-                AddProperty(property);
+                gongFaData.AddProperty(property);
             }
+            
         }
 
         private void OnEnable()
@@ -75,7 +76,7 @@ namespace TXDCL.XiuLian.GongFa
                 return;
             }
             if (characterData.currentExp >= characterData.nextExp && characterData.nextExp != 0)
-                GetComponent<CharacterBase>().CheckUpGrade();
+                GetComponent<CharacterBase>().CheckLevelUp();
         }
 
         [ContextMenu("Cheat")]
@@ -88,39 +89,7 @@ namespace TXDCL.XiuLian.GongFa
                 return;
             }
             if(characterData.currentExp >= characterData.nextExp)
-                GetComponent<CharacterBase>().CheckUpGrade();
-        }
-
-        private void AddProperty(Property property)
-        {
-            switch (property.propertyType)
-            {
-                case PropertyType.MainGongFaBasicSpeed:
-                    MainGongFaBasicSpeed += (int)property.value;
-                    break;
-                case PropertyType.SubGongFaBasicSpeed:
-                    SubGongFaBasicSpeed += (int)property.value;
-                    break;
-                case PropertyType.MainGongFaAdditionalSpeed:
-                    MainGongFaAdditionalSpeed += property.value;
-                    break;
-            }
-        }
-        
-        private void SubtractProperty(Property property)
-        {
-            switch (property.propertyType)
-            {
-                case PropertyType.MainGongFaBasicSpeed:
-                    MainGongFaBasicSpeed -= (int)property.value;
-                    break;
-                case PropertyType.SubGongFaBasicSpeed:
-                    SubGongFaBasicSpeed -= (int)property.value;
-                    break;
-                case PropertyType.MainGongFaAdditionalSpeed:
-                    MainGongFaAdditionalSpeed -= property.value;
-                    break;
-            }
+                GetComponent<CharacterBase>().CheckLevelUp();
         }
     }
 }

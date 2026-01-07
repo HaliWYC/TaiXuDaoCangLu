@@ -79,7 +79,7 @@ namespace TXDCL.Inventory
             //TODO:根据实际情况决定是否就10个储物袋
             for (var i = 0; i < storageBags.Count; i++)
             {
-                storageBags[i].availableItemType = ItemType.储物袋;
+                storageBags[i].availableItemType = ItemSlotAvailableType.储物袋;
                 storageBags[i].SetupItemSlot(inventoryBag.storageBags[i]);
             }
         }
@@ -102,68 +102,68 @@ namespace TXDCL.Inventory
                 case 0:
                     for (var i = 0; i < inventoryBag.basicFaBaoCapacity; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.法宝;
-                        item.SetupItemSlot(inventoryBag.basicFaBaoList[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.法宝;
+                        slot.SetupItemSlot(inventoryBag.basicFaBaoList[i]);
                     }
 
                     var FaBaoCount = inventoryBag.FaBaoStorageBag != null ? inventoryBag.FaBaoStorageBag.items.Count : 0;
                     for (var i = 0; i < FaBaoCount; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.法宝;
-                        item.SetupItemSlot(inventoryBag.FaBaoStorageBag.items[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.法宝;
+                        slot.SetupItemSlot(inventoryBag.FaBaoStorageBag.items[i]);
                     }
                     currentStorageBagUI.SetupItemSlot(inventoryBag.FaBaoStorageBag == null ? null : inventoryBag.FaBaoStorageBag);
                     break;
                 case 1:
                     for (var i = 0; i < inventoryBag.basicConsumablesCapacity; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.消耗品;
-                        item.SetupItemSlot(inventoryBag.basicConsumablesList[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.消耗品;
+                        slot.SetupItemSlot(inventoryBag.basicConsumablesList[i]);
                     }
 
                     var ConsumablesCount = inventoryBag.ConsumablesStorageBag != null ? inventoryBag.ConsumablesStorageBag.items.Count : 0;
                     for (var i = 0; i < ConsumablesCount; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.消耗品;
-                        item.SetupItemSlot(inventoryBag.ConsumablesStorageBag.items[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.消耗品;
+                        slot.SetupItemSlot(inventoryBag.ConsumablesStorageBag.items[i]);
                     }
                     currentStorageBagUI.SetupItemSlot(inventoryBag.ConsumablesStorageBag == null ? null : inventoryBag.ConsumablesStorageBag);
                     break;
                 case 2:
                     for (var i = 0; i < inventoryBag.basicQuestItemCapacity; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.任务物品;
-                        item.SetupItemSlot(inventoryBag.basicQuestItemList[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.任务物品;
+                        slot.SetupItemSlot(inventoryBag.basicQuestItemList[i]);
                     }
 
                     var QuestItemCount = inventoryBag.QuestItemStorageBag != null ? inventoryBag.QuestItemStorageBag.items.Count : 0;
                     for (var i = 0; i < QuestItemCount; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.任务物品;
-                        item.SetupItemSlot(inventoryBag.QuestItemStorageBag.items[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.任务物品;
+                        slot.SetupItemSlot(inventoryBag.QuestItemStorageBag.items[i]);
                     }
                     currentStorageBagUI.SetupItemSlot(inventoryBag.QuestItemStorageBag == null ? null : inventoryBag.QuestItemStorageBag);
                     break;
                 case 3:
                     for (var i = 0; i < inventoryBag.basicOtherItemCapacity; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.其他物品;
-                        item.SetupItemSlot(inventoryBag.basicOtherItemList[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.其他物品;
+                        slot.SetupItemSlot(inventoryBag.basicOtherItemList[i]);
                     }
 
                     var OtherItemCount = inventoryBag.OtherItemStorageBag != null ? inventoryBag.OtherItemStorageBag.items.Count : 0;
                     for (var i = 0; i < OtherItemCount; i++)
                     {
-                        var item = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
-                        item.availableItemType = ItemType.其他物品;
-                        item.SetupItemSlot(inventoryBag.OtherItemStorageBag.items[i]);
+                        var slot = Instantiate(itemSlotUIPrefab, itemSlotContainer).GetComponent<ItemSlotUI>();
+                        slot.availableItemType = ItemSlotAvailableType.其他物品;
+                        slot.SetupItemSlot(inventoryBag.OtherItemStorageBag.items[i]);
                     }
                     currentStorageBagUI.SetupItemSlot(inventoryBag.OtherItemStorageBag == null ? null : inventoryBag.OtherItemStorageBag);
                     break;
@@ -185,6 +185,7 @@ namespace TXDCL.Inventory
             if(inventoryBag.wearingFaBaoList.Count ==0) return;
             for (var i = 0; i < inventoryBag.wearingFaBaoList.Count; i++)
             {
+                WearingFaBaoList[i].availableItemType = ItemSlotAvailableType.法宝;
                 WearingFaBaoList[i].SetupItemSlot(inventoryBag.wearingFaBaoList[i]);
             }
         }
@@ -193,6 +194,7 @@ namespace TXDCL.Inventory
             if(inventoryBag.carryOnItems.Count ==0 ) return;
             for (var i = 0; i < inventoryBag.carryOnItems.Count; i++)
             {
+                CarryOnItemsList[i].availableItemType = ItemSlotAvailableType.万能;
                 CarryOnItemsList[i].SetupItemSlot(inventoryBag.carryOnItems[i]);
             }
         }
