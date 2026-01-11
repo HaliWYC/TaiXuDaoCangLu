@@ -136,7 +136,7 @@ namespace TXDCL.Character
         {
             SwitchAnimation();
         }
-
+        
         protected virtual void SwitchAnimation()
         {
             animator.SetBool(IsMoving, isMoving);
@@ -197,6 +197,11 @@ namespace TXDCL.Character
             //随机值需大于精准率才触发闪避
             return Random.Range(0f, 1f) > accurateRate;
         }
+        
+        /// <summary>
+        /// 根据输入的数值设置角色的朝向
+        /// </summary>
+        /// <param name="direction"></param>
         public void SetCharacterFacingDirection(float direction)
         {
             direction = isIconFacingLeft ? -direction : direction;
@@ -208,7 +213,10 @@ namespace TXDCL.Character
             };
             transform.localScale = new Vector3(faceDirection, transform.localScale.y, transform.localScale.z);
         }
-
+        
+        /// <summary>
+        /// 根据战斗中的回合变化，结算临时buff
+        /// </summary>
         private void UpdateEffectList()
         {
             for (var i = 0; i < CharacterData.TemporaryEffects.Count; i++)
@@ -225,7 +233,9 @@ namespace TXDCL.Character
                 CharacterData.TemporaryEffects[i].OnEffectExecute();
             }
         }
-
+        /// <summary>
+        /// 根据角色的最大单回合获取的道藏数量和灵根比例分配道藏
+        /// </summary>
         private void DistributeDaoCangs()
         {
             var modifier = 1f / (CharacterData.MetalLingGen + CharacterData.WoodLingGen + CharacterData.WaterLingGen +
@@ -278,9 +288,10 @@ namespace TXDCL.Character
         #endregion
 
         
-
         #region XiuLian
-
+        /// <summary>
+        /// 根据角色的境界结算境界属性数据
+        /// </summary>
         public void UpdateLevel()
         {
             var jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
@@ -297,7 +308,9 @@ namespace TXDCL.Character
             CharacterJingjieData.ShenShiStrength = data.ShenShiStrength;
             CharacterJingjieData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
         }
-
+        /// <summary>
+        /// 判断是否角色境界是否突破
+        /// </summary>
         public void CheckLevelUp()
         {
             while (CharacterData.currentExp >= CharacterData.nextExp && CharacterData.nextExp != 0)
@@ -317,7 +330,9 @@ namespace TXDCL.Character
             }
             UpdateLevel();
         }
-
+        /// <summary>
+        /// 重置角色基础数据，一般用于非真实的战斗后刷新
+        /// </summary>
         public void ResetCharacterData()
         {
             if (CharacterData == null) return;
@@ -326,7 +341,9 @@ namespace TXDCL.Character
             CharacterData.currentStamina = CharacterData.maxStamina;
             CharacterData.ShenShi = CharacterData.ShenShiStrength;
         }
-
+        /// <summary>
+        /// 按照步骤分别更新三个角色数据，首先更新境界带来的角色属性数据，然后是装备，最后为功法
+        /// </summary>
         public void UpdateData()
         {
             UpdateLevel();
@@ -348,7 +365,10 @@ namespace TXDCL.Character
             CheckCharacterDataOverflow();
             gongFaProcessor.XiuLianSpeed = (int)((CharacterData.MainGongFaBasicSpeed + CharacterData.SubGongFaBasicSpeed) * (1 + CharacterData.MainGongFaAdditionalSpeed));
         }
-
+        
+        /// <summary>
+        /// 判断当前角色的基础数据是否大于最大数据，如当前生命值是否大于最大生命值等，若大于则重置
+        /// </summary>
         public void CheckCharacterDataOverflow()
         {
             CharacterData.currentAge = CharacterData.currentAge < CharacterData.maxAge ? CharacterData.currentAge : CharacterData.maxAge;

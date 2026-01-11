@@ -10,21 +10,31 @@ namespace TXDCL.Inventory
 {
     public class InventoryUI : Singleton<InventoryUI>
     {
-        public ItemSlotUI itemSlotUIPrefab;
-        public CharacterBase currentCharacter;
-        public InventoryBag inventoryBag;
+        public ItemSlotUI itemSlotUIPrefab;//背包格子UI预制体
+        public CharacterBase currentCharacter;//当前浏览的角色
+        public InventoryBag inventoryBag;//当前浏览的角色的背包
         public Image draggedItemIcon;
         [Header("InventoryBag")] 
-        public TextMeshProUGUI LingShiAmount;
-        public List<ItemSlotUI> storageBags;
-        public RectTransform itemSlotContainer;
-        public TMP_Dropdown storageBagDropdown;
-        public ItemSlotUI currentStorageBagUI;
+        public TextMeshProUGUI LingShiAmount;//灵石数量TextUI
+        public List<ItemSlotUI> storageBags;//储物袋UI
+        public RectTransform itemSlotContainer;//背包容器
+        public TMP_Dropdown storageBagDropdown;//当前显示储物袋类型
+        public ItemSlotUI currentStorageBagUI;//当前显示储物袋图片
         [Header("FaBaoBag")]
-        public Image characterIcon;
-        public TextMeshProUGUI characterName;
-        public List<ItemSlotUI> WearingFaBaoList;
-        public List<ItemSlotUI> CarryOnItemsList;
+        public Image characterIcon;//当前角色图片
+        public TextMeshProUGUI characterName;//当前角色名字
+        public List<ItemSlotUI> WearingFaBaoList;//装备栏
+        public List<ItemSlotUI> CarryOnItemsList;//携带栏
+        public Toggle wearingFaBaoToggle;//装备栏启用转换键
+        public Toggle carryOnItemsToggle;//携带栏启用转换键
+
+        protected override void Awake()
+        {
+            base.Awake();
+            wearingFaBaoToggle.isOn = true;
+            carryOnItemsToggle.isOn = false;
+        }
+
         private void OnEnable()
         {
             EventHandler.UpdateInventoryUIEvent += OnUpdateInventoryUIEvent;

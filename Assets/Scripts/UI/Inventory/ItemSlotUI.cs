@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TXDCL.Inventory
 {
-    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler
+    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler
     {
         public ItemDetails itemDetails;
         public int SlotIndex;
@@ -18,8 +18,8 @@ namespace TXDCL.Inventory
         //public Image itemStatsIcon;//若已装备/已携带则增加蒙版
         //public TextMeshProUGUI itemStats;//是否已装备/携带该物品
         public Text itemAmountText;//物品数量
+        public bool isWearingFaBaoSlot; //是否为可装备法宝专属格子
         public bool isCarriedOnItemSlot;//是否为随身携带物品专属格子，战斗中一回合可使用两个随身携带物品，而仅可使用一个背包物品（任务道具除外）
-        
         public void SetupItemSlot(InventoryItem item)
         {
             itemImage.gameObject.SetActive(false);
@@ -147,6 +147,47 @@ namespace TXDCL.Inventory
             InventoryUI.Instance.draggedItemIcon.gameObject.SetActive(false);
             if(eventData.pointerCurrentRaycast.gameObject == null) return;
             InventoryManager.Instance.SwapItemSlots(this, eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlotUI>());
+        }
+        
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.clickCount % 2 == 0)
+            {
+                //检测是否为装备栏或携带栏格子，是则尝试在背包中添加物品
+                if (isWearingFaBaoSlot || isCarriedOnItemSlot)
+                {
+                    InventoryManager.Instance.AddItem(InventoryUI.Instance.inventoryBag, new InventoryItem { itemDetails = itemDetails, itemAmount = itemAmount }, out var Success);
+                    //若添加物品未成功则不执行移除命令
+                    if (Success) InventoryManager.Instance.UnEquipItem(InventoryUI.Instance.inventoryBag, itemDetails);
+                }
+                else
+                {
+                    //检测是否为储物袋，储物袋无法装备
+                    if (itemDetails.itemType != ItemType.储物袋)
+                    {
+                        //检测目前启用的是装备栏或携带栏
+                        if (InventoryUI.Instance.wearingFaBaoToggle.isOn)
+                        {
+                            //若为装备栏则检测目前是否为法宝，非法宝无法添加入装备栏
+                            if (itemDetails.itemType != ItemType.法宝) return;
+                            InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, true, out var isFull);
+                            if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
+                        }
+                        else if (InventoryUI.Instance.carryOnItemsToggle.isOn)
+                        {
+                            InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, false, out var isFull);
+                            if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
+                        }
+                    }
+                }
+                EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
+                InventoryUI.Instance.currentCharacter.UpdateData();
+            }
+            
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                
+            }
         }
     }
 }

@@ -1744,6 +1744,8 @@ MonoBehaviour:
   - {fileID: 669008581}
   - {fileID: 974976807}
   - {fileID: 2137128131}
+  wearingFaBaoToggle: {fileID: 1623383289}
+  carryOnItemsToggle: {fileID: 1386382462}
 --- !u!1 &156876347
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,292 +14,122 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Inventory.InventoryBag
   LingShiAmount: 100
   storageBagsCapacity: 10
-  storageBags:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  storageBags: []
   basicFaBaoCapacity: 12
   basicFaBaoList:
   - itemDetails: {fileID: 11400000, guid: 5665e8291389d4fee8b61c6f637df73e, type: 2}
     itemAmount: 1
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 11400000, guid: 3dfaf52108b824ae5944ee8e4606de24, type: 2}
     itemAmount: 1
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   FaBaoStorageBag: {fileID: 11400000, guid: aa7d5bdff5cda447a9acf38c2528c331, type: 2}
   basicConsumablesCapacity: 12
   basicConsumablesList:
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   ConsumablesStorageBag: {fileID: 11400000, guid: 2d98cfa097a5448be9d994c6a3bfa736, type: 2}
   basicQuestItemCapacity: 12
   basicQuestItemList:
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   QuestItemStorageBag: {fileID: 0}
   basicOtherItemCapacity: 24
   basicOtherItemList:
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 0}
     itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
   OtherItemStorageBag: {fileID: 0}
   wearingFaBaoList: []
   carryOnItems:
   - itemDetails: {fileID: 11400000, guid: 5665e8291389d4fee8b61c6f637df73e, type: 2}
     itemAmount: 1
-    isWorn: 0
-    isCarriedOn: 0
   - itemDetails: {fileID: 11400000, guid: 3dfaf52108b824ae5944ee8e4606de24, type: 2}
     itemAmount: 1
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0
-  - itemDetails: {fileID: 0}
-    itemAmount: 0
-    isWorn: 0
-    isCarriedOn: 0

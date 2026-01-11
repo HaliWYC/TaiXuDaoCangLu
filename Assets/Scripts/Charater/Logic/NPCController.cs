@@ -47,7 +47,7 @@ public class NPCController : CharacterBase
     protected override void OnCharacterTurnBeginEvent(CharacterBase character)
     {
         base.OnCharacterTurnBeginEvent(character);
-        if(character!= this) return;
+        if (character != this) return;
         availableFaShu.Clear();
         isFirstSelecting = true;
         SelectEnemy();
