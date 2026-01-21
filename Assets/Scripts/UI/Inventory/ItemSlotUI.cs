@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 namespace TXDCL.Inventory
 {
-    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler
+    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler,IPointerEnterHandler
     {
         public ItemDetails itemDetails;
         public int SlotIndex;
+        private float sizeOfSlot => GetComponent<RectTransform>().rect.width;
         //public int itemID;
         public int itemAmount;
         public ItemSlotAvailableType availableItemType;//当前格子可放置的物品类型
@@ -151,7 +152,8 @@ namespace TXDCL.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.clickCount % 2 == 0)
+            if (itemDetails == null || !itemImage.isActiveAndEnabled) return;
+            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount % 2 == 0)
             {
                 //检测是否为装备栏或携带栏格子，是则尝试在背包中添加物品
                 if (isWearingFaBaoSlot || isCarriedOnItemSlot)
@@ -162,13 +164,13 @@ namespace TXDCL.Inventory
                 }
                 else
                 {
-                    //检测是否为储物袋，储物袋无法装备
-                    if (itemDetails.itemType != ItemType.储物袋)
+                    //检测是否为法宝或消耗品
+                    if (itemDetails.itemType is ItemType.法宝 or ItemType.消耗品)
                     {
                         //检测目前启用的是装备栏或携带栏
                         if (InventoryUI.Instance.wearingFaBaoToggle.isOn)
                         {
-                            //若为装备栏则检测目前是否为法宝，非法宝无法添加入装备栏
+                            //若当前启用的为装备栏则检测目前是否为法宝，非法宝无法添加入装备栏
                             if (itemDetails.itemType != ItemType.法宝) return;
                             InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, true, out var isFull);
                             if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
@@ -182,12 +184,20 @@ namespace TXDCL.Inventory
                 }
                 EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
                 InventoryUI.Instance.currentCharacter.UpdateData();
+                ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(false);
             }
-            
-            if (eventData.button == PointerEventData.InputButton.Right)
+            else if (eventData.button == PointerEventData.InputButton.Right)
             {
-                
+                ItemSlotMethodsTip.Instance.transform.position = transform.position + new Vector3(0, (300f - sizeOfSlot) / 2, 0);
+                ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(true);
+                ItemSlotMethodsTip.Instance.currentSelectedSlot = this;
+                ItemSlotMethodsTip.Instance.Setup();
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            
         }
     }
 }

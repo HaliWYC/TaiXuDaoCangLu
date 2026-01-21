@@ -11,7 +11,7 @@ namespace TXDCL.Inventory
         public int LingShiAmount;//灵石数量
         
         [Header("StorageBag")]
-        [Range(0,10)]
+        [Range(0,15)]
         public int storageBagsCapacity;
         public List<StorageBagDetails> storageBags ;
         

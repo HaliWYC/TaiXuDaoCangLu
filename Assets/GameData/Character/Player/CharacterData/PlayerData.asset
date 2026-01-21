@@ -28,15 +28,18 @@ MonoBehaviour:
   maxDanDu: 0
   currentShaQi: 0
   maxShaQi: 0
+  MainGongFaBasicSpeed: 0
+  SubGongFaBasicSpeed: 0
+  MainGongFaAdditionalSpeed: 0
   currentHealth: 0
-  maxHealth: 20
-  currentStamina: 0
-  maxStamina: 0
+  maxHealth: 0
   currentMana: 0
   maxMana: 0
+  currentStamina: 0
+  maxStamina: 0
   Attack: 0
   Reaction: 0
-  Speed: 200
+  Speed: 0
   currentMovement: 0
   maxMovementPerTurn: 0
   maxDaocangPerTurn: 0

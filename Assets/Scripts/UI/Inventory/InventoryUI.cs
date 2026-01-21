@@ -17,6 +17,7 @@ namespace TXDCL.Inventory
         [Header("InventoryBag")] 
         public TextMeshProUGUI LingShiAmount;//灵石数量TextUI
         public List<ItemSlotUI> storageBags;//储物袋UI
+        public RectTransform storageBagsContainer;//储物袋容器
         public RectTransform itemSlotContainer;//背包容器
         public TMP_Dropdown storageBagDropdown;//当前显示储物袋类型
         public ItemSlotUI currentStorageBagUI;//当前显示储物袋图片
@@ -27,7 +28,6 @@ namespace TXDCL.Inventory
         public List<ItemSlotUI> CarryOnItemsList;//携带栏
         public Toggle wearingFaBaoToggle;//装备栏启用转换键
         public Toggle carryOnItemsToggle;//携带栏启用转换键
-
         protected override void Awake()
         {
             base.Awake();
@@ -57,13 +57,11 @@ namespace TXDCL.Inventory
             var currentSlotIndex = 0;
             currentStorageBagUI.SlotIndex = currentSlotIndex;
             currentSlotIndex++;
-            foreach (var s in storageBags)
+            for (var i = 0; i < storageBagsContainer.childCount; i++)
             {
-                //Debug.Log(currentSlotIndex);
-                s.SlotIndex = currentSlotIndex;
+                storageBagsContainer.GetChild(i).GetComponent<ItemSlotUI>().SlotIndex = currentSlotIndex;
                 currentSlotIndex++;
             }
-            
             foreach (var s in WearingFaBaoList)
             {
                 //Debug.Log(currentSlotIndex);
@@ -86,11 +84,15 @@ namespace TXDCL.Inventory
         }
         private void SetUpStorageBags()
         {
-            //TODO:根据实际情况决定是否就10个储物袋
-            for (var i = 0; i < storageBags.Count; i++)
+            for (var i = 0; i < storageBagsContainer.childCount; i++)
             {
-                storageBags[i].availableItemType = ItemSlotAvailableType.储物袋;
-                storageBags[i].SetupItemSlot(inventoryBag.storageBags[i]);
+                Destroy(storageBagsContainer.GetChild(i).gameObject);
+            }
+            for (var i = 0; i < inventoryBag.storageBagsCapacity; i++)
+            {
+                var StorageBag = Instantiate(itemSlotUIPrefab, storageBagsContainer);
+                StorageBag.availableItemType = ItemSlotAvailableType.储物袋;
+                StorageBag.SetupItemSlot(inventoryBag.storageBags[i]);
             }
         }
 

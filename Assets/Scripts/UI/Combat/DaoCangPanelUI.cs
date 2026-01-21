@@ -40,7 +40,7 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
         CombatManager.Instance.isCharacterTurnActive = false;
     }
 
-    private void ConfirmButtonOnClick()
+    public void ConfirmButtonOnClick()
     {
         CombatGridManager.Instance.DisplayFaShuReleasePath(currentSelectingFaShu);
         GameManager.Instance.SetGameCameraLenInGridSize(currentSelectingFaShu.ReleaseRange);
