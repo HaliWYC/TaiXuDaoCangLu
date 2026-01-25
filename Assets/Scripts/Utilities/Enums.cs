@@ -113,7 +113,7 @@ public enum FaBaoType
 }
 public enum ConsumablesType
 {
-    丹药,符箓,丹方,炼器图纸,制符图纸,阵法图纸
+    丹药,符箓,丹方,炼器图纸,制符图纸,阵法图纸,其他
 }
 public enum QuestItemType
 {

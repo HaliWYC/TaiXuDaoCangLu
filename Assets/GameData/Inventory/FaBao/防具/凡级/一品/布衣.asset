@@ -25,11 +25,10 @@ MonoBehaviour:
   canTrade: 0
   canCarryOn: 1
   TradeProportion: 0.05
-  faBaoType: 1
-  currentEndurance: 0
-  currentMaxEndurance: 0
-  maxEndurance: 10
-  minEnduranceDepreciation: 5
+  currentDurability: 100
+  currentMaxDurability: 100
+  maximumDurability: 100
+  minDurabilityDepreciation: 10
   ConstantEndurance: 0
   properties:
   - propertyType: 1

@@ -60,7 +60,9 @@ namespace TXDCL.Inventory
         
         private void OnMoreInformationButtonClicked()
         {
-            
+            slotMethodsUIObject.SetActive(false);
+            ItemToolTips.Instance.ResetTooltip();
+            ItemToolTips.Instance.SetUpTooltip(currentSelectedSlot, true);
         }
         private void OnUseInCombatButtonClicked()
         {

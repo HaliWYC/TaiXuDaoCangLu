@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 namespace TXDCL.Inventory
 {
-    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler,IPointerEnterHandler
+    public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
     {
         public ItemDetails itemDetails;
         public int SlotIndex;
-        private float sizeOfSlot => GetComponent<RectTransform>().rect.width;
+        public float sizeOfSlot => GetComponent<RectTransform>().rect.width;
         //public int itemID;
         public int itemAmount;
         public ItemSlotAvailableType availableItemType;//当前格子可放置的物品类型
@@ -132,6 +132,7 @@ namespace TXDCL.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (itemDetails == null || !itemImage.isActiveAndEnabled) return;
+            ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
             InventoryUI.Instance.draggedItemIcon.sprite = itemImage.sprite;
             InventoryUI.Instance.draggedItemIcon.gameObject.SetActive(true);
         }
@@ -192,12 +193,20 @@ namespace TXDCL.Inventory
                 ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(true);
                 ItemSlotMethodsTip.Instance.currentSelectedSlot = this;
                 ItemSlotMethodsTip.Instance.Setup();
+                ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
             }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            
+            ItemToolTips.Instance.ResetTooltip();
+            ItemToolTips.Instance.SetUpTooltip(this,false);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (!ItemToolTips.Instance.isFrozen)
+                ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
         }
     }
 }

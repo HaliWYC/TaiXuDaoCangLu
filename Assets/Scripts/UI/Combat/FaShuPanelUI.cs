@@ -39,6 +39,10 @@ public class FaShuPanelUI : Singleton<FaShuPanelUI>
         //如果选择的并非已选中的法术或者为处于释放法术期间，则重新选择新的，否则取消选择
         if (currentSelectingFaShu == currentFaShuList[index])
         {
+            if (!DaoCangPanelUI.Instance.EndTurnButton.isActiveAndEnabled)
+            {
+                DaoCangPanelUI.Instance.ConfirmButtonOnClick();
+            }
             DaoCangPanelUI.Instance.SelectFaShu(currentSelectingFaShu);
         }
         else if (currentSelectingFaShu != currentFaShuList[index] || !CursorManager.Instance.isCastingFaShu)

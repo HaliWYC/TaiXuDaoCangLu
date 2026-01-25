@@ -17,8 +17,8 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
     [SerializeField] private Sprite EarthDaoCangIcon;
     [SerializeField] private List<DaoCangSlotUI> PotentialDaoCangSlots;
     [SerializeField] private List<DaoCangSlotUI> SelectedDaoCangSlots;
-    [SerializeField] private TextMeshProUGUI Promotion_CounterText;
-    [SerializeField] private Button EndTurnButton;
+    [SerializeField] private TextMeshProUGUI Promotion_CounterText; 
+    public Button EndTurnButton;
     [SerializeField] private Button ConfirmButton;
     [SerializeField] private Button CancelButton;
     private int ActiveSelectedDaoCangSlot;
