@@ -52,6 +52,7 @@ namespace TXDCL.Inventory
             InDetails = inDetails;
             var itemDetails = itemSlotUI.itemDetails;
             moreInformationPromptText.SetActive(!InDetails);
+            //根据是否详细并依据物品类型的不同进一步显示特有的物品信息，如法宝特有的耐久度
             if (InDetails)
             {
                 SetToolTipPosition(new Vector3 { x = itemSlotUI.transform.position.x, y = Screen.height / 2f, z = 0 }, itemSlotUI.sizeOfSlot);
@@ -91,13 +92,15 @@ namespace TXDCL.Inventory
             var offset = 500 + (size - 300) / 2;
             transform.position = slotPos + new Vector3(slotPos.x + offset <= Screen.width ? offset : -offset, -125f, 0);
         }
-
         private IEnumerator FreezeTooltip()
         {
             yield return new WaitForSeconds(3f);
             yield return isFrozen = true;
         }
 
+        /// <summary>
+        /// 重置信息便签，用于接触便签锁定
+        /// </summary>
         public void ResetTooltip()
         {
             StopAllCoroutines();
@@ -110,7 +113,6 @@ namespace TXDCL.Inventory
             ResetTooltip();
             itemToolTip.gameObject.SetActive(false);
         }
-
         private void SetUpFaBaoDetails()
         {
             faBaoDetailsPart.SetActive(true);

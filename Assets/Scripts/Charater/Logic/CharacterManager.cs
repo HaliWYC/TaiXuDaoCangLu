@@ -37,11 +37,12 @@ namespace TXDCL.Character
                 jingjieData.MaxHealth = int.Parse(value[4].Trim());
                 jingjieData.MaxStamina = int.Parse(value[5].Trim());
                 jingjieData.MaxMana = int.Parse(value[6].Trim());
-                jingjieData.Attack = int.Parse(value[7].Trim());
-                jingjieData.Reaction = int.Parse(value[8].Trim());
-                jingjieData.MaxMovementPerTurn = int.Parse(value[9].Trim());
-                jingjieData.ShenShiStrength = int.Parse(value[10].Trim());
-                jingjieData.MaxDaocangPerTurn = int.Parse(value[11].Trim());
+                jingjieData.MaxSpeed = int.Parse(value[7].Trim());
+                jingjieData.Attack = int.Parse(value[8].Trim());
+                jingjieData.Reaction = int.Parse(value[9].Trim());
+                jingjieData.MaxMovementPerTurn = int.Parse(value[10].Trim());
+                jingjieData.ShenShiStrength = int.Parse(value[11].Trim());
+                jingjieData.MaxDaocangPerTurn = int.Parse(value[12].Trim());
                 var jingjie = new Jingjie
                     { miniJingjieLevel = miniJingjieLevel, JingjieLevel = jingjieLevel, JingjieData = jingjieData };
                 if (GetJingjie(key) != null)

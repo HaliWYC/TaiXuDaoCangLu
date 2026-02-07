@@ -11,8 +11,10 @@ namespace TXDCL.Inventory
         public int maxCapacity;
         public List<InventoryItem> items;
         public List<Property> properties;
-        public void Initialize()
+        
+        public override void InitializeData()
         {
+            base.InitializeData();
             if (items.Count >= maxCapacity) return;
             var count = items.Count;
             for(var i = 0; i< maxCapacity - count; i++)

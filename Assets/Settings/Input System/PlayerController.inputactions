@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerController",
     "maps": [
         {
@@ -99,6 +100,60 @@
                     "name": "FaShu9",
                     "type": "Button",
                     "id": "776e28d1-7582-4356-96a2-796490ab414c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem0",
+                    "type": "Button",
+                    "id": "a8cfc281-9bd1-45ba-8716-0aedcd7eaebd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem1",
+                    "type": "Button",
+                    "id": "fd554e9b-2b36-461a-926a-a6ecf3196e35",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem2",
+                    "type": "Button",
+                    "id": "6ab3e4dc-d782-42fa-addd-3a8af1440044",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem3",
+                    "type": "Button",
+                    "id": "c026c7c2-585c-4525-9cbb-643df649940e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem4",
+                    "type": "Button",
+                    "id": "7a91efc7-fd5c-4fd9-93e8-46e8193881a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarriedItem5",
+                    "type": "Button",
+                    "id": "1d632fbb-f930-4b48-9cce-e53112eb20eb",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -345,6 +400,72 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "FaShu0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8dc405e-5639-4cf5-8df0-049a8e1d3c26",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8dd29ea-f30d-44ea-b8db-75b509c4c833",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c191f936-1a06-4918-b83d-f5d57781864e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4497c4c3-b4ad-40c5-b069-f090079f0782",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "57494da7-83ab-4d93-8473-ac42b80a9e93",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fb7982d-92f2-4b59-b198-cf4b0ce1fb7d",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarriedItem5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

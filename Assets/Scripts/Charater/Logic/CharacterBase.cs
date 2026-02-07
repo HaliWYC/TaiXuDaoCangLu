@@ -29,7 +29,7 @@ namespace TXDCL.Character
 
         [Header("FaShu&GongFa")] 
         protected GongFaProcessor gongFaProcessor => GetComponent<GongFaProcessor>();
-        public readonly List<FaShuData> currentFaShuList = new();//不可编辑的装备上的法术列表，只用于法术的调用
+        public List<FaShuData> currentFaShuList = new();//不可编辑的装备上的法术列表，只用于法术的调用
         [SerializeField] private List<FaShuData> tempFaShuList = new();//可编辑的装备上的法术列表，用于初始化角色法术列表
         public List<FaShuData> PotentialFaShuList = new();//习得的所有法术
         
@@ -123,7 +123,7 @@ namespace TXDCL.Character
             CharacterData.currentMovement = CharacterData.maxMovementPerTurn;
             foreach (var fashu in currentFaShuList)
             {
-                fashu.CurrentCoolDownTime--;
+                fashu.CurrentCoolDownTime = Mathf.Max(0, fashu.CurrentCoolDownTime - 1);
             }
             DistributeDaoCangs();
             UpdateEffectList();
@@ -304,6 +304,7 @@ namespace TXDCL.Character
             CharacterJingjieData.maxHealth = data.MaxHealth;
             CharacterJingjieData.maxStamina = data.MaxStamina;
             CharacterJingjieData.maxMana = data.MaxMana;
+            CharacterJingjieData.maxSpeed = data.MaxSpeed;
             CharacterJingjieData.Attack = data.Attack;
             CharacterJingjieData.Reaction = data.Reaction;
             CharacterJingjieData.maxMovementPerTurn = data.MaxMovementPerTurn;
@@ -361,11 +362,12 @@ namespace TXDCL.Character
             CharacterData.maxStamina = CharacterJingjieData.maxStamina + CharacterEquipmentData.maxStamina + CharacterGongFaData.maxStamina + CharacterEffectsData.maxStamina;
             CharacterData.Attack = CharacterJingjieData.Attack + CharacterEquipmentData.Attack + CharacterGongFaData.Attack + CharacterEffectsData.Attack;
             CharacterData.Reaction = CharacterJingjieData.Reaction + CharacterEquipmentData.Reaction + CharacterGongFaData.Reaction + CharacterEffectsData.Reaction;
-            CharacterData.Speed = CharacterJingjieData.Speed + CharacterEquipmentData.Speed  + CharacterGongFaData.Speed  + CharacterEffectsData.Speed ;
+            CharacterData.maxSpeed = CharacterJingjieData.maxSpeed + CharacterEquipmentData.maxSpeed  + CharacterGongFaData.maxSpeed  + CharacterEffectsData.maxSpeed ;
             CharacterData.maxMovementPerTurn = CharacterJingjieData.maxMovementPerTurn + CharacterEquipmentData.maxMovementPerTurn + CharacterGongFaData.maxMovementPerTurn + CharacterEffectsData.maxMovementPerTurn;
             CharacterData.maxDaocangPerTurn = CharacterJingjieData.maxDaocangPerTurn + CharacterEquipmentData.maxDaocangPerTurn + CharacterGongFaData.maxDaocangPerTurn + CharacterEffectsData.maxDaocangPerTurn;
             CheckCharacterDataOverflow();
             gongFaProcessor.XiuLianSpeed = (int)((CharacterData.MainGongFaBasicSpeed + CharacterData.SubGongFaBasicSpeed) * (1 + CharacterData.MainGongFaAdditionalSpeed));
+            CharacterData.currentSpeed = CharacterData.maxSpeed;
         }
         
         /// <summary>
@@ -380,6 +382,7 @@ namespace TXDCL.Character
             CharacterData.currentHealth = CharacterData.currentHealth < CharacterData.maxHealth ? CharacterData.currentHealth : CharacterData.maxHealth;
             CharacterData.currentMana = CharacterData.currentMana < CharacterData.maxMana ? CharacterData.currentMana : CharacterData.maxMana;
             CharacterData.currentStamina = CharacterData.currentStamina < CharacterData.maxStamina ? CharacterData.currentStamina : CharacterData.maxStamina;
+            CharacterData.currentSpeed = CharacterJingjieData.currentSpeed < CharacterData.maxSpeed ? CharacterData.currentSpeed : CharacterData.maxSpeed;
         }
         #endregion
         public void OnPointerEnter(PointerEventData eventData)

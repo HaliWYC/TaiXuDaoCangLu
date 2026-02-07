@@ -17,6 +17,15 @@ namespace TXDCL.Inventory
         public bool ConstantEndurance;//是否为永恒耐久，即不会随着使用而消耗耐久
         public List<Property> properties;//属性信息
         public List<FaShuData> FaShuDatas;//法宝自带法术，即使用法宝后释放的法术
+
+        public override void InitializeData()
+        {
+            base.InitializeData();
+            for (var i = 0; i < FaShuDatas.Count; i++)
+            {
+                FaShuDatas[i] = Instantiate(FaShuDatas[i]);
+            }
+        }
     }
 }
 

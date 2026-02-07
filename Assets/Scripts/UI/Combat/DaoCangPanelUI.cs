@@ -115,10 +115,9 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
     /// <param name="FaShuData"></param>
     public void SelectFaShu(FaShuData FaShuData)
     {
-        var faShuData = Instantiate(FaShuData);
-        currentSelectingFaShu = faShuData;
+        currentSelectingFaShu = FaShuData;
         //根据选择的法术所需道藏类型数量以及是否需求相同道藏决定启用对应数量的格子
-        ActiveSelectedDaoCangSlot = Mathf.Min(5, faShuData.DaoCangCosts.Count);
+        ActiveSelectedDaoCangSlot = Mathf.Min(5, currentSelectingFaShu.DaoCangCosts.Count);
         //清空选择部分的所有道藏格子
         foreach (var slot in SelectedDaoCangSlots)
         {
@@ -141,7 +140,7 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
         DaoCangList[4].DaoCang = currentCharacter.CharacterData.currentEarthDaocang;
         //限定一个最大循环数，防止进入死循环
         var LoopMaxCount = 0;
-        if (faShuData.SameCost > 0)
+        if (currentSelectingFaShu.SameCost > 0)
         {
             ActiveSelectedDaoCangSlot += 1;
             switch (ActiveSelectedDaoCangSlot)
@@ -151,145 +150,145 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
-                       DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                       SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, faShuData.SameCost, true, false);
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
+                       DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                       SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, currentSelectingFaShu.SameCost, true, false);
                        SelectedDaoCangSlots[2].gameObject.SetActive(true);
                        break;
                    }
                    break;
                case 2:
-                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                    SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[0].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                    
                    while (LoopMaxCount <1000)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
-                       DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                       SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, faShuData.SameCost, true, false);
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
+                       DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                       SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, currentSelectingFaShu.SameCost, true, false);
                        SelectedDaoCangSlots[3].gameObject.SetActive(true);
                        break;
                    }
                    break;
                case 3:
-                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                    SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[0].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                    
-                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                    SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[1].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                    
                    while (LoopMaxCount <1000)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
-                       DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                       SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, faShuData.SameCost, true, false);
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
+                       DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                       SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, currentSelectingFaShu.SameCost, true, false);
                        SelectedDaoCangSlots[3].gameObject.SetActive(true);
                        break;
                    }
                    break;
                case 4:
-                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                    SelectedDaoCangSlots[0].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[0].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                    
-                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                    SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[1].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                    
-                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                    SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[2].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                    
                    while (LoopMaxCount <1000)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
-                       DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                       SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, faShuData.SameCost, true, false);
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
+                       DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                       SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, currentSelectingFaShu.SameCost, true, false);
                        SelectedDaoCangSlots[4].gameObject.SetActive(true);
                        break;
                    }
                    break;
                case 5:
-                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                    SelectedDaoCangSlots[0].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[0].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                    
-                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                    SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[1].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                    
-                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                    SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[2].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                    
-                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[3], true, true);
+                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[3], true, true);
                    SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[3].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[3].DaoCang;
                    
                    while (LoopMaxCount < 1000)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
-                       DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                       SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, faShuData.SameCost, true, false);
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
+                       DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                       SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(DaoCangList[randNum], 0, currentSelectingFaShu.SameCost, true, false);
                        SelectedDaoCangSlots[4].gameObject.SetActive(true);
                        break;
                    }
                    break;
                case 6:
-                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                   SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                    SelectedDaoCangSlots[0].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[0].DaoCang;
-                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[0].DaoCang;
+                   SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                    SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[1].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                    
-                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                   SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                    SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[2].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                    
-                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[3], true, true);
+                   SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[3], true, true);
                    SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[3].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[3].DaoCang;
                    
-                   SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[4], true, true);
+                   SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[4], true, true);
                    SelectedDaoCangSlots[4].gameObject.SetActive(true);
-                   DaoCangList[(int)faShuData.DaoCangCosts[4].Wuxing.currentWuXing].DaoCang -=
-                       faShuData.DaoCangCosts[4].DaoCang;
+                   DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[4].Wuxing.currentWuXing].DaoCang -=
+                       currentSelectingFaShu.DaoCangCosts[4].DaoCang;
                    
                    while (LoopMaxCount <1000)
                    {
                        LoopMaxCount++;
                        var randNum = UnityEngine.Random.Range(0, 5);
-                       if (DaoCangList[randNum].DaoCang < faShuData.SameCost) continue;
+                       if (DaoCangList[randNum].DaoCang < currentSelectingFaShu.SameCost) continue;
                        foreach (var DaoCangSlot in SelectedDaoCangSlots.Where(DaoCangSlot => DaoCangList[randNum].Wuxing.currentWuXing == DaoCangSlot.wuxingDaoCang.Wuxing.currentWuXing))
                        {
-                           DaoCangList[randNum].DaoCang-= faShuData.SameCost;
-                           DaoCangSlot.UpdateDaoCangSlotUI(SelectedDaoCangSlots[randNum].wuxingDaoCang.DaoCang, faShuData.SameCost);
+                           DaoCangList[randNum].DaoCang-= currentSelectingFaShu.SameCost;
+                           DaoCangSlot.UpdateDaoCangSlotUI(SelectedDaoCangSlots[randNum].wuxingDaoCang.DaoCang, currentSelectingFaShu.SameCost);
                            break;
                        }
                        break;
@@ -304,83 +303,83 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
                 case 0:
                     break;
                  case 1:
-                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                     SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[0].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                     break;
                 case 2:
-                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                     SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[0].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                     
-                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                     SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[1].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                     break;
                 case 3:
                     SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[0].DaoCang;
+                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                     
-                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                     SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[1].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                     
-                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                     SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[2].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                     break;
                 case 4:
-                    SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                    SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                     SelectedDaoCangSlots[0].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[0].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                     
-                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                     SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[1].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                     
-                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                     SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[2].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                     
-                    SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[3], true, true);
+                    SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[3], true, true);
                     SelectedDaoCangSlots[4].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[3].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[3].DaoCang;
                     break;
                 case 5:
-                    SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[0], true, true);
+                    SelectedDaoCangSlots[0].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[0], true, true);
                     SelectedDaoCangSlots[0].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -= faShuData.DaoCangCosts[0].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[0].Wuxing.currentWuXing].DaoCang -= currentSelectingFaShu.DaoCangCosts[0].DaoCang;
                     
-                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[1], true, true);
+                    SelectedDaoCangSlots[1].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[1], true, true);
                     SelectedDaoCangSlots[1].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[1].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[1].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[1].DaoCang;
                     
-                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[2], true, true);
+                    SelectedDaoCangSlots[2].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[2], true, true);
                     SelectedDaoCangSlots[2].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[2].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[2].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[2].DaoCang;
                     
-                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[3], true, true);
+                    SelectedDaoCangSlots[3].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[3], true, true);
                     SelectedDaoCangSlots[3].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[3].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[3].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[3].DaoCang;
                     
-                    SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(faShuData.DaoCangCosts[4], true, true);
+                    SelectedDaoCangSlots[4].SetUpDaoCangSlotUI(currentSelectingFaShu.DaoCangCosts[4], true, true);
                     SelectedDaoCangSlots[4].gameObject.SetActive(true);
-                    DaoCangList[(int)faShuData.DaoCangCosts[4].Wuxing.currentWuXing].DaoCang -=
-                        faShuData.DaoCangCosts[4].DaoCang;
+                    DaoCangList[(int)currentSelectingFaShu.DaoCangCosts[4].Wuxing.currentWuXing].DaoCang -=
+                        currentSelectingFaShu.DaoCangCosts[4].DaoCang;
                     break;
             }
         }

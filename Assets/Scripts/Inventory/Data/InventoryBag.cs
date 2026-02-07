@@ -41,16 +41,18 @@ namespace TXDCL.Inventory
             if (basicFaBaoList.Count < basicFaBaoCapacity)
             {
                 var count = basicFaBaoList.Count;
-                for(var i = 0; i< basicFaBaoCapacity -count; i++)
+                for(var i = 0; i< basicFaBaoCapacity - count; i++)
                     basicFaBaoList.Add(new InventoryItem());
             }
             for (var i = 0; i < basicFaBaoList.Count; i++)
             {
                 if (basicFaBaoList[i].itemDetails != null)
                 {
+                    var itemDetails = Instantiate(basicFaBaoList[i].itemDetails);
+                    itemDetails.InitializeData();
                     basicFaBaoList[i] = new InventoryItem 
                     { 
-                        itemDetails = Instantiate(basicFaBaoList[i].itemDetails), 
+                        itemDetails = itemDetails, 
                         itemAmount = basicFaBaoList[i].itemAmount 
                     };
                 }
@@ -65,9 +67,11 @@ namespace TXDCL.Inventory
             {
                 if (basicConsumablesList[i].itemDetails != null)
                 {
+                    var itemDetails = Instantiate(basicConsumablesList[i].itemDetails);
+                    itemDetails.InitializeData();
                     basicConsumablesList[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(basicConsumablesList[i].itemDetails),
+                        itemDetails = itemDetails,
                         itemAmount = basicConsumablesList[i].itemAmount
                     };
                 }
@@ -82,10 +86,11 @@ namespace TXDCL.Inventory
             {
                 if (basicQuestItemList[i].itemDetails != null)
                 {
+                    var itemDetails = Instantiate(basicQuestItemList[i].itemDetails);
+                    itemDetails.InitializeData();
                     basicQuestItemList[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(basicQuestItemList[i].itemDetails),
-                        itemAmount = basicQuestItemList[i].itemAmount
+                        itemDetails = itemDetails, itemAmount = basicQuestItemList[i].itemAmount
                     };
                 }
             }
@@ -100,10 +105,11 @@ namespace TXDCL.Inventory
             {
                 if (basicOtherItemList[i].itemDetails != null)
                 {
+                    var itemDetails = Instantiate(basicOtherItemList[i].itemDetails);
+                    itemDetails.InitializeData();
                     basicOtherItemList[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(basicOtherItemList[i].itemDetails),
-                        itemAmount = basicOtherItemList[i].itemAmount
+                        itemDetails = itemDetails, itemAmount = basicOtherItemList[i].itemAmount
                     };
                 }
             }
@@ -117,7 +123,7 @@ namespace TXDCL.Inventory
             {
                 if (storageBags[i] == null) continue;
                 storageBags[i] = Instantiate(storageBags[i]);
-                storageBags[i].Initialize();
+                storageBags[i].InitializeData();
             }
             if (wearingFaBaoList.Count < 8)
             {
@@ -131,9 +137,11 @@ namespace TXDCL.Inventory
             {
                 if (wearingFaBaoList[i].itemDetails != null)
                 {
+                    var itemDetails = wearingFaBaoList[i].itemDetails;
+                    itemDetails.InitializeData();
                     wearingFaBaoList[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(wearingFaBaoList[i].itemDetails), itemAmount = wearingFaBaoList[i].itemAmount
+                        itemDetails = itemDetails, itemAmount = wearingFaBaoList[i].itemAmount
                     };
                 }
             }
@@ -149,31 +157,33 @@ namespace TXDCL.Inventory
             {
                 if (carryOnItems[i].itemDetails != null)
                 {
+                    var itemDetails = Instantiate(carryOnItems[i].itemDetails);
+                    itemDetails.InitializeData();
                     carryOnItems[i] = new InventoryItem
                     {
-                        itemDetails = Instantiate(carryOnItems[i].itemDetails), itemAmount = carryOnItems[i].itemAmount
+                        itemDetails = itemDetails, itemAmount = carryOnItems[i].itemAmount
                     };
                 }
             }
             if (FaBaoStorageBag != null)
             {
                 FaBaoStorageBag = Instantiate(FaBaoStorageBag);
-                FaBaoStorageBag.Initialize();
+                FaBaoStorageBag.InitializeData();
             }
             if (ConsumablesStorageBag != null)
             {
                 ConsumablesStorageBag = Instantiate(ConsumablesStorageBag);
-                ConsumablesStorageBag.Initialize();
+                ConsumablesStorageBag.InitializeData();
             }
             if (QuestItemStorageBag != null)
             {
                 QuestItemStorageBag = Instantiate(QuestItemStorageBag);
-                QuestItemStorageBag.Initialize();
+                QuestItemStorageBag.InitializeData();
             }
             if (OtherItemStorageBag != null)
             {
                 OtherItemStorageBag = Instantiate(OtherItemStorageBag);
-                OtherItemStorageBag.Initialize();
+                OtherItemStorageBag.InitializeData();
             }
         }
 

@@ -50,6 +50,7 @@ public class JingjieData : ScriptableObject
     public int MaxHealth;//最大气血
     public int MaxStamina;//最大体力
     public int MaxMana;//最大法力
+    public int MaxSpeed;//最大速度
     public int Attack;//攻击
     public int Reaction;//反应
     public int MaxMovementPerTurn;//每回合移动力

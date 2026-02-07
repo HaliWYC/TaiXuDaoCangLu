@@ -12,6 +12,7 @@ namespace TXDCL.Character
         private PlayerController playerController;
         private Vector2 inputDirection;
         private FaShuData currentSelectingFaShu;
+
         protected override void Awake()
         {
             base.Awake();
@@ -26,7 +27,14 @@ namespace TXDCL.Character
             playerController.Gameplay.FaShu8.started += SelectFaShu;
             playerController.Gameplay.FaShu9.started += SelectFaShu;
             playerController.Gameplay.FaShu0.started += SelectFaShu;
+            playerController.Gameplay.CarriedItem0.started += SelectCarriedOnItem;
+            playerController.Gameplay.CarriedItem1.started += SelectCarriedOnItem;
+            playerController.Gameplay.CarriedItem2.started += SelectCarriedOnItem;
+            playerController.Gameplay.CarriedItem3.started += SelectCarriedOnItem;
+            playerController.Gameplay.CarriedItem4.started += SelectCarriedOnItem;
+            playerController.Gameplay.CarriedItem5.started += SelectCarriedOnItem;
         }
+
         private void OnEnable()
         {
             InputEnable();
@@ -37,6 +45,7 @@ namespace TXDCL.Character
             EventHandler.AfterCombatBeginEvent += OnAfterCombatBeginEvent;
             EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
         }
+
         private void OnDisable()
         {
             InputDisable();
@@ -47,15 +56,17 @@ namespace TXDCL.Character
             EventHandler.AfterCombatBeginEvent -= OnAfterCombatBeginEvent;
             EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
         }
-        
+
         private void OnBeforeSceneLoadEvent()
         {
             InputDisable();
         }
+
         private void OnAfterSceneLoadEvent()
         {
             InputEnable();
         }
+
         private void OnMoveToPositionEvent(Vector3 position)
         {
             transform.position = position;
@@ -67,11 +78,13 @@ namespace TXDCL.Character
             CombatManager.Instance.RegisterPlayerSide(this);
             Collider.isTrigger = true;
         }
+
         private void OnAfterCombatBeginEvent()
         {
             Allies.AddRange(CombatManager.Instance.PlayerSides);
             Enemies.AddRange(CombatManager.Instance.EnemySides);
         }
+
         protected override void Update()
         {
             base.Update();
@@ -89,26 +102,37 @@ namespace TXDCL.Character
             //设置朝向
             SetCharacterFacingDirection(inputDirection.x);
             //移动
-            var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.Speed * 2);
+            var velocity = inputDirection * (UnityEngine.Time.deltaTime * CharacterData.currentSpeed * 2);
             if (inputDirection.x != 0 && inputDirection.y != 0)
             {
                 rigidBody2D.linearVelocity = velocity * math.sqrt(2) / 2;
             }
+
             rigidBody2D.linearVelocity = velocity;
             isMoving = velocity.magnitude > 0;
         }
+
         private void InputEnable()
         {
             playerController.Enable();
         }
+
         private void InputDisable()
         {
             playerController.Disable();
         }
+
         private void SelectFaShu(InputAction.CallbackContext FaShu)
         {
             var index = Convert.ToInt32(FaShu.action.name[5].ToString());
             CombatUI.Instance.FaShuPanelUI.SelectFaShuSlot(index);
+        }
+
+        private void SelectCarriedOnItem(InputAction.CallbackContext Item)
+        {
+            if(!CombatManager.Instance.isCombating && CombatManager.Instance.currentCharacter == this) return;
+            var index = Convert.ToInt32(Item.action.name[11].ToString());
+            CombatUI.Instance.SelectCarriedOnItem(index);
         }
     }
 }

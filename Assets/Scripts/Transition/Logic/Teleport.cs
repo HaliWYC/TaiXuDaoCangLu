@@ -12,7 +12,7 @@ namespace TXDCL.Transition
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player") && !CombatManager.Instance.isCombating)
+            if (other.CompareTag("Player") && !CombatManager.Instance.isCombating && !other.isTrigger)
             {
                 EventHandler.CallSceneLoadedEvent(sceneToGo, positionToGo);
             }

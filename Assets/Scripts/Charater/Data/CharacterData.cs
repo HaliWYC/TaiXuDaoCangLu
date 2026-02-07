@@ -35,7 +35,8 @@ namespace TXDCL.Character
         public int maxStamina;//最大体力
         public int Attack; //攻击
         public int Reaction;//反应
-        public int Speed;//速度
+        public int currentSpeed;//当前速度
+        public int maxSpeed;//最大速度
         public int currentMovement;//当前剩余移动力
         public int maxMovementPerTurn; //每回合行动力
 
@@ -75,7 +76,7 @@ namespace TXDCL.Character
             maxStamina = 0;
             Attack = 0;
             Reaction = 0;
-            Speed = 0;
+            maxSpeed = 0;
             maxMovementPerTurn = 0;
             maxDaocangPerTurn = 0;
             MetalLingGen = 0;
@@ -105,7 +106,7 @@ namespace TXDCL.Character
                     Reaction += (int)property.value;
                     break;
                 case PropertyType.Speed:
-                    Speed += (int)property.value;
+                    maxSpeed += (int)property.value;
                     break;
                 case PropertyType.MaxMovementPerTurn:
                     maxMovementPerTurn += (int)property.value;
@@ -163,7 +164,7 @@ namespace TXDCL.Character
                     Reaction -= (int)property.value;
                     break;
                 case PropertyType.Speed:
-                    Speed -= (int)property.value;
+                    maxSpeed -= (int)property.value;
                     break;
                 case PropertyType.MaxMovementPerTurn:
                     maxMovementPerTurn -= (int)property.value;

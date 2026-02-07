@@ -190,6 +190,60 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem0"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8cfc281-9bd1-45ba-8716-0aedcd7eaebd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem1"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd554e9b-2b36-461a-926a-a6ecf3196e35"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem2"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ab3e4dc-d782-42fa-addd-3a8af1440044"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem3"",
+                    ""type"": ""Button"",
+                    ""id"": ""c026c7c2-585c-4525-9cbb-643df649940e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem4"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a91efc7-fd5c-4fd9-93e8-46e8193881a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CarriedItem5"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d632fbb-f930-4b48-9cce-e53112eb20eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -432,6 +486,72 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""FaShu0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8dc405e-5639-4cf5-8df0-049a8e1d3c26"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8dd29ea-f30d-44ea-b8db-75b509c4c833"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c191f936-1a06-4918-b83d-f5d57781864e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4497c4c3-b4ad-40c5-b069-f090079f0782"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57494da7-83ab-4d93-8473-ac42b80a9e93"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fb7982d-92f2-4b59-b198-cf4b0ce1fb7d"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CarriedItem5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1030,6 +1150,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Gameplay_FaShu7 = m_Gameplay.FindAction("FaShu7", throwIfNotFound: true);
         m_Gameplay_FaShu8 = m_Gameplay.FindAction("FaShu8", throwIfNotFound: true);
         m_Gameplay_FaShu9 = m_Gameplay.FindAction("FaShu9", throwIfNotFound: true);
+        m_Gameplay_CarriedItem0 = m_Gameplay.FindAction("CarriedItem0", throwIfNotFound: true);
+        m_Gameplay_CarriedItem1 = m_Gameplay.FindAction("CarriedItem1", throwIfNotFound: true);
+        m_Gameplay_CarriedItem2 = m_Gameplay.FindAction("CarriedItem2", throwIfNotFound: true);
+        m_Gameplay_CarriedItem3 = m_Gameplay.FindAction("CarriedItem3", throwIfNotFound: true);
+        m_Gameplay_CarriedItem4 = m_Gameplay.FindAction("CarriedItem4", throwIfNotFound: true);
+        m_Gameplay_CarriedItem5 = m_Gameplay.FindAction("CarriedItem5", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1134,6 +1260,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_FaShu7;
     private readonly InputAction m_Gameplay_FaShu8;
     private readonly InputAction m_Gameplay_FaShu9;
+    private readonly InputAction m_Gameplay_CarriedItem0;
+    private readonly InputAction m_Gameplay_CarriedItem1;
+    private readonly InputAction m_Gameplay_CarriedItem2;
+    private readonly InputAction m_Gameplay_CarriedItem3;
+    private readonly InputAction m_Gameplay_CarriedItem4;
+    private readonly InputAction m_Gameplay_CarriedItem5;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -1189,6 +1321,30 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/FaShu9".
         /// </summary>
         public InputAction @FaShu9 => m_Wrapper.m_Gameplay_FaShu9;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem0".
+        /// </summary>
+        public InputAction @CarriedItem0 => m_Wrapper.m_Gameplay_CarriedItem0;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem1".
+        /// </summary>
+        public InputAction @CarriedItem1 => m_Wrapper.m_Gameplay_CarriedItem1;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem2".
+        /// </summary>
+        public InputAction @CarriedItem2 => m_Wrapper.m_Gameplay_CarriedItem2;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem3".
+        /// </summary>
+        public InputAction @CarriedItem3 => m_Wrapper.m_Gameplay_CarriedItem3;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem4".
+        /// </summary>
+        public InputAction @CarriedItem4 => m_Wrapper.m_Gameplay_CarriedItem4;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CarriedItem5".
+        /// </summary>
+        public InputAction @CarriedItem5 => m_Wrapper.m_Gameplay_CarriedItem5;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1248,6 +1404,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @FaShu9.started += instance.OnFaShu9;
             @FaShu9.performed += instance.OnFaShu9;
             @FaShu9.canceled += instance.OnFaShu9;
+            @CarriedItem0.started += instance.OnCarriedItem0;
+            @CarriedItem0.performed += instance.OnCarriedItem0;
+            @CarriedItem0.canceled += instance.OnCarriedItem0;
+            @CarriedItem1.started += instance.OnCarriedItem1;
+            @CarriedItem1.performed += instance.OnCarriedItem1;
+            @CarriedItem1.canceled += instance.OnCarriedItem1;
+            @CarriedItem2.started += instance.OnCarriedItem2;
+            @CarriedItem2.performed += instance.OnCarriedItem2;
+            @CarriedItem2.canceled += instance.OnCarriedItem2;
+            @CarriedItem3.started += instance.OnCarriedItem3;
+            @CarriedItem3.performed += instance.OnCarriedItem3;
+            @CarriedItem3.canceled += instance.OnCarriedItem3;
+            @CarriedItem4.started += instance.OnCarriedItem4;
+            @CarriedItem4.performed += instance.OnCarriedItem4;
+            @CarriedItem4.canceled += instance.OnCarriedItem4;
+            @CarriedItem5.started += instance.OnCarriedItem5;
+            @CarriedItem5.performed += instance.OnCarriedItem5;
+            @CarriedItem5.canceled += instance.OnCarriedItem5;
         }
 
         /// <summary>
@@ -1292,6 +1466,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @FaShu9.started -= instance.OnFaShu9;
             @FaShu9.performed -= instance.OnFaShu9;
             @FaShu9.canceled -= instance.OnFaShu9;
+            @CarriedItem0.started -= instance.OnCarriedItem0;
+            @CarriedItem0.performed -= instance.OnCarriedItem0;
+            @CarriedItem0.canceled -= instance.OnCarriedItem0;
+            @CarriedItem1.started -= instance.OnCarriedItem1;
+            @CarriedItem1.performed -= instance.OnCarriedItem1;
+            @CarriedItem1.canceled -= instance.OnCarriedItem1;
+            @CarriedItem2.started -= instance.OnCarriedItem2;
+            @CarriedItem2.performed -= instance.OnCarriedItem2;
+            @CarriedItem2.canceled -= instance.OnCarriedItem2;
+            @CarriedItem3.started -= instance.OnCarriedItem3;
+            @CarriedItem3.performed -= instance.OnCarriedItem3;
+            @CarriedItem3.canceled -= instance.OnCarriedItem3;
+            @CarriedItem4.started -= instance.OnCarriedItem4;
+            @CarriedItem4.performed -= instance.OnCarriedItem4;
+            @CarriedItem4.canceled -= instance.OnCarriedItem4;
+            @CarriedItem5.started -= instance.OnCarriedItem5;
+            @CarriedItem5.performed -= instance.OnCarriedItem5;
+            @CarriedItem5.canceled -= instance.OnCarriedItem5;
         }
 
         /// <summary>
@@ -1669,6 +1861,48 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFaShu9(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem0(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CarriedItem5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCarriedItem5(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

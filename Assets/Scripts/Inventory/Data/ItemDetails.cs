@@ -22,6 +22,11 @@ namespace TXDCL.Inventory
         public bool canCarryOn;//是否可携带进战斗
         [Range(0,1f)]
         public float TradeProportion;//交易比例
+
+        public virtual void InitializeData()
+        {
+            
+        }
     }
 }
 

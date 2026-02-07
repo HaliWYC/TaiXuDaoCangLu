@@ -27,7 +27,7 @@ MonoBehaviour:
   currentPrepareTurns: 0
   MaxPrepareTurns: 0
   CurrentCoolDownTime: 0
-  MaxCoolDownTime: 0
+  MaxCoolDownTime: 2
   ReleaseRange: 4
   Range: 1
   HealthCost: 0
