@@ -59,6 +59,8 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
         foreach (var slot in SelectedDaoCangSlots)
         {
             slot.gameObject.SetActive(false);
+            slot.wuxingDaoCang.DaoCang = 0;
+            slot.sameDaoCangCost = 0;
         }
         Promotion_CounterText.gameObject.SetActive(false);
         ResetCurrentDaoCang(currentCharacter.CharacterData, PotentialDaoCangSlots);

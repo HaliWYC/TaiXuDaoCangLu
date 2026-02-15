@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using TXDCL.Combat;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -153,7 +154,7 @@ namespace TXDCL.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (itemDetails == null || !itemImage.isActiveAndEnabled) return;
+            if (itemDetails == null || !itemImage.isActiveAndEnabled || CombatManager.Instance.isCombating) return;
             if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount % 2 == 0)
             {
                 //检测是否为装备栏或携带栏格子，是则尝试在背包中添加物品

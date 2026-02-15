@@ -125,7 +125,7 @@ namespace TXDCL.Character
         private void SelectFaShu(InputAction.CallbackContext FaShu)
         {
             var index = Convert.ToInt32(FaShu.action.name[5].ToString());
-            CombatUI.Instance.FaShuPanelUI.SelectFaShuSlot(index);
+            CombatUI.Instance.CombatPanelUI.SelectFaShuSlot(index);
         }
 
         private void SelectCarriedOnItem(InputAction.CallbackContext Item)

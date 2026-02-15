@@ -4,32 +4,60 @@ using TXDCL.Character;
 using TXDCL.Combat;
 using TXDCL.XiuLian.FuShu;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class FaShuPanelUI : Singleton<FaShuPanelUI>
+public class CombatPanelUI : MonoBehaviour
 {
     private List<FaShuData> currentFaShuList;
     private FaShuData currentSelectingFaShu;
-    public GameObject FaBaoPanel;
+    public GameObject FaShuSlotPrefab;
+    public RectTransform FaShuSlotHolder;
     public List<FaShuSlotUI> FaShuSlots;
-    public GameObject DaoCangPanel;
+    public Button InventoryBagButton;
     private bool isSelectedFaShu;
+    private void Awake()
+    {
+        InventoryBagButton.onClick.AddListener(OpenInventoryBag);
+    }
+
+    private void OpenInventoryBag()
+    {
+        MenuUI.Instance.menuPanel.SetActive(true);
+        MenuUI.Instance.FunctionsContainer.SetActive(false);
+        MenuUI.Instance.ResetTogglesStatus();
+        MenuUI.Instance. FunctionToggles[1].isOn = true;
+        EventHandler.CallUpdateInventoryUIEvent(GameManager.Instance.Player);
+        MenuUI.Instance.FunctionsPanel.SetActive(true);
+    }
+    
     public void SetUpFaShuSlots(CharacterBase character)
     {
         currentFaShuList = character.currentFaShuList;
-        for (var i = 0; i < FaShuSlots.Count; i++)
+        FaShuSlots.Clear();
+        for (var i = 0; i < FaShuSlotHolder.childCount; i++)
         {
+            Destroy(FaShuSlotHolder.GetChild(i).gameObject);
+        }
+
+        for (var i = 0; i < 10; i++)
+        {
+            var FaShuSlot = Instantiate(FaShuSlotPrefab, FaShuSlotHolder).GetComponent<FaShuSlotUI>();
+            FaShuSlot.FaShuSlotIndex.text = i == 9 ? "0" : (i + 1).ToString();
             if (i < character.currentFaShuList.Count)
             {
-                FaShuSlots[i].SetUpFaShuSlotUI(character.currentFaShuList[i], FaShuManager.Instance.CheckReleaseFaShuConditions(character.CharacterData, character.currentFaShuList[i], true));
-                FaShuSlots[i].FaShuIcon.gameObject.SetActive(true);
+                FaShuSlot.SetUpFaShuSlotUI(character.currentFaShuList[i],
+                    !CombatUI.Instance.forbidFaShus &&
+                    FaShuManager.Instance.CheckReleaseFaShuConditions(character.CharacterData,
+                        character.currentFaShuList[i], true));
+                FaShuSlot.FaShuIcon.gameObject.SetActive(true);
+                FaShuSlots.Add(FaShuSlot);
             }
             else
             {
-                FaShuSlots[i].FaShuIcon.gameObject.SetActive(false);
+                FaShuSlot.SetUpEmptyFaShuSlotUI();
             }
         }
     }
-
     public void SelectFaShuSlot(int index)
     {
         if(currentFaShuList == null) return;

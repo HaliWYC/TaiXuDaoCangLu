@@ -80,8 +80,12 @@ namespace TXDCL.XiuLian.FuShu
             }
             //结算法术消耗,不管是否命中目标都消耗道藏、法力等资源
             FaShuManager.Instance.UpdateFaShuCost(from, faShuData);
+            if (from == GameManager.Instance.Player && from.currentFaShuList.Contains(faShuData))
+            {
+                CombatUI.Instance.forbidCarriedOnItems = true;
+                CombatUI.Instance.forbidBagItems = true;
+            }
             StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player));
-            CombatUI.Instance.FaShuPanelUI.SetUpFaShuSlots(from);
         }
 
         private void ExecuteFaShuEffects()
@@ -95,6 +99,7 @@ namespace TXDCL.XiuLian.FuShu
             if(from == GameManager.Instance.Player)
                 GameManager.Instance.ResetGameCameraLenInGridSize();
             EventHandler.CallAfterFaShuReleasedEvent(FaShuData);
+            CombatUI.Instance.CombatPanelUI.SetUpFaShuSlots(from);
         }
     }
 }

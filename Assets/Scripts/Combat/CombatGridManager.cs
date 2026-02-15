@@ -54,8 +54,9 @@ namespace TXDCL.Combat
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent += OnCharacterTurnEndEvent;
+            EventHandler.AfterFaShuReleasedEvent += OnAfterFaShuReleasedEvent;
         }
-        
+
         private void OnDisable()
         {
             EventHandler.NewCharactersEnterCombatEvent -= OnNewCharactersEnterCombatEvent;
@@ -63,6 +64,7 @@ namespace TXDCL.Combat
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent -= OnCharacterTurnEndEvent;
+            EventHandler.AfterFaShuReleasedEvent -= OnAfterFaShuReleasedEvent;
         }
 
         private void OnAfterSceneLoadEvent()
@@ -108,6 +110,15 @@ namespace TXDCL.Combat
             ClearPotentialTiles();
             ClearConfirmPathTiles();
         }
+        
+        private void OnAfterFaShuReleasedEvent(FaShuData faShuData)
+        {
+            if (faShuData == currentFaShuData)
+            {
+                DisplayCharactersMovementPath();
+            }
+        }
+        
         /// <summary>
         /// 展示路径
         /// </summary>
@@ -354,7 +365,6 @@ namespace TXDCL.Combat
                 CursorManager.Instance.isConfirm = false;
                 ClearPotentialTiles();
                 ClearConfirmPathTiles();
-                DisplayCharactersMovementPath();
             }
             else
             {

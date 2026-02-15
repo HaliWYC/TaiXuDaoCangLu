@@ -25,6 +25,8 @@ MonoBehaviour:
   canTrade: 1
   canCarryOn: 1
   TradeProportion: 0.05
+  currentCoolDown: 0
+  maxCoolDown: 2
   currentDurability: 100
   currentMaxDurability: 100
   maximumDurability: 100
@@ -33,4 +35,5 @@ MonoBehaviour:
   properties:
   - propertyType: 3
     value: 2
-  FaShuDatas: []
+  FaShuDatas:
+  - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}

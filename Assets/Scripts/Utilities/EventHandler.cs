@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TXDCL.Character;
+using TXDCL.Inventory;
 using TXDCL.Map;
 using TXDCL.XiuLian.FuShu;
 using UnityEngine;
@@ -86,7 +87,6 @@ public static class  EventHandler
     {
         AfterFaShuReleasedEvent?.Invoke(faShuData);
     }
-
     #endregion
 
     #region Effect

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TXDCL.Combat;
 using UnityEngine;
 
 namespace TXDCL.Inventory
@@ -65,6 +66,8 @@ namespace TXDCL.Inventory
         /// <param name="targetSlot"></param>
         public void SwapItemSlots(ItemSlotUI currentSlot, ItemSlotUI targetSlot)
         {
+            //判断是否处于战斗状态，战斗状态下无法更改装备和携带栏的物品
+            if (CombatManager.Instance.isCombating && (currentSlot.isCarriedOnItemSlot || targetSlot.isCarriedOnItemSlot || currentSlot.isWearingFaBaoSlot || targetSlot.isWearingFaBaoSlot)) return;
             //判断是否为当前格子是否为空或者是否与目标格子相同
             if(currentSlot == null || currentSlot == targetSlot || targetSlot == null) return;
             if (currentSlot.availableItemType == targetSlot.availableItemType)

@@ -12,7 +12,8 @@ public class Settings
     public const float WuxingCounter = 0.8f;
     public const float TurnProgressBooster = 2f;
     public const int TurnThreshold = 3500;
-
+    public const int maxNumberInBagItemUseQuantity = 1;
+    public const int maxCarriedOnItemsUseQuantity = 2;
     [Header("Level")] 
     public const float Fanren = 0.8f;
     public const float Lianqi = 1f;

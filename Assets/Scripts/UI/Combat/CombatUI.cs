@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TXDCL.Character;
 using TXDCL.Inventory;
+using TXDCL.XiuLian.FuShu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,28 +11,42 @@ namespace TXDCL.Combat
 {
     public class CombatUI : Singleton<CombatUI>
     {
-        public FaShuPanelUI FaShuPanelUI;
+        public CombatPanelUI CombatPanelUI;
         public GameObject CombatTurnProgressUIBar;
         public RectTransform CombatOrderHolder;
         public RectTransform CarriedOnItemsHolder;
         public GameObject CombatOrderSlotUIPrefab;
         public GameObject CarriedOnItemsSlotUIPrefab;
         public List<CarriedOnItemSlotUI> carriedOnItemSlotUIList = new ();
-        //public RectTransform InitialTurnProgressRectTransform;
         private Dictionary<CharacterBase, GameObject> activeCharacters = new();
+        public bool forbidCarriedOnItems;
+        public bool forbidFaShus;
+        public bool forbidBagItems;
+        public int currentUsedCarriedOnItemsQuantity;
+        private bool isCarriedOnItemReseted;
         
+        [Header("CombatItem")]
+        public CarriedOnItemSlotUI currentCarriedOnItemSlotUI;
+        public FaBaoDetails currentFaBaoDetails;
+        public ConsumablesDetails currentConsumablesDetails;
+        public List<FaShuData> currentFaShuDataList;
+        public List<FaShuData> potentialFaShuDataList;
         private void OnEnable()
         {
             EventHandler.CharacterTurnBeginEvent += OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent += OnCharacterTurnEndEvent;
+            EventHandler.AfterCombatBeginEvent += OnAfterCombatBeginEvent;
+            EventHandler.AfterFaShuReleasedEvent += OnAfterFaShuReleasedEvent;
         }
 
         private void OnDisable()
         {
             EventHandler.CharacterTurnBeginEvent -= OnCharacterTurnBeginEvent;
             EventHandler.CharacterTurnEndEvent -= OnCharacterTurnEndEvent;
+            EventHandler.AfterCombatBeginEvent -= OnAfterCombatBeginEvent;
+            EventHandler.AfterFaShuReleasedEvent -= OnAfterFaShuReleasedEvent;
         }
-        
+
         public void InitializedCharactersTurnProgress()
         {
             CombatTurnProgressUIBar.gameObject.SetActive(true);
@@ -54,15 +69,56 @@ namespace TXDCL.Combat
             if (character != GameManager.Instance.Player)
             {
                 CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(false);
-                FaShuPanelUI.gameObject.SetActive(false);
+                CombatPanelUI.gameObject.SetActive(false);
                 return;
             }
+            ResetForbiddenBehaviours();
             SetupCharacterCarriedOnItems(character);
             CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(true);
-            FaShuPanelUI.gameObject.SetActive(true);
+            CombatPanelUI.gameObject.SetActive(true);
             StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(character));
-            FaShuPanelUI.SetUpFaShuSlots(character);
+            CombatPanelUI.SetUpFaShuSlots(character);
             DaoCangPanelUI.Instance.InitializeDaoCangPanel(character);
+        }
+        private void OnCharacterTurnEndEvent(CharacterBase character)
+        {
+            CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(false);
+            CombatPanelUI.gameObject.SetActive(false);
+        }
+        private void OnAfterCombatBeginEvent()
+        {
+            isCarriedOnItemReseted = false;
+        }
+        
+        private void OnAfterFaShuReleasedEvent(FaShuData faShuData)
+        {
+            //TODO:后续更改成下面这种累计判定
+            // if(potentialFaShuDataList.Contains(faShuData))
+            //     currentFaShuDataList.Add(faShuData);
+            if (potentialFaShuDataList.Contains(faShuData))
+            {
+                switch (currentCarriedOnItemSlotUI.itemDetails.itemType)
+                {
+                    case ItemType.法宝:
+                        if(currentFaBaoDetails == null) return;
+                        currentFaBaoDetails.currentCoolDown = currentFaBaoDetails.maxCoolDown;
+                        currentCarriedOnItemSlotUI.UpdateItemCoolDownUI();
+                        forbidFaShus = true;
+                        forbidBagItems = true;
+                        CombatGridManager.Instance.DisplayCharactersMovementPath();
+                        break;
+                    case ItemType.消耗品:
+                        break;
+                    case ItemType.任务物品:
+                        break;
+                    case ItemType.其他物品:
+                        break;
+                    case ItemType.储物袋:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
         
         /// <summary>
@@ -80,8 +136,11 @@ namespace TXDCL.Combat
             {
                 var itemSlot = Instantiate(CarriedOnItemsSlotUIPrefab, CarriedOnItemsHolder.transform).GetComponent<CarriedOnItemSlotUI>();
                 carriedOnItemSlotUIList.Add(itemSlot);
-                itemSlot.SetupItemSlotUI(character.InventoryBag.carryOnItems[i].itemDetails);
+                itemSlot.SetupItemSlotUI(character.InventoryBag.carryOnItems[i].itemDetails, i);
+                if (!isCarriedOnItemReseted) itemSlot.ResetItemData();
             }
+            isCarriedOnItemReseted = true;
+            UpdateCarriedOnItem();
         }
         /// <summary>
         /// 更新当前战斗中角色的回合进度条
@@ -93,28 +152,32 @@ namespace TXDCL.Combat
             if(!activeCharacters.TryGetValue(character, out var activeCharacter)) return;
             activeCharacter.transform.localPosition = new Vector3(value < 0 ? Mathf.Max(-1000, -400 + value * 0.4f) : Mathf.Min(1000, -400 + value * 0.4f), 10, 0);
         }
-        
-        private void OnCharacterTurnEndEvent(CharacterBase character)
-        {
-            CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(false);
-            FaShuPanelUI.gameObject.SetActive(false);
-        }
         /// <summary>
         /// 是否显示法术（携带物品、道藏）面板
         /// </summary>
         /// <param name="ignore"></param>
         public void IgnoreCombatPanel(bool ignore)
         {
-            FaShuPanelUI.gameObject.SetActive(!ignore);
+            CombatPanelUI.gameObject.SetActive(!ignore);
         }
 
         public void SelectCarriedOnItem(int index)
         {
-            if (carriedOnItemSlotUIList.Count <= index || carriedOnItemSlotUIList[index].itemDetails == null) return;
-            switch (carriedOnItemSlotUIList[index].itemDetails.itemType)
+            if (carriedOnItemSlotUIList.Count <= index || carriedOnItemSlotUIList[index].itemDetails == null || forbidCarriedOnItems) return;
+            currentCarriedOnItemSlotUI = carriedOnItemSlotUIList[index];
+            UseCarriedOnItem(carriedOnItemSlotUIList[index].itemDetails );
+        }
+
+        public void UseCarriedOnItem(ItemDetails itemDetails)
+        {
+            switch (itemDetails.itemType)
             {
                 case ItemType.法宝:
-                    var FaBao = carriedOnItemSlotUIList[index].itemDetails as FaBaoDetails;
+                    var FaBao = itemDetails as FaBaoDetails;
+                    if(FaBao.currentCoolDown != 0) return;
+                    currentFaBaoDetails = FaBao;
+                    potentialFaShuDataList = FaBao.FaShuDatas;
+                    //TODO:法宝法术多选一，直到天赋最高级依次执行法宝的所有法术
                     if (FaBao.FaShuDatas.Count > 0) CombatGridManager.Instance.DisplayFaShuReleasePath(FaBao.FaShuDatas[0]);
                     break;
                 case ItemType.消耗品:
@@ -128,6 +191,39 @@ namespace TXDCL.Combat
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void UpdateCarriedOnItem()
+        {
+            foreach (var itemSlot in carriedOnItemSlotUIList.Where(itemSlot => itemSlot.itemDetails != null))
+            {
+                switch (itemSlot.itemDetails.itemType)
+                {
+                    case ItemType.法宝:
+                        var item = itemSlot.itemDetails as FaBaoDetails;
+                        item.currentCoolDown = Mathf.Max(0, item.currentCoolDown - 1);
+                        itemSlot.UpdateItemCoolDownUI();
+                        break;
+                    case ItemType.消耗品:
+                        break;
+                    case ItemType.任务物品:
+                        break;
+                    case ItemType.其他物品:
+                        break;
+                    case ItemType.储物袋:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private void ResetForbiddenBehaviours()
+        {
+            forbidCarriedOnItems = false;
+            forbidFaShus = false;
+            forbidBagItems = false;
+            currentUsedCarriedOnItemsQuantity = 0;
         }
     }
 }

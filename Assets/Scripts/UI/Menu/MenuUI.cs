@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TXDCL.Character;
 using TXDCL.Combat;
+using TXDCL.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +53,7 @@ public class MenuUI : Singleton<MenuUI>
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menuPanel.SetActive(false);
+            ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
         }
     }
 
@@ -99,7 +101,7 @@ public class MenuUI : Singleton<MenuUI>
         FunctionsPanel.SetActive(true);
     }
 
-    private void ResetTogglesStatus()
+    public void ResetTogglesStatus()
     {
         foreach (var toggle in FunctionToggles)
         {

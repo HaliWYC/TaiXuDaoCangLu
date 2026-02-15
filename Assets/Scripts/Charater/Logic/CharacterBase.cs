@@ -365,6 +365,10 @@ namespace TXDCL.Character
             CharacterData.maxSpeed = CharacterJingjieData.maxSpeed + CharacterEquipmentData.maxSpeed  + CharacterGongFaData.maxSpeed  + CharacterEffectsData.maxSpeed ;
             CharacterData.maxMovementPerTurn = CharacterJingjieData.maxMovementPerTurn + CharacterEquipmentData.maxMovementPerTurn + CharacterGongFaData.maxMovementPerTurn + CharacterEffectsData.maxMovementPerTurn;
             CharacterData.maxDaocangPerTurn = CharacterJingjieData.maxDaocangPerTurn + CharacterEquipmentData.maxDaocangPerTurn + CharacterGongFaData.maxDaocangPerTurn + CharacterEffectsData.maxDaocangPerTurn;
+            CharacterData.ShenShiStrength = CharacterJingjieData.ShenShiStrength + CharacterEquipmentData.ShenShiStrength + CharacterGongFaData.ShenShiStrength + CharacterEffectsData.ShenShiStrength;
+            CharacterData.MainGongFaBasicSpeed = CharacterJingjieData.MainGongFaBasicSpeed + CharacterEquipmentData.MainGongFaBasicSpeed + CharacterGongFaData.MainGongFaBasicSpeed  + CharacterEffectsData.MainGongFaBasicSpeed;
+            CharacterData.MainGongFaAdditionalSpeed = CharacterJingjieData.MainGongFaAdditionalSpeed + CharacterEquipmentData.MainGongFaAdditionalSpeed + CharacterGongFaData.MainGongFaAdditionalSpeed + CharacterEffectsData.MainGongFaAdditionalSpeed;
+            CharacterData.SubGongFaBasicSpeed = CharacterJingjieData.SubGongFaBasicSpeed + CharacterEquipmentData.SubGongFaBasicSpeed + CharacterGongFaData.SubGongFaBasicSpeed + CharacterEffectsData.SubGongFaBasicSpeed;
             CheckCharacterDataOverflow();
             gongFaProcessor.XiuLianSpeed = (int)((CharacterData.MainGongFaBasicSpeed + CharacterData.SubGongFaBasicSpeed) * (1 + CharacterData.MainGongFaAdditionalSpeed));
             CharacterData.currentSpeed = CharacterData.maxSpeed;

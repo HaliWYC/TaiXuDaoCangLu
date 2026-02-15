@@ -39,32 +39,35 @@ public class CursorManager : Singleton<CursorManager>
         if (!cursorEnable) return;
         if (!isSelecting) return;
         CheckCursorValid();
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (CombatManager.Instance.isCombating)
         {
-            CombatGridManager.Instance.DisplayCharactersMovementPath();
-            DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
-        }
-        if (!Input.GetMouseButtonDown(0) || InteractWithUI()) return;
-        if (isCastingFaShu)
-        {
-            if (isConfirm)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //获得目标范围内所有目标角色并执行法术
-                CombatGridManager.Instance.CheckFaShuConfirmTargets((Vector2Int)mouseGridPos);
-                return;
+                CombatGridManager.Instance.DisplayCharactersMovementPath();
+                DaoCangPanelUI.Instance.ResetDaoCangPanelUI();
             }
-            //显示确认范围
-            CombatGridManager.Instance.DisplayFaShuConfirmPath((Vector2Int)mouseGridPos);
-        }
-        else
-        {
-            if (isConfirm)
+            if (!Input.GetMouseButtonDown(0) || InteractWithUI()) return;
+            if (isCastingFaShu)
             {
-                MoveConfirmPath();
-                return;
+                if (isConfirm)
+                {
+                    //获得目标范围内所有目标角色并执行法术
+                    CombatGridManager.Instance.CheckFaShuConfirmTargets((Vector2Int)mouseGridPos);
+                    return;
+                }
+                //显示确认范围
+                CombatGridManager.Instance.DisplayFaShuConfirmPath((Vector2Int)mouseGridPos);
             }
-            //显示确认路径
-            CombatGridManager.Instance.CheckInPotentialMovementPath((Vector2Int)mouseGridPos);
+            else
+            {
+                if (isConfirm)
+                {
+                    MoveConfirmPath();
+                    return;
+                }
+                //显示确认路径
+                CombatGridManager.Instance.CheckInPotentialMovementPath((Vector2Int)mouseGridPos);
+            }
         }
     }
     
