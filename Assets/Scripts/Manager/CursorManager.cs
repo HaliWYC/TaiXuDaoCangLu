@@ -25,7 +25,7 @@ public class CursorManager : Singleton<CursorManager>
     
     private void OnAfterSceneLoadEvent()
     {
-        currentGrid = FindFirstObjectByType<Grid>();
+        currentGrid = FindAnyObjectByType<Grid>();
     }
     
     private void Start()

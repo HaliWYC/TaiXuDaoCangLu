@@ -31,7 +31,7 @@ namespace TXDCL.Combat
         }
         private void OnAfterSceneLoadEvent()
         {
-            grid = FindFirstObjectByType<Grid>();
+            grid = FindAnyObjectByType<Grid>();
         }
         
         public void BuildPath(Stack<MovementStep> movementSteps, bool isPlayer)

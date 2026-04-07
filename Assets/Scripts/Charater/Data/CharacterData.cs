@@ -18,8 +18,8 @@ namespace TXDCL.Character
         public Jingjie Jingjie;
         public int currentVigor;//当前精力，用于进行非战斗类活动，如顿悟功法/法术，炼丹，炼器等
         public int maxVigor;//最大精力
-        public int currentDanDu;//当前丹毒,丹毒超过一定比例会获得Debuff,食用丹药将积累丹毒
-        public int maxDanDu;//最大丹毒
+        public int currentDuSu;//当前毒素,毒素超过最大毒素一定比例会获得Debuff,食用丹药或中毒将积累毒素
+        public int maxDuSu;//最大毒素
         public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff，短时间内大量杀死生灵或其他特殊情况将积累煞气
         public int maxShaQi;//最大煞气
         public int MainGongFaBasicSpeed;
@@ -33,12 +33,19 @@ namespace TXDCL.Character
         public int maxMana;//最大法力
         public int currentStamina;//当前体力，体力用于释放近战法术
         public int maxStamina;//最大体力
-        public int Attack; //攻击
-        public int Reaction;//反应
-        public int currentSpeed;//当前速度
+        public int attack; //攻击
+        public int defense; //防御
+        public float criticalRate;//暴击率，触发暴击时将攻击乘以暴击效果
+        public float criticalMultiple;//暴击效果，触发暴击时最终攻击的倍率
+        public float criticalResistance;//化劲效果，即防暴率，由暴击率减去防暴率得出最终暴击率
+        public float accuracy;//命中率，在法术释放时判断是否命中，由命中率减去闪避率之后计算是否命中
+        public float dodgeRate;//闪避率，在被法术命中时判定是否闪避，由命中率减去闪避率之后计算是否命中
+        public int Reaction;//反应，战斗中反应越高则越快进入下一个回合
+        public int currentSpeed;//当前速度，日常移动速度，战斗中只影响动画速度
         public int maxSpeed;//最大速度
-        public int currentMovement;//当前剩余移动力
+        public int currentMovement;//当前剩余移动力，当前回合中剩余的可移动力
         public int maxMovementPerTurn; //每回合行动力
+        
 
         [Header("Daocang")] 
         public int maxDaocangPerTurn; //每回合总道藏
@@ -66,7 +73,7 @@ namespace TXDCL.Character
         {
             maxAge = 0;
             maxVigor = 0;
-            maxDanDu = 0;
+            maxDuSu = 0;
             maxShaQi = 0;
             MainGongFaBasicSpeed = 0;
             SubGongFaBasicSpeed = 0;
@@ -74,7 +81,13 @@ namespace TXDCL.Character
             maxHealth = 0;
             maxMana = 0;
             maxStamina = 0;
-            Attack = 0;
+            attack = 0;
+            defense = 0;
+            criticalRate = 0;
+            criticalMultiple = 0;
+            criticalResistance = 0;
+            accuracy = 0;
+            dodgeRate = 0;
             Reaction = 0;
             maxSpeed = 0;
             maxMovementPerTurn = 0;
@@ -100,7 +113,25 @@ namespace TXDCL.Character
                     maxMana += (int)property.value;
                     break;
                 case PropertyType.Attack:
-                    Attack += (int)property.value;
+                    attack += (int)property.value;
+                    break;
+                case PropertyType.Defense:
+                    defense += (int)property.value;
+                    break;
+                case PropertyType.CriticalRate:
+                    criticalRate += property.value;
+                    break;
+                case PropertyType.CriticalMultiple:
+                    criticalMultiple += property.value;
+                    break;
+                case PropertyType.CriticalResistance:
+                    criticalResistance += property.value;
+                    break;
+                case PropertyType.Accuracy:
+                    accuracy += property.value;
+                    break;
+                case PropertyType.DodgeRate:
+                    dodgeRate += property.value;
                     break;
                 case PropertyType.Reaction:
                     Reaction += (int)property.value;
@@ -158,7 +189,25 @@ namespace TXDCL.Character
                     maxMana -= (int)property.value;
                     break;
                 case PropertyType.Attack:
-                    Attack -= (int)property.value;
+                    attack -= (int)property.value;
+                    break;
+                case PropertyType.Defense:
+                    defense -= (int)property.value;
+                    break;
+                case PropertyType.CriticalRate:
+                    criticalRate -= property.value;
+                    break;
+                case PropertyType.CriticalMultiple:
+                    criticalMultiple -= property.value;
+                    break;
+                case PropertyType.CriticalResistance:
+                    criticalResistance -= property.value;
+                    break;
+                case PropertyType.Accuracy:
+                    accuracy -= property.value;
+                    break;
+                case PropertyType.DodgeRate:
+                    dodgeRate -= property.value;
                     break;
                 case PropertyType.Reaction:
                     Reaction -= (int)property.value;

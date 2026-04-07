@@ -69,7 +69,7 @@ namespace TXDCL.Combat
 
         private void OnAfterSceneLoadEvent()
         {
-            grid = FindFirstObjectByType<Grid>();
+            grid = FindAnyObjectByType<Grid>();
             PotentialPathTile.Tilemap = GameObject.FindWithTag("SelectionTileMap").GetComponent<Tilemap>();
             PotentialFaShuPathTile.Tilemap = GameObject.FindWithTag("SelectionTileMap").GetComponent<Tilemap>();
             ConfirmPathTile.Tilemap = GameObject.FindWithTag("ConfirmationTileMap").GetComponent<Tilemap>();

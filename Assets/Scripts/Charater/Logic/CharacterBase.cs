@@ -153,11 +153,22 @@ namespace TXDCL.Character
 
         public void TakeDamage(CharacterBase attacker, CharacterBase defender, int damage)
         {
+            //TODO:结算必定命中的影响因素，如法术效果为下次攻击必定命中
             //TODO:结算必定闪避的影响因素，如法术效果为下次攻击必定闪避
-            var isDodge = false;
-            if (CheckDodge(attacker, defender, isDodge)) return;
+            var absoluteAccurate = false;
+            var absoluteDodge = false;
+            if (CheckDodge(attacker, defender, absoluteAccurate, absoluteDodge)) return;
+            //TODO:结算必定暴击的影响因素，如法术效果为下次攻击必定暴击
+            var absoluteCritical = false;
+            var isCritical = CheckCritical(attacker, defender, absoluteCritical);
+            //Debug.Log(isCritical);
+            if (isCritical)
+            {
+                damage = (int)(damage *attacker.CharacterData.criticalMultiple / 100f);
+            }
             //Debug.Log($"{defender.CharacterData.characterName}'s Health: {defender.CharacterData.currentHealth}");
-            defender.CharacterData.currentHealth = Mathf.Max(0, defender.CharacterData.currentHealth - damage);
+            var finalDamage = CalculateFinalDamage(attacker, defender, damage);
+            defender.CharacterData.currentHealth = Mathf.Max(0, defender.CharacterData.currentHealth - finalDamage);
             defender.isHurt = true;
             if (defender.CharacterData.currentHealth <= 0)
             {
@@ -175,29 +186,55 @@ namespace TXDCL.Character
         /// <param name="attacker"></param>
         /// <param name="defender"></param>
         /// <returns></returns>
-        private bool CheckDodge(CharacterBase attacker, CharacterBase defender, bool isDodge)
+        private bool CheckDodge(CharacterBase attacker, CharacterBase defender, bool absoluteAccurate, bool absoluteDodge)
         {
-            if (isDodge)
+            if (absoluteAccurate)
+            {
+                return false;
+            }
+            if (absoluteDodge)
             {
                 return true;
             }
             if (attacker == defender) return false;
             var dif = attacker.CharacterData.Jingjie.JingjieLevel - defender.CharacterData.Jingjie.JingjieLevel;//计算大境界差
             var miniDif = attacker.CharacterData.Jingjie.miniJingjieLevel - defender.CharacterData.Jingjie.miniJingjieLevel;//计算小境界差
-            var accurateRate = Random.Range(-0.05f + dif * 0.5f + miniDif * 0.1f + 1, 0.05f + dif * 0.5f + miniDif * 0.1f + 1);//0.05f为修正值，0.5f为每个大境界相差命中率，0.1f为每个小境界差值
-            
-            //如果境界未稳固，则丢失40%命中率
-            if (attacker.isJingjieUnstable)
-            {
-                accurateRate -= accurateRate * 0.4f;
-            }
-            //如果神识涣散，则丢失40%命中率
-            if (attacker.isShenShiHuanSan)
-            {
-                accurateRate -= accurateRate * 0.4f;
-            }
+            var JingJieModifier = Random.Range(-5f + dif * 50f + miniDif * 10f, 5f + dif * 50f + miniDif * 10f);//5f为修正值，50f为每个大境界相差命中率，10f为每个小境界差值
+            var accurateRate = attacker.CharacterData.accuracy - defender.CharacterData.dodgeRate;
+            //Debug.Log("AccurateRate:" + accurateRate);
+            //Debug.Log("JingjieModifier:" + JingJieModifier);
+            //最终命中为攻击方命中率减去防御方闪避率加上境界修正（每一个大境界相差50%，小境界相差10%，以及5%的随机修正值）
+            var finalAccurate = accurateRate + JingJieModifier;
+            //Debug.Log("FinalAccurate:" + finalAccurate);
             //随机值需大于精准率才触发闪避
-            return Random.Range(0f, 1f) > accurateRate;
+            return Random.Range(0f, 100f) > finalAccurate;
+        }
+
+        private bool CheckCritical(CharacterBase attacker, CharacterBase defender, bool absoluteCritical)
+        {
+            if (absoluteCritical)
+                return true;
+            if (attacker == defender) return false;
+            var dif = attacker.CharacterData.Jingjie.JingjieLevel - defender.CharacterData.Jingjie.JingjieLevel;//计算大境界差
+            var miniDif = attacker.CharacterData.Jingjie.miniJingjieLevel - defender.CharacterData.Jingjie.miniJingjieLevel;//计算小境界差
+            var JingJieModifier = Random.Range(-5f + dif * 50f + miniDif * 10f, 5f + dif * 50f + miniDif * 10f);//5f为修正值，50f为每个大境界相差命中率，10f为每个小境界差值
+            var criticalRate = attacker.CharacterData.criticalRate - defender.CharacterData.criticalResistance;
+            //Debug.Log("criticalRate:" + criticalRate);
+            //Debug.Log("CJingJieModifier:" + JingJieModifier);
+            //最终暴击率为攻击方暴击率减去防御方化劲率加上境界修正（每一个大境界相差50%，小境界相差10%，以及5%的随机修正值）
+            var finalCritical = criticalRate + JingJieModifier;
+            //Debug.Log("finalCritical:" + finalCritical);
+            //暴击率需要大于随机值才触发暴击
+            return finalCritical > Random.Range(0f, 100f);
+        }
+
+        private int CalculateFinalDamage(CharacterBase attacker, CharacterBase defender, int damage)
+        {
+            //计算减伤率，由防御方的防御值/防御值+减伤常数，并且最大值为80%
+            var damageReductionRate = Mathf.Min((float)defender.CharacterData.defense / (defender.CharacterData.defense + Settings.DamageReductionConstant), 0.8f);
+            //Debug.Log(damage);
+            //Debug.Log((int)(damage * (1 - damageReductionRate)));
+            return (int)(damage * (1 - damageReductionRate));
         }
         
         /// <summary>
@@ -305,7 +342,6 @@ namespace TXDCL.Character
             CharacterJingjieData.maxStamina = data.MaxStamina;
             CharacterJingjieData.maxMana = data.MaxMana;
             CharacterJingjieData.maxSpeed = data.MaxSpeed;
-            CharacterJingjieData.Attack = data.Attack;
             CharacterJingjieData.Reaction = data.Reaction;
             CharacterJingjieData.maxMovementPerTurn = data.MaxMovementPerTurn;
             CharacterJingjieData.ShenShiStrength = data.ShenShiStrength;
@@ -355,12 +391,18 @@ namespace TXDCL.Character
             gongFaProcessor.UpdateProperty();
             CharacterData.maxAge = CharacterJingjieData.maxAge + CharacterEquipmentData.maxAge + CharacterGongFaData.maxAge + CharacterEffectsData.maxAge;
             CharacterData.maxVigor = CharacterJingjieData.maxVigor + CharacterEquipmentData.maxVigor + CharacterGongFaData.maxVigor + CharacterEffectsData.maxVigor;
-            CharacterData.maxDanDu = CharacterJingjieData.maxDanDu + CharacterEquipmentData.maxDanDu + CharacterGongFaData.maxDanDu + CharacterEffectsData.maxDanDu;
+            CharacterData.maxDuSu = CharacterJingjieData.maxDuSu + CharacterEquipmentData.maxDuSu + CharacterGongFaData.maxDuSu + CharacterEffectsData.maxDuSu;
             CharacterData.maxShaQi = CharacterJingjieData.maxShaQi + CharacterEquipmentData.maxShaQi + CharacterGongFaData.maxShaQi + CharacterEffectsData.maxShaQi;
             CharacterData.maxHealth = CharacterJingjieData.maxHealth + CharacterEquipmentData.maxHealth + CharacterGongFaData.maxHealth + CharacterEffectsData.maxHealth;
             CharacterData.maxMana = CharacterJingjieData.maxMana + CharacterEquipmentData.maxMana + CharacterGongFaData.maxMana + CharacterEffectsData.maxMana;
             CharacterData.maxStamina = CharacterJingjieData.maxStamina + CharacterEquipmentData.maxStamina + CharacterGongFaData.maxStamina + CharacterEffectsData.maxStamina;
-            CharacterData.Attack = CharacterJingjieData.Attack + CharacterEquipmentData.Attack + CharacterGongFaData.Attack + CharacterEffectsData.Attack;
+            CharacterData.attack = CharacterJingjieData.attack + CharacterEquipmentData.attack + CharacterGongFaData.attack + CharacterEffectsData.attack;
+            CharacterData.defense = CharacterJingjieData.defense + CharacterEquipmentData.defense + CharacterGongFaData.defense + CharacterEffectsData.defense;
+            CharacterData.criticalRate = CharacterJingjieData.criticalRate + CharacterEquipmentData.criticalRate + CharacterGongFaData.criticalRate + CharacterEffectsData.criticalRate;
+            CharacterData.criticalMultiple = CharacterJingjieData.criticalMultiple + CharacterEquipmentData.criticalMultiple + CharacterGongFaData.criticalMultiple + CharacterEffectsData.criticalMultiple;
+            CharacterData.criticalResistance = CharacterJingjieData.criticalResistance + CharacterEquipmentData.criticalResistance + CharacterGongFaData.criticalResistance + CharacterEffectsData.criticalResistance;
+            CharacterData.accuracy = CharacterJingjieData.accuracy + CharacterEquipmentData.accuracy + CharacterGongFaData.accuracy + CharacterEffectsData.accuracy;
+            CharacterData.dodgeRate = CharacterJingjieData.dodgeRate + CharacterEquipmentData.dodgeRate + CharacterGongFaData.dodgeRate + CharacterEffectsData.dodgeRate;
             CharacterData.Reaction = CharacterJingjieData.Reaction + CharacterEquipmentData.Reaction + CharacterGongFaData.Reaction + CharacterEffectsData.Reaction;
             CharacterData.maxSpeed = CharacterJingjieData.maxSpeed + CharacterEquipmentData.maxSpeed  + CharacterGongFaData.maxSpeed  + CharacterEffectsData.maxSpeed ;
             CharacterData.maxMovementPerTurn = CharacterJingjieData.maxMovementPerTurn + CharacterEquipmentData.maxMovementPerTurn + CharacterGongFaData.maxMovementPerTurn + CharacterEffectsData.maxMovementPerTurn;
@@ -381,7 +423,7 @@ namespace TXDCL.Character
         {
             CharacterData.currentAge = CharacterData.currentAge < CharacterData.maxAge ? CharacterData.currentAge : CharacterData.maxAge;
             CharacterData.currentVigor = CharacterData.currentVigor < CharacterData.maxVigor ? CharacterData.currentVigor : CharacterData.maxVigor;
-            CharacterData.currentDanDu = CharacterData.currentDanDu < CharacterData.maxDanDu ? CharacterData.currentDanDu : CharacterData.maxDanDu;
+            CharacterData.currentDuSu = CharacterData.currentDuSu < CharacterData.maxDuSu ? CharacterData.currentDuSu : CharacterData.maxDuSu;
             CharacterData.currentShaQi = CharacterData.currentShaQi < CharacterData.maxShaQi ? CharacterData.currentShaQi : CharacterData.maxShaQi;
             CharacterData.currentHealth = CharacterData.currentHealth < CharacterData.maxHealth ? CharacterData.currentHealth : CharacterData.maxHealth;
             CharacterData.currentMana = CharacterData.currentMana < CharacterData.maxMana ? CharacterData.currentMana : CharacterData.maxMana;

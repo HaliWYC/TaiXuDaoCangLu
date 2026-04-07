@@ -95,7 +95,8 @@ public enum EffectDuration
 
 public enum PropertyType
 {
-    MaxAge,MaxHealth,MaxMana,Attack,Reaction,Speed,MaxMovementPerTurn,MaxDaocangPerTurn,
+    MaxAge,MaxHealth,MaxMana,Attack,Defense,CriticalRate,CriticalMultiple,CriticalResistance,Accuracy,DodgeRate,
+    Reaction,Speed,MaxMovementPerTurn,MaxDaocangPerTurn,
     MetalLingGen,WoodLingGen,WaterLingGen,FireLingGen,EarthLingGen,
     ShenShi,ShenShiStrength,
     Strength,Fitness,Eloquence,Wisdom,Luck,Comprehension,

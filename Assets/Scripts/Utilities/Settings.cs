@@ -14,13 +14,14 @@ public class Settings
     public const int TurnThreshold = 3500;
     public const int maxNumberInBagItemUseQuantity = 1;
     public const int maxCarriedOnItemsUseQuantity = 2;
+    public const int DamageReductionConstant = 50;
     [Header("Level")] 
-    public const float Fanren = 0.8f;
-    public const float Lianqi = 1f;
-    public const float Zhuji = 1.2f;
-    public const float Jiedan = 1.5f;
-    public const float Yuanying = 1.8f;
-    public const float Huashen = 2f;
+    public const float FanRen = 0.8f;
+    public const float LianQi = 1f;
+    public const float ZhuJi = 1.2f;
+    public const float JieDan = 1.5f;
+    public const float YuanYing = 1.8f;
+    public const float HuaShen = 2f;
 
     [Header("Time")] 
     public const float secondThreshold = 0.02f;//数值越小时间越快
