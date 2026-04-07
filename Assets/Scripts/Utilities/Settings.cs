@@ -5,6 +5,20 @@ public class Settings
     public const float FadeDuration = 0.35f;
     public const float TargetAlpha = 0.8f;
 
+    [Header("Character Attribute")] 
+    public const float ReactionPerAgility = 2f;
+    public const float DodgeRatePerAgility = 0.5f;
+    public const float MaxHealthPerFitness = 5f;
+    public const float DefensePerFitness = 2f;
+    public const float AccuracyPerIntelligence = 0.5f;
+    public const float CriticalMultiplePerIntelligence = 1f;
+    public const float MaxManaPerMeridian = 2f;
+    public const float CriticalRatePerMeridian = 0.5f;
+    public const float AttackPerStrength = 2f;
+    public const float MaxStaminaPerStrength = 2f;
+    public const float ShenShiStrengthPerTenacity = 2f;
+    public const float CriticalResistancePerTenacity = 0.5f;
+    
     [Header("Combat")] 
     public const float WuxingCounterWuxing = 1.5f;
     public const float WuxingCounteredWuxing= 0.5f;

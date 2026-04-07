@@ -91,7 +91,7 @@ namespace TXDCL.Inventory
                 }
                 slotMethodsUIObject.SetActive(false);
                 EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
-                InventoryUI.Instance.currentCharacter.UpdateData();
+                InventoryUI.Instance.currentCharacter.UpdateCharacterData();
             }
         }
         private void OnUnEquipButtonClicked()
@@ -101,7 +101,7 @@ namespace TXDCL.Inventory
             if (Success) InventoryManager.Instance.UnEquipItem(InventoryUI.Instance.inventoryBag, currentSelectedSlot.itemDetails);
             slotMethodsUIObject.SetActive(false);
             EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
-            InventoryUI.Instance.currentCharacter.UpdateData();
+            InventoryUI.Instance.currentCharacter.UpdateCharacterData();
         }
         private void OnMassUseButtonClicked()
         {

@@ -41,7 +41,7 @@ namespace TXDCL.Inventory
                     PotentialItemFaShuList = (itemDetails as FaBaoDetails).FaShuDatas;
                 }
                 IndextText.gameObject.SetActive(true);
-                forbiddenShadow.gameObject.SetActive(false);
+                forbiddenShadow.gameObject.SetActive(CombatUI.Instance.forbidCarriedOnItems);
                 CurrentItemFaShuList.Clear();
             }
         }

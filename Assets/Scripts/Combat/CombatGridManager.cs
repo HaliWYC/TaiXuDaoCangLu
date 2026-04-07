@@ -46,6 +46,7 @@ namespace TXDCL.Combat
         public bool canCurrentCharacterCastFaShu;//当前角色能否释放法术
         public bool canDisplayCharacterStats;//能否显示角色基础属性信息，在角色非空闲状态下无法显示角色信息
         private FaShuData currentFaShuData;//当前选择的法术
+        private FaShuSourceType currentFaShuSourceType;//当前选择的法术来源
         public readonly Dictionary<CharacterBase,Vector2Int> CharacterPositionsInCombatDict = new();//储存角色信息以及角色网格坐标
         private void OnEnable()
         {
@@ -111,7 +112,7 @@ namespace TXDCL.Combat
             ClearConfirmPathTiles();
         }
         
-        private void OnAfterFaShuReleasedEvent(FaShuData faShuData)
+        private void OnAfterFaShuReleasedEvent(FaShuData faShuData, FaShuSourceType faShuSourceType)
         {
             if (faShuData == currentFaShuData)
             {
@@ -321,11 +322,12 @@ namespace TXDCL.Combat
         /// 根据法术信息显示可释放的法术范围（仅显示玩家的）
         /// </summary>
         /// <param name="faShuData"></param>
-        public void DisplayFaShuReleasePath(FaShuData faShuData)
+        public void DisplayFaShuReleasePath(FaShuData faShuData, FaShuSourceType faShuSourceType)
         {
             ClearPotentialTiles();
             ClearConfirmPathTiles();
             currentFaShuData = faShuData;
+            currentFaShuSourceType = faShuSourceType;
             canDisplayCharacterStats = false;
             if (currentFaShuData.ReleaseRange < 0 || !CharacterPositionsInCombatDict.ContainsKey(currentCharacter)) return;
             potentialFaShuSelectingPath = FindPotentialPath(CharacterPositionsInCombatDict[currentCharacter], currentFaShuData.ReleaseRange, true);
@@ -358,7 +360,7 @@ namespace TXDCL.Combat
             {
                 //获得范围内所有的目标
                 var NewPos = new Vector3(position.x + 0.5f, position.y + 0.5f);
-                FaShuManager.Instance.ReleaseFaShu(currentFaShuData, NewPos, currentCharacter, GetAllGridInCombatDict(confirmFaShuSelectingPath));
+                FaShuManager.Instance.ReleaseFaShu(currentFaShuData, currentFaShuSourceType, NewPos, currentCharacter, GetAllGridInCombatDict(confirmFaShuSelectingPath));
                 currentCharacter.SetCharacterFacingDirection(NewPos.x - currentCharacter.transform.position.x);
                 currentCharacter.animator.SetTrigger("CastFaShu");
                 CursorManager.Instance.isCastingFaShu = false;

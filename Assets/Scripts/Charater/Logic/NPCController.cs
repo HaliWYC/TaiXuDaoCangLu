@@ -53,8 +53,9 @@ public class NPCController : CharacterBase
         SelectEnemy();
         SelectPotentialFaShu();
     }
-    private void OnAfterFaShuReleasedEvent(FaShuData fashuData)
+    private void OnAfterFaShuReleasedEvent(FaShuData fashuData, FaShuSourceType faShuSourceType)
     {
+        if(faShuSourceType != FaShuSourceType.法术) return;
         if(availableFaShu.Count == 0) return;
         isFirstSelecting = false;
         SelectEnemy();
@@ -144,7 +145,7 @@ public class NPCController : CharacterBase
         //执行法术
         //SetCharacterFacingDirection(currentEnemy.transform.position.x - transform.position.x);
         animator.SetTrigger(CastFaShu);
-        FaShuManager.Instance.ReleaseFaShu(faShuData, currentEnemy.transform.position,this,
+        FaShuManager.Instance.ReleaseFaShu(faShuData, FaShuSourceType.法术, currentEnemy.transform.position,this,
             CombatGridManager.Instance.GetAllGridInCombatDict(CombatGridManager.Instance.FindPotentialPath(
                 CombatGridManager.Instance.CharacterPositionsInCombatDict[currentEnemy], faShuData.Range, true)));
     }

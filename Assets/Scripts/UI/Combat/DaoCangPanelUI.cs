@@ -42,7 +42,7 @@ public class DaoCangPanelUI : Singleton<DaoCangPanelUI>
 
     public void ConfirmButtonOnClick()
     {
-        CombatGridManager.Instance.DisplayFaShuReleasePath(currentSelectingFaShu);
+        CombatGridManager.Instance.DisplayFaShuReleasePath(currentSelectingFaShu, FaShuSourceType.法术);
         GameManager.Instance.SetGameCameraLenInGridSize(currentSelectingFaShu.ReleaseRange);
     }
 

@@ -82,10 +82,10 @@ public static class  EventHandler
         CharacterTurnEndEvent?.Invoke(character);
     }
 
-    public static event Action<FaShuData> AfterFaShuReleasedEvent;
-    public static void CallAfterFaShuReleasedEvent(FaShuData faShuData)
+    public static event Action<FaShuData, FaShuSourceType> AfterFaShuReleasedEvent;
+    public static void CallAfterFaShuReleasedEvent(FaShuData faShuData, FaShuSourceType faShuSourceType)
     {
-        AfterFaShuReleasedEvent?.Invoke(faShuData);
+        AfterFaShuReleasedEvent?.Invoke(faShuData, faShuSourceType);
     }
     #endregion
 

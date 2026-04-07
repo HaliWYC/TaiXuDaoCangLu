@@ -154,47 +154,50 @@ namespace TXDCL.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (itemDetails == null || !itemImage.isActiveAndEnabled || CombatManager.Instance.isCombating) return;
-            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount % 2 == 0)
+            if (itemDetails == null || !itemImage.isActiveAndEnabled) return;
+            switch (eventData.button)
             {
-                //检测是否为装备栏或携带栏格子，是则尝试在背包中添加物品
-                if (isWearingFaBaoSlot || isCarriedOnItemSlot)
+                case PointerEventData.InputButton.Left when eventData.clickCount % 2 == 0 && !CombatManager.Instance.isCombating:
                 {
-                    InventoryManager.Instance.AddItem(InventoryUI.Instance.inventoryBag, new InventoryItem { itemDetails = itemDetails, itemAmount = itemAmount }, out var Success);
-                    //若添加物品未成功则不执行移除命令
-                    if (Success) InventoryManager.Instance.UnEquipItem(InventoryUI.Instance.inventoryBag, itemDetails);
-                }
-                else
-                {
-                    //检测是否为法宝或消耗品
-                    if (itemDetails.itemType is ItemType.法宝 or ItemType.消耗品)
+                    //检测是否为装备栏或携带栏格子，是则尝试在背包中添加物品
+                    if (isWearingFaBaoSlot || isCarriedOnItemSlot)
                     {
-                        //检测目前启用的是装备栏或携带栏
-                        if (InventoryUI.Instance.wearingFaBaoToggle.isOn)
+                        InventoryManager.Instance.AddItem(InventoryUI.Instance.inventoryBag, new InventoryItem { itemDetails = itemDetails, itemAmount = itemAmount }, out var Success);
+                        //若添加物品未成功则不执行移除命令
+                        if (Success) InventoryManager.Instance.UnEquipItem(InventoryUI.Instance.inventoryBag, itemDetails);
+                    }
+                    else
+                    {
+                        //检测是否为法宝或消耗品
+                        if (itemDetails.itemType is ItemType.法宝 or ItemType.消耗品)
                         {
-                            //若当前启用的为装备栏则检测目前是否为法宝，非法宝无法添加入装备栏
-                            if (itemDetails.itemType != ItemType.法宝) return;
-                            InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, true, out var isFull);
-                            if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
-                        }
-                        else if (InventoryUI.Instance.carryOnItemsToggle.isOn)
-                        {
-                            InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, false, out var isFull);
-                            if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
+                            //检测目前启用的是装备栏或携带栏
+                            if (InventoryUI.Instance.wearingFaBaoToggle.isOn)
+                            {
+                                //若当前启用的为装备栏则检测目前是否为法宝，非法宝无法添加入装备栏
+                                if (itemDetails.itemType != ItemType.法宝) return;
+                                InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, true, out var isFull);
+                                if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
+                            }
+                            else if (InventoryUI.Instance.carryOnItemsToggle.isOn)
+                            {
+                                InventoryManager.Instance.EquipItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, false, out var isFull);
+                                if (!isFull) InventoryManager.Instance.RemoveItem(InventoryUI.Instance.inventoryBag, itemDetails, itemAmount, out var Success);
+                            }
                         }
                     }
+                    EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
+                    InventoryUI.Instance.currentCharacter.UpdateCharacterData();
+                    ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(false);
+                    break;
                 }
-                EventHandler.CallUpdateInventoryUIEvent(InventoryUI.Instance.currentCharacter);
-                InventoryUI.Instance.currentCharacter.UpdateData();
-                ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(false);
-            }
-            else if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                ItemSlotMethodsTip.Instance.transform.position = transform.position + new Vector3(0, (300f - sizeOfSlot) / 2, 0);
-                ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(true);
-                ItemSlotMethodsTip.Instance.currentSelectedSlot = this;
-                ItemSlotMethodsTip.Instance.Setup();
-                ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
+                case PointerEventData.InputButton.Right:
+                    ItemSlotMethodsTip.Instance.transform.position = transform.position + new Vector3(0, (300f - sizeOfSlot) / 2, 0);
+                    ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(true);
+                    ItemSlotMethodsTip.Instance.currentSelectedSlot = this;
+                    ItemSlotMethodsTip.Instance.Setup();
+                    ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
+                    break;
             }
         }
 

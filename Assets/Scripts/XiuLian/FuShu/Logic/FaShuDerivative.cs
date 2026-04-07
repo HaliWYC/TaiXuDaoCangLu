@@ -10,6 +10,7 @@ namespace TXDCL.XiuLian.FuShu
     public class FaShuDerivative : MonoBehaviour
     {
         private FaShuData FaShuData;
+        private FaShuSourceType FaShuSourceType;
         private static readonly int Arrived = Animator.StringToHash("Arrived");
         private Animator animator;
         private CharacterBase from;
@@ -24,11 +25,12 @@ namespace TXDCL.XiuLian.FuShu
             animator = GetComponent<Animator>();
         }
 
-        public void Setup(FaShuData faShuData,Vector3 targetPos,CharacterBase fromCharacter, List<CharacterBase> targetCharacters)
+        public void Setup(FaShuData faShuData, FaShuSourceType faShuSourceType, Vector3 targetPos,CharacterBase fromCharacter, List<CharacterBase> targetCharacters)
         {
             var derivative = faShuData.FaShuDerivative;
             animator.runtimeAnimatorController = derivative.GetComponent<Animator>().runtimeAnimatorController;
             FaShuData = faShuData;
+            FaShuSourceType = faShuSourceType;
             from = fromCharacter;
             targets = targetCharacters;
             transform.localScale = Vector3.one;
@@ -79,11 +81,12 @@ namespace TXDCL.XiuLian.FuShu
                     throw new ArgumentOutOfRangeException();
             }
             //结算法术消耗,不管是否命中目标都消耗道藏、法力等资源
-            FaShuManager.Instance.UpdateFaShuCost(from, faShuData);
-            if (from == GameManager.Instance.Player && from.currentFaShuList.Contains(faShuData))
+            FaShuManager.Instance.UpdateFaShuCost(from, faShuData, FaShuSourceType);
+            if (from == GameManager.Instance.Player && FaShuSourceType == FaShuSourceType.法术)
             {
                 CombatUI.Instance.forbidCarriedOnItems = true;
                 CombatUI.Instance.forbidBagItems = true;
+                CombatUI.Instance.SetupCharacterCarriedOnItems(GameManager.Instance.Player);
             }
             StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(GameManager.Instance.Player));
         }
@@ -98,7 +101,7 @@ namespace TXDCL.XiuLian.FuShu
             PoolTool.Instance.FaShuDerivativePool.Release(gameObject);
             if(from == GameManager.Instance.Player)
                 GameManager.Instance.ResetGameCameraLenInGridSize();
-            EventHandler.CallAfterFaShuReleasedEvent(FaShuData);
+            EventHandler.CallAfterFaShuReleasedEvent(FaShuData, FaShuSourceType);
             CombatUI.Instance.CombatPanelUI.SetUpFaShuSlots(from);
         }
     }

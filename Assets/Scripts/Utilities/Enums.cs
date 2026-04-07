@@ -52,6 +52,10 @@ public enum FaShuType//法术类型，如常规法术、凡人武功或体质类
 {
     法术, 武功, 神识, 法宝
 }
+public enum FaShuSourceType
+{
+    法术,携带物品,背包物品
+}
 public enum FaShuTarget//法术释放目标
 {
     Self, Enemy, Ally, Any

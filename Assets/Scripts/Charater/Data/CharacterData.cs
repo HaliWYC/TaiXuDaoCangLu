@@ -22,9 +22,35 @@ namespace TXDCL.Character
         public int maxDuSu;//最大毒素
         public int currentShaQi;//当前煞气,煞气超过一定比例将会获得Debuff，短时间内大量杀死生灵或其他特殊情况将积累煞气
         public int maxShaQi;//最大煞气
+        
+        [Header("XiuLian")]
         public int MainGongFaBasicSpeed;
         public int SubGongFaBasicSpeed;
         public float MainGongFaAdditionalSpeed;
+        
+        [Header("Combat Attribute")]
+        public int Agility;//敏捷：影响反应，闪避率
+        public int Fitness;//筋骨：影响最大气血，防御
+        public int Intelligence;//智力：影响命中率，暴击效果
+        public int Meridian;//经脉：影响最大法力，暴击率
+        public int Strength; //力量：影响攻击，最大体力
+        public int Tenacity;//韧性：影响神识强度，化劲
+        
+        [Header("Civil Attribute")] 
+        public int Charisma;//魅力：影响好感度获取和一些特殊好感类事件
+        public int Comprehension;//悟性：影响所有熟练度获取和一些特殊的顿悟类事件
+        public int Luck;//运气：影响所有材料的获取暴击率（数量或质量的提升）和一些特殊的气运类事件
+        public int Persuasion;//口才：影响交易价格和一些特殊说服类事件
+        public int Wisdom;//智慧：影响所有突破基础概率和一些特殊的思维类事件
+
+        [Header("Utility Attribute")] 
+        public int WoodCutting;//砍伐：影响木材的收集效率和能收集的品质
+        public int Mining;//挖掘：影响金属的收集效率和能收集的品质
+        public int Gathering;//采集：影响草药的收集效率和能收集的品质
+        public int Forging;//炼器：影响法宝的制造效率和能制造的品质
+        public int Alchemi;//炼丹：影响丹药的制造效率和能制造的品质
+        public int Talisman;//制符：影响符箓的制造效率和能制造的品质
+        public int Formation;//阵法：影响阵法的制造效率和能制造的品质
         
         [Header("Basic Combat")] 
         public int currentHealth; //当前气血
@@ -37,7 +63,7 @@ namespace TXDCL.Character
         public int defense; //防御
         public float criticalRate;//暴击率，触发暴击时将攻击乘以暴击效果
         public float criticalMultiple;//暴击效果，触发暴击时最终攻击的倍率
-        public float criticalResistance;//化劲效果，即防暴率，由暴击率减去防暴率得出最终暴击率
+        public float criticalResistance;//化劲，即防暴率，由暴击率减去防暴率得出最终暴击率
         public float accuracy;//命中率，在法术释放时判断是否命中，由命中率减去闪避率之后计算是否命中
         public float dodgeRate;//闪避率，在被法术命中时判定是否闪避，由命中率减去闪避率之后计算是否命中
         public int Reaction;//反应，战斗中反应越高则越快进入下一个回合
@@ -46,8 +72,8 @@ namespace TXDCL.Character
         public int currentMovement;//当前剩余移动力，当前回合中剩余的可移动力
         public int maxMovementPerTurn; //每回合行动力
         
-
         [Header("Daocang")] 
+        //TODO:后续需要对灵根进行拓展，比如灵根的大小将影响战斗力
         public int maxDaocangPerTurn; //每回合总道藏
         public int currentMetalDaocang;//当前剩余锐金道藏
         public int currentWoodDaocang;//当前剩余灵木道藏
@@ -71,13 +97,17 @@ namespace TXDCL.Character
         
         public void ResetProperty()
         {
+            //Main Attributes
+            Agility = 0;
+            Fitness = 0;
+            Intelligence = 0;
+            Meridian = 0;
+            Strength = 0;
+            Tenacity = 0;
             maxAge = 0;
             maxVigor = 0;
             maxDuSu = 0;
             maxShaQi = 0;
-            MainGongFaBasicSpeed = 0;
-            SubGongFaBasicSpeed = 0;
-            MainGongFaAdditionalSpeed = 0;
             maxHealth = 0;
             maxMana = 0;
             maxStamina = 0;
@@ -92,13 +122,27 @@ namespace TXDCL.Character
             maxSpeed = 0;
             maxMovementPerTurn = 0;
             maxDaocangPerTurn = 0;
-            MetalLingGen = 0;
-            WoodLingGen = 0;
-            WaterLingGen = 0;
-            FireLingGen = 0;
-            EarthLingGen = 0;
             ShenShiStrength = 0;
+            MainGongFaBasicSpeed = 0;
+            MainGongFaAdditionalSpeed = 0;
+            SubGongFaBasicSpeed = 0;
         }
+        public void MainAttributeToCharacterData()
+        {
+            Reaction += Agility * (int)Settings.ReactionPerAgility;
+            dodgeRate += Agility * Settings.DodgeRatePerAgility;
+            maxHealth += Fitness * (int)Settings.MaxHealthPerFitness;
+            defense += Fitness * (int)Settings.DefensePerFitness;
+            accuracy += Intelligence * Settings.AccuracyPerIntelligence;
+            criticalMultiple += Intelligence * Settings.CriticalMultiplePerIntelligence;
+            maxMana += Meridian * (int)Settings.MaxManaPerMeridian;
+            criticalRate += Meridian * Settings.CriticalRatePerMeridian;
+            attack += Strength * (int)Settings.AttackPerStrength;
+            maxStamina += Strength * (int)Settings.MaxStaminaPerStrength;
+            ShenShiStrength += Tenacity * (int)Settings.ShenShiStrengthPerTenacity;
+            criticalResistance += Tenacity * (int)Settings.CriticalResistancePerTenacity;
+        }
+        
         public void AddProperty(Property property)
         {
             switch (property.propertyType)

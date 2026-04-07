@@ -38,9 +38,9 @@ namespace TXDCL.XiuLian.FuShu
         /// <param name="FaShuData"></param>
         /// <param name="from"></param>
         /// <param name="targetCharacters"></param>
-        public void ReleaseFaShu(FaShuData FaShuData,Vector3 targetPosition,CharacterBase from, List<CharacterBase> targetCharacters)
+        public void ReleaseFaShu(FaShuData FaShuData, FaShuSourceType faShuSourceType, Vector3 targetPosition,CharacterBase from, List<CharacterBase> targetCharacters)
         {
-            PoolTool.Instance.GetFaShuDerivativeFromPool(FaShuData, targetPosition, from, targetCharacters);
+            PoolTool.Instance.GetFaShuDerivativeFromPool(FaShuData, faShuSourceType, targetPosition, from, targetCharacters);
         }
         /// <summary>
         /// 根据法术信息结算法术
@@ -195,14 +195,22 @@ namespace TXDCL.XiuLian.FuShu
 
             return enoughSameDaoCang;
         }
-        public void UpdateFaShuCost(CharacterBase character, FaShuData faShuData)
+        /// <summary>
+        /// 结算法术消耗，如果法术来源为法宝或消耗品则不消耗
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="faShuData"></param>
+        /// <param name="faShuSourceType"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public void UpdateFaShuCost(CharacterBase character, FaShuData faShuData, FaShuSourceType faShuSourceType)
         {
+            if (faShuSourceType != FaShuSourceType.法术) return;
             character.CharacterData.currentHealth -= faShuData.HealthCost;
             character.CharacterData.currentStamina -= faShuData.StaminaCost;
             character.CharacterData.currentMana -= faShuData.ManaCost;
             character.CharacterData.JingShenLi -= faShuData.JingShenLiCost;
             faShuData.CurrentCoolDownTime = faShuData.MaxCoolDownTime;
-            if (character == GameManager.Instance.Player && character.CompareTag("Player"))
+            if (character == GameManager.Instance.Player)
             {
                 DaoCangPanelUI.Instance.UpdateDaoCangCost();
                 DaoCangPanelUI.Instance.ResetDaoCangPanelUI();

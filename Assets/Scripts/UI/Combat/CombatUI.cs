@@ -74,6 +74,7 @@ namespace TXDCL.Combat
             }
             ResetForbiddenBehaviours();
             SetupCharacterCarriedOnItems(character);
+            UpdateCarriedOnItem();
             CharacterStatsPanel.Instance.CharaterStats.gameObject.SetActive(true);
             CombatPanelUI.gameObject.SetActive(true);
             StartCoroutine(CharacterStatsPanel.Instance.UpdateCharacterStats(character));
@@ -90,11 +91,12 @@ namespace TXDCL.Combat
             isCarriedOnItemReseted = false;
         }
         
-        private void OnAfterFaShuReleasedEvent(FaShuData faShuData)
+        private void OnAfterFaShuReleasedEvent(FaShuData faShuData, FaShuSourceType faShuSourceType)
         {
             //TODO:后续更改成下面这种累计判定
             // if(potentialFaShuDataList.Contains(faShuData))
             //     currentFaShuDataList.Add(faShuData);
+            if (faShuSourceType != FaShuSourceType.携带物品) return;
             if (potentialFaShuDataList.Contains(faShuData))
             {
                 switch (currentCarriedOnItemSlotUI.itemDetails.itemType)
@@ -122,10 +124,10 @@ namespace TXDCL.Combat
         }
         
         /// <summary>
-        /// 初始化当前角色的携带物品并同步UI
+        /// 每回合开始初始化当前角色的携带物品并同步UI
         /// </summary>
         /// <param name="character"></param>
-        private void SetupCharacterCarriedOnItems(CharacterBase character)
+        public void SetupCharacterCarriedOnItems(CharacterBase character)
         {
             carriedOnItemSlotUIList.Clear();
             for (var i = 0; i < CarriedOnItemsHolder.childCount; i++)
@@ -140,7 +142,6 @@ namespace TXDCL.Combat
                 if (!isCarriedOnItemReseted) itemSlot.ResetItemData();
             }
             isCarriedOnItemReseted = true;
-            UpdateCarriedOnItem();
         }
         /// <summary>
         /// 更新当前战斗中角色的回合进度条
@@ -178,7 +179,7 @@ namespace TXDCL.Combat
                     currentFaBaoDetails = FaBao;
                     potentialFaShuDataList = FaBao.FaShuDatas;
                     //TODO:法宝法术多选一，直到天赋最高级依次执行法宝的所有法术
-                    if (FaBao.FaShuDatas.Count > 0) CombatGridManager.Instance.DisplayFaShuReleasePath(FaBao.FaShuDatas[0]);
+                    if (FaBao.FaShuDatas.Count > 0) CombatGridManager.Instance.DisplayFaShuReleasePath(FaBao.FaShuDatas[0], FaShuSourceType.携带物品);
                     break;
                 case ItemType.消耗品:
                     break;

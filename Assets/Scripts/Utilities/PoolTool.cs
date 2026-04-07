@@ -36,11 +36,11 @@ public class PoolTool : Singleton<PoolTool>
         }
     }
     
-    public void GetFaShuDerivativeFromPool(FaShuData faShuData, Vector3 targetPosition, CharacterBase from, List<CharacterBase> targetCharacters)
+    public void GetFaShuDerivativeFromPool(FaShuData faShuData, FaShuSourceType faShuSourceType, Vector3 targetPosition, CharacterBase from, List<CharacterBase> targetCharacters)
     {
         if(faShuData == null) return;
         var FaShuDerivative = FaShuDerivativePool.Get();
-        FaShuDerivative.GetComponent<FaShuDerivative>().Setup(faShuData, targetPosition, from, targetCharacters);
+        FaShuDerivative.GetComponent<FaShuDerivative>().Setup(faShuData, faShuSourceType, targetPosition, from, targetCharacters);
     }
 
     public void ReleaseFaShuDerivative(GameObject obj)

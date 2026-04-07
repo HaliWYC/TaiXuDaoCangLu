@@ -172,7 +172,7 @@ namespace TXDCL.Inventory
                 if (currentIndex == targetSlot.SlotIndex)
                 {
                     inventoryBag.wearingFaBaoList[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
-                    InventoryUI.Instance.currentCharacter.UpdateData();
+                    InventoryUI.Instance.currentCharacter.UpdateCharacterData();
                     return;
                 }
                 currentIndex++;
@@ -182,7 +182,7 @@ namespace TXDCL.Inventory
                 if (currentIndex == targetSlot.SlotIndex)
                 {
                     inventoryBag.carryOnItems[i] = new InventoryItem { itemDetails = currentSlot.itemDetails, itemAmount = currentSlot.itemAmount};
-                    InventoryUI.Instance.currentCharacter.UpdateData();
+                    InventoryUI.Instance.currentCharacter.UpdateCharacterData();
                     return;
                 }
                 currentIndex++;

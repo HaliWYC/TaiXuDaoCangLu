@@ -21,6 +21,7 @@ MonoBehaviour:
   FaShuProficiency: 0
   Description: 
   FaShuType: 0
+  FaShuSourceType: 0
   FaShuTarget: 3
   FaShuDuration: 0
   ShuXing: 2

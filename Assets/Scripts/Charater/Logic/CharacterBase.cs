@@ -131,7 +131,7 @@ namespace TXDCL.Character
 
         private void Start()
         {
-            UpdateData();
+            UpdateCharacterData();
             ResetCharacterData();
         }
         protected virtual void Update()
@@ -383,43 +383,61 @@ namespace TXDCL.Character
         /// <summary>
         /// 按照步骤分别更新三个角色数据，首先更新境界带来的角色属性数据，然后是装备，最后为功法
         /// </summary>
-        public void UpdateData()
+        public void UpdateCharacterData()
         {
             UpdateLevel();
             if (InventoryBag != null)
                 InventoryBag.UpdateProperty(CharacterEquipmentData);
             gongFaProcessor.UpdateProperty();
-            CharacterData.maxAge = CharacterJingjieData.maxAge + CharacterEquipmentData.maxAge + CharacterGongFaData.maxAge + CharacterEffectsData.maxAge;
-            CharacterData.maxVigor = CharacterJingjieData.maxVigor + CharacterEquipmentData.maxVigor + CharacterGongFaData.maxVigor + CharacterEffectsData.maxVigor;
-            CharacterData.maxDuSu = CharacterJingjieData.maxDuSu + CharacterEquipmentData.maxDuSu + CharacterGongFaData.maxDuSu + CharacterEffectsData.maxDuSu;
-            CharacterData.maxShaQi = CharacterJingjieData.maxShaQi + CharacterEquipmentData.maxShaQi + CharacterGongFaData.maxShaQi + CharacterEffectsData.maxShaQi;
-            CharacterData.maxHealth = CharacterJingjieData.maxHealth + CharacterEquipmentData.maxHealth + CharacterGongFaData.maxHealth + CharacterEffectsData.maxHealth;
-            CharacterData.maxMana = CharacterJingjieData.maxMana + CharacterEquipmentData.maxMana + CharacterGongFaData.maxMana + CharacterEffectsData.maxMana;
-            CharacterData.maxStamina = CharacterJingjieData.maxStamina + CharacterEquipmentData.maxStamina + CharacterGongFaData.maxStamina + CharacterEffectsData.maxStamina;
-            CharacterData.attack = CharacterJingjieData.attack + CharacterEquipmentData.attack + CharacterGongFaData.attack + CharacterEffectsData.attack;
-            CharacterData.defense = CharacterJingjieData.defense + CharacterEquipmentData.defense + CharacterGongFaData.defense + CharacterEffectsData.defense;
-            CharacterData.criticalRate = CharacterJingjieData.criticalRate + CharacterEquipmentData.criticalRate + CharacterGongFaData.criticalRate + CharacterEffectsData.criticalRate;
-            CharacterData.criticalMultiple = CharacterJingjieData.criticalMultiple + CharacterEquipmentData.criticalMultiple + CharacterGongFaData.criticalMultiple + CharacterEffectsData.criticalMultiple;
-            CharacterData.criticalResistance = CharacterJingjieData.criticalResistance + CharacterEquipmentData.criticalResistance + CharacterGongFaData.criticalResistance + CharacterEffectsData.criticalResistance;
-            CharacterData.accuracy = CharacterJingjieData.accuracy + CharacterEquipmentData.accuracy + CharacterGongFaData.accuracy + CharacterEffectsData.accuracy;
-            CharacterData.dodgeRate = CharacterJingjieData.dodgeRate + CharacterEquipmentData.dodgeRate + CharacterGongFaData.dodgeRate + CharacterEffectsData.dodgeRate;
-            CharacterData.Reaction = CharacterJingjieData.Reaction + CharacterEquipmentData.Reaction + CharacterGongFaData.Reaction + CharacterEffectsData.Reaction;
-            CharacterData.maxSpeed = CharacterJingjieData.maxSpeed + CharacterEquipmentData.maxSpeed  + CharacterGongFaData.maxSpeed  + CharacterEffectsData.maxSpeed ;
-            CharacterData.maxMovementPerTurn = CharacterJingjieData.maxMovementPerTurn + CharacterEquipmentData.maxMovementPerTurn + CharacterGongFaData.maxMovementPerTurn + CharacterEffectsData.maxMovementPerTurn;
-            CharacterData.maxDaocangPerTurn = CharacterJingjieData.maxDaocangPerTurn + CharacterEquipmentData.maxDaocangPerTurn + CharacterGongFaData.maxDaocangPerTurn + CharacterEffectsData.maxDaocangPerTurn;
-            CharacterData.ShenShiStrength = CharacterJingjieData.ShenShiStrength + CharacterEquipmentData.ShenShiStrength + CharacterGongFaData.ShenShiStrength + CharacterEffectsData.ShenShiStrength;
-            CharacterData.MainGongFaBasicSpeed = CharacterJingjieData.MainGongFaBasicSpeed + CharacterEquipmentData.MainGongFaBasicSpeed + CharacterGongFaData.MainGongFaBasicSpeed  + CharacterEffectsData.MainGongFaBasicSpeed;
-            CharacterData.MainGongFaAdditionalSpeed = CharacterJingjieData.MainGongFaAdditionalSpeed + CharacterEquipmentData.MainGongFaAdditionalSpeed + CharacterGongFaData.MainGongFaAdditionalSpeed + CharacterEffectsData.MainGongFaAdditionalSpeed;
-            CharacterData.SubGongFaBasicSpeed = CharacterJingjieData.SubGongFaBasicSpeed + CharacterEquipmentData.SubGongFaBasicSpeed + CharacterGongFaData.SubGongFaBasicSpeed + CharacterEffectsData.SubGongFaBasicSpeed;
+            CharacterData.ResetProperty();
+            AddCharacterData(CharacterJingjieData);
+            AddCharacterData(CharacterEquipmentData);
+            AddCharacterData(CharacterGongFaData);
+            AddCharacterData(CharacterEffectsData);
+            CheckCharacterData();
+            CharacterData.MainAttributeToCharacterData();
             CheckCharacterDataOverflow();
             gongFaProcessor.XiuLianSpeed = (int)((CharacterData.MainGongFaBasicSpeed + CharacterData.SubGongFaBasicSpeed) * (1 + CharacterData.MainGongFaAdditionalSpeed));
             CharacterData.currentSpeed = CharacterData.maxSpeed;
+        }
+        private void AddCharacterData(CharacterData NewData)
+        {
+            //Main Attribute
+            CharacterData.Strength = NewData.Strength;
+            CharacterData.Agility += NewData.Agility;
+            CharacterData.Intelligence += NewData.Intelligence;
+            CharacterData.Fitness += NewData.Fitness;
+            CharacterData.Tenacity += NewData.Tenacity;
+            CharacterData.Meridian += NewData.Meridian;
+            //Basic Combat Attribute
+            CharacterData.maxAge += NewData.maxAge;
+            CharacterData.maxVigor += NewData.maxVigor;
+            CharacterData.maxDuSu += NewData.maxDuSu;
+            CharacterData.maxShaQi += NewData.maxShaQi;
+            CharacterData.maxHealth += NewData.maxHealth;
+            CharacterData.maxMana += NewData.maxMana;
+            CharacterData.maxStamina += NewData.maxStamina;
+            CharacterData.attack += NewData.attack;
+            CharacterData.defense += NewData.defense;
+            CharacterData.criticalRate += NewData.criticalRate;
+            CharacterData.criticalMultiple += NewData.criticalMultiple;
+            CharacterData.criticalResistance += NewData.criticalResistance;
+            CharacterData.accuracy += NewData.accuracy;
+            CharacterData.dodgeRate += NewData.dodgeRate;
+            CharacterData.Reaction += NewData.Reaction;
+            CharacterData.maxSpeed += NewData.maxSpeed;
+            CharacterData.maxMovementPerTurn += NewData.maxMovementPerTurn;
+            CharacterData.maxDaocangPerTurn += NewData.maxDaocangPerTurn;
+            CharacterData.ShenShiStrength += NewData.ShenShiStrength;
+            CharacterData.MainGongFaBasicSpeed += NewData.MainGongFaBasicSpeed;
+            CharacterData.MainGongFaAdditionalSpeed += NewData.MainGongFaAdditionalSpeed;
+            CharacterData.SubGongFaBasicSpeed += NewData.SubGongFaBasicSpeed;
         }
         
         /// <summary>
         /// 判断当前角色的基础数据是否大于最大数据，如当前生命值是否大于最大生命值等，若大于则重置
         /// </summary>
-        public void CheckCharacterDataOverflow()
+        private void CheckCharacterDataOverflow()
         {
             CharacterData.currentAge = CharacterData.currentAge < CharacterData.maxAge ? CharacterData.currentAge : CharacterData.maxAge;
             CharacterData.currentVigor = CharacterData.currentVigor < CharacterData.maxVigor ? CharacterData.currentVigor : CharacterData.maxVigor;
@@ -429,6 +447,40 @@ namespace TXDCL.Character
             CharacterData.currentMana = CharacterData.currentMana < CharacterData.maxMana ? CharacterData.currentMana : CharacterData.maxMana;
             CharacterData.currentStamina = CharacterData.currentStamina < CharacterData.maxStamina ? CharacterData.currentStamina : CharacterData.maxStamina;
             CharacterData.currentSpeed = CharacterJingjieData.currentSpeed < CharacterData.maxSpeed ? CharacterData.currentSpeed : CharacterData.maxSpeed;
+        }
+
+        private void CheckCharacterData()
+        {
+            //Main Attribute
+            CharacterData.Strength = Mathf.Max(CharacterData.Strength, 0);
+            CharacterData.Agility = Mathf.Max(CharacterData.Agility, 0);
+            CharacterData.Intelligence = Mathf.Max(CharacterData.Intelligence, 0);
+            CharacterData.Fitness = Mathf.Max(CharacterData.Fitness, 0);
+            CharacterData.Tenacity = Mathf.Max(CharacterData.Tenacity, 0);
+            CharacterData.Meridian = Mathf.Max(CharacterData.Meridian, 0);
+            //Basic Combat Attribute
+            CharacterData.maxAge = Mathf.Max(CharacterData.maxAge, 0);
+            CharacterData.maxVigor = Mathf.Max(CharacterData.maxVigor, 0);
+            CharacterData.maxDuSu = Mathf.Max(CharacterData.maxDuSu, 0);
+            CharacterData.maxShaQi = Mathf.Max(CharacterData.maxShaQi, 0);
+            CharacterData.maxHealth = Mathf.Max(CharacterData.maxHealth, 0);
+            CharacterData.maxMana = Mathf.Max(CharacterData.maxMana, 0);
+            CharacterData.maxStamina = Mathf.Max(CharacterData.maxStamina, 0);
+            CharacterData.attack = Mathf.Max(CharacterData.attack, 0);
+            CharacterData.defense = Mathf.Max(CharacterData.defense, 0);
+            CharacterData.criticalRate = Mathf.Max(CharacterData.criticalRate, 0);
+            CharacterData.criticalMultiple = Mathf.Max(CharacterData.criticalMultiple, 0);
+            CharacterData.criticalResistance = Mathf.Max(CharacterData.criticalResistance, 0);
+            CharacterData.accuracy = Mathf.Max(CharacterData.accuracy, 0);
+            CharacterData.dodgeRate = Mathf.Max(CharacterData.dodgeRate, 0);
+            CharacterData.Reaction = Mathf.Max(CharacterData.Reaction, 0);
+            CharacterData.maxSpeed = Mathf.Max(CharacterData.maxSpeed, 0);
+            CharacterData.maxMovementPerTurn = Mathf.Max(CharacterData.maxMovementPerTurn, 0);
+            CharacterData.maxDaocangPerTurn = Mathf.Max(CharacterData.maxDaocangPerTurn, 0);
+            CharacterData.ShenShiStrength = Mathf.Max(CharacterData.ShenShiStrength, 0);
+            CharacterData.MainGongFaBasicSpeed = Mathf.Max(CharacterData.MainGongFaBasicSpeed, 0);
+            CharacterData.MainGongFaAdditionalSpeed = Mathf.Max(CharacterData.MainGongFaAdditionalSpeed, 0);
+            CharacterData.SubGongFaBasicSpeed = Mathf.Max(CharacterData.SubGongFaBasicSpeed, 0);
         }
         #endregion
         public void OnPointerEnter(PointerEventData eventData)
