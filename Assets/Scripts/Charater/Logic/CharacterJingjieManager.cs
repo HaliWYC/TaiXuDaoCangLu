@@ -6,9 +6,9 @@ using UnityEngine;
 namespace TXDCL.Character
 {
     [DefaultExecutionOrder(-1)]
-    public class CharacterManager : Singleton<CharacterManager>
+    public class CharacterJingjieManager : Singleton<CharacterJingjieManager>
     {
-        public Dictionary<string, Jingjie> JingjieDataList = new();
+        private Dictionary<string, Jingjie> JingjieDataList = new();
         [SerializeField] private TextAsset JingjieTextAsset;
         protected override void Awake()
         {
@@ -34,17 +34,21 @@ namespace TXDCL.Character
                     : ScriptableObject.CreateInstance<JingjieData>();
                 jingjieData.NextEXP = int.Parse(value[2].Trim());
                 jingjieData.MaxAge = int.Parse(value[3].Trim());
-                jingjieData.MaxHealth = int.Parse(value[4].Trim());
-                jingjieData.MaxStamina = int.Parse(value[5].Trim());
-                jingjieData.MaxMana = int.Parse(value[6].Trim());
-                jingjieData.MaxSpeed = int.Parse(value[7].Trim());
-                jingjieData.Attack = int.Parse(value[8].Trim());
-                jingjieData.Reaction = int.Parse(value[9].Trim());
-                jingjieData.MaxMovementPerTurn = int.Parse(value[10].Trim());
-                jingjieData.ShenShiStrength = int.Parse(value[11].Trim());
-                jingjieData.MaxDaocangPerTurn = int.Parse(value[12].Trim());
-                var jingjie = new Jingjie
-                    { miniJingjieLevel = miniJingjieLevel, JingjieLevel = jingjieLevel, JingjieData = jingjieData };
+                jingjieData.Agility = int.Parse(value[4].Trim());
+                jingjieData.Fitness = int.Parse(value[5].Trim());
+                jingjieData.Intelligence = int.Parse(value[6].Trim());
+                jingjieData.Meridian = int.Parse(value[7].Trim());
+                jingjieData.Strength = int.Parse(value[8].Trim());
+                jingjieData.Tenacity = int.Parse(value[9].Trim());
+                jingjieData.MaxHealth = int.Parse(value[10].Trim());
+                jingjieData.MaxStamina = int.Parse(value[11].Trim());
+                jingjieData.MaxMana = int.Parse(value[12].Trim());
+                jingjieData.MaxSpeed = int.Parse(value[13].Trim());
+                jingjieData.Reaction = int.Parse(value[14].Trim());
+                jingjieData.MaxMovementPerTurn = int.Parse(value[15].Trim());
+                jingjieData.ShenShiStrength = int.Parse(value[16].Trim());
+                jingjieData.MaxDaocangPerTurn = int.Parse(value[17].Trim());
+                var jingjie = new Jingjie { miniJingjieLevel = miniJingjieLevel, JingjieLevel = jingjieLevel, JingjieData = jingjieData };
                 if (GetJingjie(key) != null)
                 {
                     JingjieDataList[key] = jingjie;

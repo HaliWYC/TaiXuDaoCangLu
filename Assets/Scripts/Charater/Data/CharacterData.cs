@@ -32,7 +32,7 @@ namespace TXDCL.Character
         public int Agility;//敏捷：影响反应，闪避率
         public int Fitness;//筋骨：影响最大气血，防御
         public int Intelligence;//智力：影响命中率，暴击效果
-        public int Meridian;//经脉：影响最大法力，暴击率
+        public int Meridian;//经络：影响最大法力，暴击率
         public int Strength; //力量：影响攻击，最大体力
         public int Tenacity;//韧性：影响神识强度，化劲
         
@@ -140,7 +140,7 @@ namespace TXDCL.Character
             attack += Strength * (int)Settings.AttackPerStrength;
             maxStamina += Strength * (int)Settings.MaxStaminaPerStrength;
             ShenShiStrength += Tenacity * (int)Settings.ShenShiStrengthPerTenacity;
-            criticalResistance += Tenacity * (int)Settings.CriticalResistancePerTenacity;
+            criticalResistance += Tenacity * Settings.CriticalResistancePerTenacity;
         }
         
         public void AddProperty(Property property)

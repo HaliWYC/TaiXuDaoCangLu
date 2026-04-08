@@ -333,11 +333,17 @@ namespace TXDCL.Character
         /// </summary>
         public void UpdateLevel()
         {
-            var jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
+            var jingjie = CharacterJingjieManager.Instance.GetJingjie(JingjieKey);
             if (jingjie == null) return;
             var data = jingjie.JingjieData;
             CharacterData.nextExp = data.NextEXP;
             CharacterJingjieData.maxAge = data.MaxAge;
+            CharacterJingjieData.Agility = data.Agility;
+            CharacterJingjieData.Fitness = data.Fitness;
+            CharacterJingjieData.Intelligence = data.Intelligence;
+            CharacterJingjieData.Meridian = data.Meridian;
+            CharacterJingjieData.Strength = data.Strength;
+            CharacterJingjieData.Tenacity = data.Tenacity;
             CharacterJingjieData.maxHealth = data.MaxHealth;
             CharacterJingjieData.maxStamina = data.MaxStamina;
             CharacterJingjieData.maxMana = data.MaxMana;
@@ -364,8 +370,7 @@ namespace TXDCL.Character
                 {
                     CharacterData.Jingjie.miniJingjieLevel += 1;
                 }
-
-                CharacterData.Jingjie = CharacterManager.Instance.GetJingjie(JingjieKey);
+                //CharacterData.Jingjie = CharacterJingjieManager.Instance.GetJingjie(JingjieKey);
             }
             UpdateLevel();
         }
@@ -403,12 +408,12 @@ namespace TXDCL.Character
         private void AddCharacterData(CharacterData NewData)
         {
             //Main Attribute
-            CharacterData.Strength = NewData.Strength;
             CharacterData.Agility += NewData.Agility;
-            CharacterData.Intelligence += NewData.Intelligence;
             CharacterData.Fitness += NewData.Fitness;
-            CharacterData.Tenacity += NewData.Tenacity;
+            CharacterData.Intelligence += NewData.Intelligence;
             CharacterData.Meridian += NewData.Meridian;
+            CharacterData.Strength += NewData.Strength;
+            CharacterData.Tenacity += NewData.Tenacity;
             //Basic Combat Attribute
             CharacterData.maxAge += NewData.maxAge;
             CharacterData.maxVigor += NewData.maxVigor;

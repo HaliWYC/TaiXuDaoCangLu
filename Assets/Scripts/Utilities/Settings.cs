@@ -8,11 +8,11 @@ public class Settings
     [Header("Character Attribute")] 
     public const float ReactionPerAgility = 2f;
     public const float DodgeRatePerAgility = 0.5f;
-    public const float MaxHealthPerFitness = 5f;
+    public const float MaxHealthPerFitness = 2f;
     public const float DefensePerFitness = 2f;
     public const float AccuracyPerIntelligence = 0.5f;
     public const float CriticalMultiplePerIntelligence = 1f;
-    public const float MaxManaPerMeridian = 2f;
+    public const float MaxManaPerMeridian = 4f;
     public const float CriticalRatePerMeridian = 0.5f;
     public const float AttackPerStrength = 2f;
     public const float MaxStaminaPerStrength = 2f;
