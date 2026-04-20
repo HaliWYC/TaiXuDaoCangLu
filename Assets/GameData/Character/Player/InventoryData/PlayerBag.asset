@@ -133,3 +133,7 @@ MonoBehaviour:
     itemAmount: 1
   - itemDetails: {fileID: 11400000, guid: 3dfaf52108b824ae5944ee8e4606de24, type: 2}
     itemAmount: 1
+  - itemDetails: {fileID: 11400000, guid: 5665e8291389d4fee8b61c6f637df73e, type: 2}
+    itemAmount: 1
+  - itemDetails: {fileID: 11400000, guid: 5665e8291389d4fee8b61c6f637df73e, type: 2}
+    itemAmount: 1

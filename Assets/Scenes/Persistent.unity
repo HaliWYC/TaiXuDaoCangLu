@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 22013871}
   - component: {fileID: 22013870}
   m_Layer: 0
-  m_Name: CharacterManager
+  m_Name: CharacterJingjieManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,6 +721,7 @@ SortingGroup:
   m_SortingLayer: 13
   m_SortingOrder: 0
   m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!4 &725224781
 Transform:
   m_ObjectHideFlags: 0
@@ -788,10 +789,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c62367bae998445492621bd8e00703c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 0}
   MainGongFas:
   - {fileID: 11400000, guid: 9bafd0ac8751b4e10870d778e436f4a0, type: 2}
   SubGongFas: []
+  XiuLianSpeed: 0
 --- !u!114 &725224789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,15 +805,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29da53bd12af45c9bf4634f161bca3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  templateData: {fileID: 11400000, guid: 519f954ae32834b0a97c9d04d791afca, type: 2}
   CharacterData: {fileID: 0}
-  EquipmentData:
-    MainWeapon: {fileID: 0}
-    SubWeapon: {fileID: 0}
-    Cloth: {fileID: 0}
-    FirstAccessory: {fileID: 0}
-    SecondAccessory: {fileID: 0}
-    Mount: {fileID: 0}
+  CharacterBasicData: {fileID: 11400000, guid: 519f954ae32834b0a97c9d04d791afca, type: 2}
+  CharacterJingjieData: {fileID: 0}
+  CharacterEquipmentData: {fileID: 0}
+  CharacterGongFaData: {fileID: 0}
+  CharacterEffectsData: {fileID: 0}
+  currentFaShuList: []
   tempFaShuList:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
   PotentialFaShuList: []
@@ -826,19 +825,13 @@ MonoBehaviour:
   isShenShiHuanSan: 0
   isJingjieUnstable: 0
   isShenShiPenetrated: 1
-  TemporaryEffects: []
-  PermanentEffects: []
   Allies: []
   Enemies: []
   templateInventoryBag: {fileID: 11400000, guid: 64029f225d25442c59d014c2c4fbbbea, type: 2}
   InventoryBag: {fileID: 0}
-  StorageBags: []
-  CurrentFaBaoBag: {fileID: 0}
-  CurrentConsumablesBag: {fileID: 0}
-  CurrentQuestItemBag: {fileID: 0}
-  CurrentOtherItemBag: {fileID: 0}
 --- !u!212 &725224790
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -884,6 +877,7 @@ SpriteRenderer:
   m_SortingLayerID: -273442453
   m_SortingLayer: 13
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -4753702385071775785, guid: 266c4449dc05f45ad9f320858983ede4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -893,7 +887,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!61 &725224791
 BoxCollider2D:
@@ -1329,6 +1322,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1775674183
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1374,6 +1368,7 @@ SpriteRenderer:
   m_SortingLayerID: -273442453
   m_SortingLayer: 13
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 54f579227f73e4565ba430e59ed4bca1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1383,7 +1378,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &1778130714
 GameObject:
@@ -1444,6 +1438,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1916473181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916473182}
+  - component: {fileID: 1916473183}
+  m_Layer: 0
+  m_Name: CharacterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916473182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916473181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1916473183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916473181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f938c918e578496bb2fff7b4416c39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Character.CharacterManager
+  characterTemplateData: {fileID: 11400000, guid: 4f50053d3e9ce4ffe9f23df512513b14, type: 2}
 --- !u!1 &2123920699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,10 +1540,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 670082188}
-  - {fileID: 906387069}
-  - {fileID: 725224781}
   - {fileID: 1028108229}
   - {fileID: 1597320181}
+  - {fileID: 1916473182}
   - {fileID: 22013871}
   - {fileID: 1442587636}
   - {fileID: 214303522}
@@ -1515,3 +1553,5 @@ SceneRoots:
   - {fileID: 349260037}
   - {fileID: 2123920700}
   - {fileID: 1379574792}
+  - {fileID: 906387069}
+  - {fileID: 725224781}

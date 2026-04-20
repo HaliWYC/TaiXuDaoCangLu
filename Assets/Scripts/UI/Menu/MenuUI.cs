@@ -70,6 +70,7 @@ public class MenuUI : Singleton<MenuUI>
         ResetTogglesStatus();
         FunctionToggles[1].isOn = true;
         EventHandler.CallUpdateInventoryUIEvent(GameManager.Instance.Player);
+        ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(false);
         FunctionsPanel.SetActive(true);
     }
     private void OnGongFa_FaShuPanelButtonClicked()

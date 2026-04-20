@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb82e3dfbf3684f83860787194b10acf, type: 3}
+  m_Name: PlayerBasicData
+  m_EditorClassIdentifier: 
+  characterName: Player
+  characterSprite: {fileID: 5556479053715506799, guid: 00d965780fd344d8f8f79e20b0c217a6, type: 3}
+  currentAge: 0
+  maxAge: 0
+  currentExp: 0
+  nextExp: 0
+  Jingjie:
+    miniJingjieLevel: 0
+    JingjieLevel: 3
+    JingjieData: {fileID: 0}
+  currentVigor: 0
+  maxVigor: 0
+  currentDuSu: 0
+  maxDuSu: 0
+  currentShaQi: 0
+  maxShaQi: 0
+  MainGongFaBasicSpeed: 0
+  SubGongFaBasicSpeed: 0
+  MainGongFaAdditionalSpeed: 0
+  Agility: 100
+  Fitness: 100
+  Intelligence: 100
+  Meridian: 100
+  Strength: 100
+  Tenacity: 100
+  Charisma: 0
+  Comprehension: 0
+  Luck: 0
+  Persuasion: 0
+  Wisdom: 0
+  WoodCutting: 0
+  Mining: 0
+  Gathering: 0
+  Forging: 0
+  Alchemi: 0
+  Talisman: 0
+  Formation: 0
+  currentHealth: 0
+  maxHealth: 0
+  currentMana: 0
+  maxMana: 0
+  currentStamina: 0
+  maxStamina: 0
+  attack: 0
+  defense: 0
+  criticalRate: 0
+  criticalMultiple: 0
+  criticalResistance: 0
+  accuracy: 0
+  dodgeRate: 0
+  reaction: 0
+  currentSpeed: 0
+  maxSpeed: 0
+  currentMovement: 0
+  maxMovementPerTurn: 0
+  maxDaocangPerTurn: 0
+  currentMetalDaocang: 0
+  currentWoodDaocang: 0
+  currentWaterDaocang: 0
+  currentFireDaocang: 0
+  currentEarthDaocang: 0
+  MetalLingGen: 20
+  WoodLingGen: 20
+  WaterLingGen: 20
+  FireLingGen: 20
+  EarthLingGen: 20
+  ShenShi: 0
+  ShenShiStrength: 0
+  JingShenLi: 0
+  TemporaryEffects: []
+  PermanentEffects: []

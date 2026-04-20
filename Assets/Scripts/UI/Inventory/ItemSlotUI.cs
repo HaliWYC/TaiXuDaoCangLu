@@ -205,12 +205,15 @@ namespace TXDCL.Inventory
         {
             ItemToolTips.Instance.ResetTooltip();
             ItemToolTips.Instance.SetUpTooltip(this,false);
+            ItemSlotMethodsTip.Instance.slotMethodsUIObject.SetActive(false);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (!ItemToolTips.Instance.isFrozen)
+            {
                 ItemToolTips.Instance.itemToolTip.gameObject.SetActive(false);
+            }
         }
     }
 }

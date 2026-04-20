@@ -101,6 +101,7 @@ namespace TXDCL.Combat
             if (character != GameManager.Instance.Player) return;
             currentCharacter = character;
             currentCharacter.CharacterData.currentMovement = currentCharacter.CharacterData.maxMovementPerTurn;
+            //每回合开始时生成玩家可移动范围
             if(character.CompareTag("Player"))
                 DisplayCharactersMovementPath();
         }

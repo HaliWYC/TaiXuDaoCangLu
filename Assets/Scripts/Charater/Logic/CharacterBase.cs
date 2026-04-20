@@ -17,13 +17,13 @@ namespace TXDCL.Character
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [Header("CharacterData")]
-        [SerializeField] private CharacterData templateData;
-        public CharacterData CharacterData;
+        [Header("CharacterData")] 
+        public CharacterData CharacterData;//角色总属性,为角色基础、境界、装备以及功法总和
+        public CharacterData CharacterBasicData;//角色基础属性
         public CharacterData CharacterJingjieData;//角色境界属性
         public CharacterData CharacterEquipmentData;//角色装备属性
         public CharacterData CharacterGongFaData;//角色功法属性
-        public CharacterData CharacterEffectsData;//角色Buff属性
+        //public CharacterData CharacterEffectsData;//角色Buff属性
         private string JingjieKey => CharacterData != null
             ? CharacterData.Jingjie.JingjieLevel.ToString() + CharacterData.Jingjie.miniJingjieLevel : null;
 
@@ -66,13 +66,13 @@ namespace TXDCL.Character
         
         protected virtual void Awake()
         {
-            if (templateData != null)
+            if (CharacterBasicData != null)
             {
-                CharacterData = Instantiate(templateData);
-                CharacterJingjieData = Instantiate(templateData);
-                CharacterEquipmentData = Instantiate(templateData);
-                CharacterGongFaData = Instantiate(templateData);
-                CharacterEffectsData = Instantiate(templateData);
+                CharacterData = Instantiate(CharacterBasicData);
+                CharacterJingjieData = Instantiate(CharacterManager.Instance.characterTemplateData);
+                CharacterEquipmentData = Instantiate(CharacterManager.Instance.characterTemplateData);
+                CharacterGongFaData = Instantiate(CharacterManager.Instance.characterTemplateData);
+                //CharacterEffectsData = Instantiate(CharacterManager.Instance.characterTemplateData);
             }
             gongFaProcessor.InitializeGongFa(CharacterData, CharacterGongFaData);
             animator = GetComponent<Animator>();
@@ -131,6 +131,7 @@ namespace TXDCL.Character
 
         private void Start()
         {
+            //TODO:后面根据存档读取数据
             UpdateCharacterData();
             ResetCharacterData();
         }
@@ -348,7 +349,7 @@ namespace TXDCL.Character
             CharacterJingjieData.maxStamina = data.MaxStamina;
             CharacterJingjieData.maxMana = data.MaxMana;
             CharacterJingjieData.maxSpeed = data.MaxSpeed;
-            CharacterJingjieData.Reaction = data.Reaction;
+            CharacterJingjieData.reaction = data.Reaction;
             CharacterJingjieData.maxMovementPerTurn = data.MaxMovementPerTurn;
             CharacterJingjieData.ShenShiStrength = data.ShenShiStrength;
             CharacterJingjieData.maxDaocangPerTurn = data.MaxDaocangPerTurn;
@@ -394,11 +395,11 @@ namespace TXDCL.Character
             if (InventoryBag != null)
                 InventoryBag.UpdateProperty(CharacterEquipmentData);
             gongFaProcessor.UpdateProperty();
-            CharacterData.ResetProperty();
+            //CharacterEffectsData.ResetProperty();
             AddCharacterData(CharacterJingjieData);
             AddCharacterData(CharacterEquipmentData);
             AddCharacterData(CharacterGongFaData);
-            AddCharacterData(CharacterEffectsData);
+            //AddCharacterData(CharacterEffectsData);
             CheckCharacterData();
             CharacterData.MainAttributeToCharacterData();
             CheckCharacterDataOverflow();
@@ -429,7 +430,7 @@ namespace TXDCL.Character
             CharacterData.criticalResistance += NewData.criticalResistance;
             CharacterData.accuracy += NewData.accuracy;
             CharacterData.dodgeRate += NewData.dodgeRate;
-            CharacterData.Reaction += NewData.Reaction;
+            CharacterData.reaction += NewData.reaction;
             CharacterData.maxSpeed += NewData.maxSpeed;
             CharacterData.maxMovementPerTurn += NewData.maxMovementPerTurn;
             CharacterData.maxDaocangPerTurn += NewData.maxDaocangPerTurn;
@@ -478,7 +479,7 @@ namespace TXDCL.Character
             CharacterData.criticalResistance = Mathf.Max(CharacterData.criticalResistance, 0);
             CharacterData.accuracy = Mathf.Max(CharacterData.accuracy, 0);
             CharacterData.dodgeRate = Mathf.Max(CharacterData.dodgeRate, 0);
-            CharacterData.Reaction = Mathf.Max(CharacterData.Reaction, 0);
+            CharacterData.reaction = Mathf.Max(CharacterData.reaction, 0);
             CharacterData.maxSpeed = Mathf.Max(CharacterData.maxSpeed, 0);
             CharacterData.maxMovementPerTurn = Mathf.Max(CharacterData.maxMovementPerTurn, 0);
             CharacterData.maxDaocangPerTurn = Mathf.Max(CharacterData.maxDaocangPerTurn, 0);

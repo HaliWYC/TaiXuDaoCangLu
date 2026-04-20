@@ -1,4 +1,5 @@
 using System;
+using TXDCL.Character;
 using TXDCL.Map;
 using UnityEngine;
 

@@ -66,7 +66,7 @@ namespace TXDCL.Character
         public float criticalResistance;//化劲，即防暴率，由暴击率减去防暴率得出最终暴击率
         public float accuracy;//命中率，在法术释放时判断是否命中，由命中率减去闪避率之后计算是否命中
         public float dodgeRate;//闪避率，在被法术命中时判定是否闪避，由命中率减去闪避率之后计算是否命中
-        public int Reaction;//反应，战斗中反应越高则越快进入下一个回合
+        public int reaction;//反应，战斗中反应越高则越快进入下一个回合
         public int currentSpeed;//当前速度，日常移动速度，战斗中只影响动画速度
         public int maxSpeed;//最大速度
         public int currentMovement;//当前剩余移动力，当前回合中剩余的可移动力
@@ -104,6 +104,21 @@ namespace TXDCL.Character
             Meridian = 0;
             Strength = 0;
             Tenacity = 0;
+            //Civil Attributes
+            Charisma = 0;
+            Comprehension = 0;
+            Luck = 0;
+            Persuasion = 0;
+            Wisdom = 0;
+            //Utilities Attributes
+            WoodCutting = 0;
+            Mining = 0;
+            Gathering = 0;
+            Forging = 0;
+            Alchemi = 0;
+            Talisman = 0;
+            Formation = 0;
+            //Combat Attributes
             maxAge = 0;
             maxVigor = 0;
             maxDuSu = 0;
@@ -118,7 +133,7 @@ namespace TXDCL.Character
             criticalResistance = 0;
             accuracy = 0;
             dodgeRate = 0;
-            Reaction = 0;
+            reaction = 0;
             maxSpeed = 0;
             maxMovementPerTurn = 0;
             maxDaocangPerTurn = 0;
@@ -126,10 +141,13 @@ namespace TXDCL.Character
             MainGongFaBasicSpeed = 0;
             MainGongFaAdditionalSpeed = 0;
             SubGongFaBasicSpeed = 0;
+            //Effects
+            TemporaryEffects.Clear();
+            PermanentEffects.Clear();
         }
         public void MainAttributeToCharacterData()
         {
-            Reaction += Agility * (int)Settings.ReactionPerAgility;
+            reaction += Agility * (int)Settings.ReactionPerAgility;
             dodgeRate += Agility * Settings.DodgeRatePerAgility;
             maxHealth += Fitness * (int)Settings.MaxHealthPerFitness;
             defense += Fitness * (int)Settings.DefensePerFitness;
@@ -178,7 +196,7 @@ namespace TXDCL.Character
                     dodgeRate += property.value;
                     break;
                 case PropertyType.Reaction:
-                    Reaction += (int)property.value;
+                    reaction += (int)property.value;
                     break;
                 case PropertyType.Speed:
                     maxSpeed += (int)property.value;
@@ -254,7 +272,7 @@ namespace TXDCL.Character
                     dodgeRate -= property.value;
                     break;
                 case PropertyType.Reaction:
-                    Reaction -= (int)property.value;
+                    reaction -= (int)property.value;
                     break;
                 case PropertyType.Speed:
                     maxSpeed -= (int)property.value;

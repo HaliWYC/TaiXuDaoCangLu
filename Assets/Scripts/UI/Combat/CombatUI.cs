@@ -19,11 +19,14 @@ namespace TXDCL.Combat
         public GameObject CarriedOnItemsSlotUIPrefab;
         public List<CarriedOnItemSlotUI> carriedOnItemSlotUIList = new ();
         private Dictionary<CharacterBase, GameObject> activeCharacters = new();
+        [Header("Forbidden Components")]
         public bool forbidCarriedOnItems;
         public bool forbidFaShus;
         public bool forbidBagItems;
         public int currentUsedCarriedOnItemsQuantity;
+        
         private bool isCarriedOnItemReseted;
+        private CharacterBase currentCharacter;
         
         [Header("CombatItem")]
         public CarriedOnItemSlotUI currentCarriedOnItemSlotUI;
@@ -107,7 +110,6 @@ namespace TXDCL.Combat
                         currentCarriedOnItemSlotUI.UpdateItemCoolDownUI();
                         forbidFaShus = true;
                         forbidBagItems = true;
-                        CombatGridManager.Instance.DisplayCharactersMovementPath();
                         break;
                     case ItemType.消耗品:
                         break;
@@ -119,6 +121,12 @@ namespace TXDCL.Combat
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
+                }
+                currentUsedCarriedOnItemsQuantity += 1;
+                if (currentUsedCarriedOnItemsQuantity >= Settings.maxCarriedOnItemsUseQuantity)
+                {
+                    forbidCarriedOnItems = true;
+                    SetupCharacterCarriedOnItems(GameManager.Instance.Player);
                 }
             }
         }

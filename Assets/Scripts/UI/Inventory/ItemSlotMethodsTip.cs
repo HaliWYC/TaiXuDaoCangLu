@@ -35,12 +35,15 @@ namespace TXDCL.Inventory
             UnEquip.gameObject.SetActive(false);
             MassUse.gameObject.SetActive(false);
             Split.gameObject.SetActive(false);
-            if (CombatManager.Instance.isCombating && !currentSelectedSlot.isCarriedOnItemSlot)
+            if (CombatManager.Instance.isCombating)
             {
-                UseInCombat.gameObject.SetActive(true);
-                return;
+                if (!currentSelectedSlot.isCarriedOnItemSlot)
+                {
+                    UseInCombat.gameObject.SetActive(true);
+                    return;
+                }
             }
-            if(currentSelectedSlot.isWearingFaBaoSlot || currentSelectedSlot.isCarriedOnItemSlot)
+            else if(currentSelectedSlot.isWearingFaBaoSlot || currentSelectedSlot.isCarriedOnItemSlot)
             {
                 UnEquip.gameObject.SetActive(true);
             }

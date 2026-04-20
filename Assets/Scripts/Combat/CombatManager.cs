@@ -53,7 +53,7 @@ namespace TXDCL.Combat
             foreach (var character in CharactersInCombat)
             {
                 var value = CharacterTurnProgressDict[character];
-                value += character.CharacterData.Reaction * Settings.TurnProgressBooster * turnProgressModifier *
+                value += character.CharacterData.reaction * Settings.TurnProgressBooster * turnProgressModifier *
                                UnityEngine.Time.fixedDeltaTime;
                 CharacterTurnProgressDict[character] = value;
                 //更新UI
@@ -99,7 +99,7 @@ namespace TXDCL.Combat
         }
         private float GetTurnProgressModifier()
         {
-            return 500f / Mathf.Max(CharactersInCombat.Select(c => c.CharacterData.Reaction).ToArray());
+            return 500f / Mathf.Max(CharactersInCombat.Select(c => c.CharacterData.reaction).ToArray());
         }
         
     }
