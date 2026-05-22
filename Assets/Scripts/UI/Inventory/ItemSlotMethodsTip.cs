@@ -37,7 +37,7 @@ namespace TXDCL.Inventory
             Split.gameObject.SetActive(false);
             if (CombatManager.Instance.isCombating)
             {
-                if (!currentSelectedSlot.isCarriedOnItemSlot)
+                if (!currentSelectedSlot.isCarriedOnItemSlot && !CombatUI.Instance.forbidBagItems)
                 {
                     UseInCombat.gameObject.SetActive(true);
                     return;
@@ -70,7 +70,6 @@ namespace TXDCL.Inventory
         private void OnUseInCombatButtonClicked()
         {
             //显示法术使用待定阶段，若使用则使用后直接跳过当前回合
-            
         }
         private void OnEquipButtonClicked()
         {

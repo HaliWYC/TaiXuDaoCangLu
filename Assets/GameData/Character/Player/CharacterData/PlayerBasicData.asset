@@ -31,12 +31,12 @@ MonoBehaviour:
   MainGongFaBasicSpeed: 0
   SubGongFaBasicSpeed: 0
   MainGongFaAdditionalSpeed: 0
-  Agility: 100
-  Fitness: 100
-  Intelligence: 100
-  Meridian: 100
-  Strength: 100
-  Tenacity: 100
+  Agility: 0
+  Fitness: 0
+  Intelligence: 0
+  Meridian: 0
+  Strength: 0
+  Tenacity: 0
   Charisma: 0
   Comprehension: 0
   Luck: 0

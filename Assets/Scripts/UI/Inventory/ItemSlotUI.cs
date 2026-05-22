@@ -9,32 +9,34 @@ namespace TXDCL.Inventory
 {
     public class ItemSlotUI : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler, IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
     {
-        public ItemDetails itemDetails;
-        public int SlotIndex;
-        public float sizeOfSlot => GetComponent<RectTransform>().rect.width;
-        //public int itemID;
-        public int itemAmount;
-        public ItemSlotAvailableType availableItemType;//当前格子可放置的物品类型
+        [Header("Components")]
         public Image itemImage;//物品图片
         public TextMeshProUGUI itemName;//物品名称
-        //public Image itemStatsIcon;//若已装备/已携带则增加蒙版
-        //public TextMeshProUGUI itemStats;//是否已装备/携带该物品
         public Text itemAmountText;//物品数量
+        public float sizeOfSlot => GetComponent<RectTransform>().rect.width;
+        public Image forbiddenShadow;
+        
+        [Header("Item Details")]
+        public ItemDetails itemDetails;
+        public int SlotIndex;
+        public int itemAmount;
+        public ItemSlotAvailableType availableItemType;//当前格子可放置的物品类型
         public bool isWearingFaBaoSlot; //是否为可装备法宝专属格子
         public bool isCarriedOnItemSlot;//是否为随身携带物品专属格子，战斗中一回合可使用两个随身携带物品，而仅可使用一个背包物品（任务道具除外）
+        
+        [Header("FaBao")] 
+        public Image faBaoCoolDownIcon;
+        public TextMeshProUGUI faBaoCoolDownText;
         public void SetupItemSlot(InventoryItem item)
         {
             itemImage.gameObject.SetActive(false);
             itemName.gameObject.SetActive(false);
-            //itemStatsIcon.gameObject.SetActive(false);
-            //itemStats.gameObject.SetActive(false);
             itemAmountText.gameObject.SetActive(false);
             if (item.itemDetails == null || item.itemAmount == 0)
             {
                 SetUpEmptySlotUI();
                 return;
             }
-            //if (!StorageTypeMatchItemType(availableItemType, itemDetails.itemType)) return;
             itemDetails = item.itemDetails.itemType switch
             {
                 ItemType.法宝 => item.itemDetails as FaBaoDetails,
@@ -44,52 +46,20 @@ namespace TXDCL.Inventory
                 ItemType.储物袋 => item.itemDetails as StorageBagDetails,
                 _ => item.itemDetails
             };
-            //itemID = item.itemDetails.ID;
             itemAmount = item.itemAmount;
+            forbiddenShadow.gameObject.SetActive(CombatUI.Instance.forbidBagItems);
             SetUpSlotText();
         }
-
-        public void SetupItemSlot(ItemDetails ItemDetails, int ItemAmount)
-        {
-            itemImage.gameObject.SetActive(false);
-            itemName.gameObject.SetActive(false);
-            //itemStatsIcon.gameObject.SetActive(false);
-            //itemStats.gameObject.SetActive(false);
-            itemAmountText.gameObject.SetActive(false);
-            if (ItemDetails == null || ItemAmount == 0)
-            {
-                SetUpEmptySlotUI();
-                return;
-            }
-            //if(availableItemType != ItemDetails.itemType) return;
-            itemDetails = ItemDetails.itemType switch
-            {
-                ItemType.法宝 => ItemDetails as FaBaoDetails,
-                ItemType.消耗品 => ItemDetails as ConsumablesDetails,
-                ItemType.任务物品 => ItemDetails as QuestItemDetails,
-                ItemType.其他物品 => ItemDetails as OtherItemDetails,
-                ItemType.储物袋 => ItemDetails as StorageBagDetails,
-                _ => ItemDetails
-            };
-            //itemID = ItemDetails.ID;
-            itemAmount = ItemAmount;
-            SetUpSlotText();
-        }
-        
         public void SetupItemSlot(ItemDetails ItemDetails)
         {
             itemImage.gameObject.SetActive(false);
             itemName.gameObject.SetActive(false);
-            //itemStatsIcon.gameObject.SetActive(false);
-            //itemStats.gameObject.SetActive(false);
             itemAmountText.gameObject.SetActive(false);
             if (ItemDetails == null)
             {
                 SetUpEmptySlotUI();
                 return;
             }
-            //itemID = ItemDetails.ID;
-            //if (!StorageTypeMatchItemType(availableItemType, itemDetails.itemType)) return;
             itemDetails = ItemDetails.itemType switch
             {
                 ItemType.法宝 => ItemDetails as FaBaoDetails,
@@ -110,8 +80,6 @@ namespace TXDCL.Inventory
             itemName.text = string.Empty;
             itemImage.gameObject.SetActive(false);
             itemName.gameObject.SetActive(false);
-            //itemStatsIcon.gameObject.SetActive(false);
-            //itemStats.gameObject.SetActive(false);
             itemAmountText.gameObject.SetActive(false);
         }
 
