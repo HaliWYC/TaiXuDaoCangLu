@@ -810,7 +810,6 @@ MonoBehaviour:
   CharacterJingjieData: {fileID: 0}
   CharacterEquipmentData: {fileID: 0}
   CharacterGongFaData: {fileID: 0}
-  CharacterEffectsData: {fileID: 0}
   currentFaShuList: []
   tempFaShuList:
   - {fileID: 11400000, guid: d87d1b433333640899d84bbc061712c8, type: 2}
@@ -1479,7 +1478,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1916473181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f938c918e578496bb2fff7b4416c39d, type: 3}
+  m_Script: {fileID: 11500000, guid: b6a316a48524b49728c304b069ad43cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TXDCL.Character.CharacterManager
   characterTemplateData: {fileID: 11400000, guid: 4f50053d3e9ce4ffe9f23df512513b14, type: 2}

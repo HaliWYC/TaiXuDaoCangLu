@@ -8,7 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boot.unity
     guid: efdeb435f643348c0a8681fd0cfd5547
+  - enabled: 1
+    path: Assets/Scenes/Forest.unity
+    guid: 450b1a5596ec546cd96bf0208d5a7aa7
+  - enabled: 1
+    path: Assets/Scenes/House.unity
+    guid: 8a04e5e93ede74ecea065f6865a5b955
+  - enabled: 1
+    path: Assets/Scenes/Persistent.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Template.unity
+    guid: 1c2b089bf48b247cb9137b441d59c35d
+  - enabled: 1
+    path: Assets/Scenes/UI.unity
+    guid: 8479d86a1eb2d4789ad68ba65bb0b3fe
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: e44ec3321a648447f819931d8d33f9af, type: 2}
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_UseUCBPForAssetBundles: 0
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 25a356cd8a4b44d5c9ec245ae2ce85d1, type: 3}

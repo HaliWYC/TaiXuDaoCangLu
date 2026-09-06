@@ -111,6 +111,7 @@ namespace TXDCL.Character
         {
             Allies.Clear();
             Enemies.Clear();
+            ResetDaoCang();
             ResetFaShuCoolDown_PrepareTurns();
         }
         protected virtual void OnCharacterTurnBeginEvent(CharacterBase character)
@@ -280,8 +281,12 @@ namespace TXDCL.Character
         {
             var modifier = 1f / (CharacterData.MetalLingGen + CharacterData.WoodLingGen + CharacterData.WaterLingGen +
                                    CharacterData.FireLingGen + CharacterData.EarthLingGen);
-            var totalDaoCang = CharacterData.maxDaocangPerTurn;
-            if (totalDaoCang <= 0) return;
+            var totalDaoCang = CharacterData.maxDaocangPerTurn;//TODO：后续加上上回合容纳的道藏
+            if (totalDaoCang <= 0)
+            {
+                ResetDaoCang();
+                return;
+            }
             var LingGens = new[]
             {
                 CharacterData.MetalLingGen * modifier,
@@ -317,13 +322,22 @@ namespace TXDCL.Character
         /// <summary>
         /// 重置法术冷却以及准备回合
         /// </summary>
-        public void ResetFaShuCoolDown_PrepareTurns()
+        private void ResetFaShuCoolDown_PrepareTurns()
         {
             foreach (var fashu in currentFaShuList)
             {
                 fashu.CurrentCoolDownTime = 0;
                 fashu.currentPrepareTurns = 0;
             }
+        }
+
+        private void ResetDaoCang()
+        {
+            CharacterData.currentMetalDaocang = 0;
+            CharacterData.currentWoodDaocang = 0;
+            CharacterData.currentWaterDaocang = 0;
+            CharacterData.currentFireDaocang = 0;
+            CharacterData.currentEarthDaocang = 0;
         }
         #endregion
 
